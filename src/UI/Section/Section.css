@@ -1,0 +1,14 @@
+.section {
+  background-color: var(--blue-100);
+  padding: 1rem 1.5rem 1.5rem;
+  margin: 1rem 0;
+  border-radius: 16px;
+}
+
+.title {
+  margin: 0 0 1rem;
+  padding: 0;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--blue-800);
+}
