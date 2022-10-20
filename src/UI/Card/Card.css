@@ -1,8 +1,0 @@
-.card {
-  background-color: white;
-  border-radius: 6px;
-  padding: 1.5rem;
-  box-shadow: 2px 2px 2px var(--gray-300);
-  position: relative;
-  flex: 1;
-}
