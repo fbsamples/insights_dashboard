@@ -1,19 +1,15 @@
 import React, { useState } from 'react';
 import Head from 'next/head'
-import Card from '../components/card/Card';
-import MetaInsights from './MetaInsights';
-import QBR from './QBR';
-import SocialMediaInsights from './SocialMediaInsights';
-import styles from '../styles/Styles.module.css'
+import Card from '../components/card';
+import MetaInsights from './meta-insights';
+import QBR from './qbr';
+import SocialMedia from './social-media';
+import styles from '../styles/styles.module.css'
 
 const Home = () => {
   const [activeTab, setActiveTab] = useState('tab1');
   return (
     <div className={styles.container}>
-      <Head>
-        <title>My page title</title>
-        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-      </Head>
       <Card>
         <div className={styles.tabs}>
           <ul className={styles.nav}>

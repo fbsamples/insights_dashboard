@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 
-import Tooltip from '../Tooltip/Tooltip';
-import Card from '../Card/Card';
+import Tooltip from '../tooltip';
+import Card from '../card';
 
-import styles from './Chart.module.css'
+import styles from './style.module.css'
 
 const Chart = ({ title, description, link, linkLabel }) => {
   const [isShown, setIsShown] = useState(false);

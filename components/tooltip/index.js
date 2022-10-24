@@ -1,4 +1,4 @@
-import styles from './Tooltip.module.css'
+import styles from './style.module.css'
 
 const Tooltip = ({title, description, link, linkLabel}) => {
   const altLinkLabel = 'Click here to learn more.'

@@ -1,6 +1,6 @@
-import Section from '../components/section/Section';
-import Chart from '../components/chart/Chart';
-import styles from '../styles/Styles.module.css'
+import Section from '../components/section';
+import Chart from '../components/chart';
+import styles from '../styles/styles.module.css'
 
 const MetaInsights = () => {
   const dummyData = [

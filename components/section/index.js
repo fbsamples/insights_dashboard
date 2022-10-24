@@ -1,4 +1,4 @@
-import styles from './Section.module.css'
+import styles from './style.module.css'
 
 const Section = (props) => {
   return <div className={styles.section}>

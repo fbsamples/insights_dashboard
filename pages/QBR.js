@@ -1,4 +1,4 @@
-import Section from '../components/section/Section';
+import Section from '../components/section';
 
 const QBR = () => {
   return <div>

@@ -1,6 +1,6 @@
-import styles from './Button.module.css'
+import styles from './style.module.css'
 
-const Card = () => {
+const Button = () => {
   return (
     <button
       type="button"
