@@ -1,3 +1,32 @@
 .container {
   flex: 1;
 }
+
+.mainDiv {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  flex-direction: column;
+  flex: 1;
+}
+
+.singleNumber {
+  font-size: 3rem;
+  text-align: right;
+  color: var(--blue-800);
+  margin-top: 2.5rem;
+}
+
+.singleNumberDesc {
+  font-size: 1rem;
+  text-align: right;
+  color: var(--gray-800);
+  max-width: 60%;
+  margin-left: 40%;
+}
+
+.chartTitle {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  color: var(--gray-800);
+}

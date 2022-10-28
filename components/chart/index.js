@@ -4,15 +4,15 @@ import config from '../../config.json';
 import Tooltip from '../tooltip';
 import Card from '../card';
 import Chart from "chart.js/auto";
-import { Line } from "react-chartjs-2";
+import { Line, Bar } from "react-chartjs-2";
 
 import styles from './style.module.css';
 
-// mudar para os últimos 30 dias
-const since = '2022-06-01';
-const until = '2022-06-24';
+const today = new Date();
+const until = today.toISOString().split('T')[0];
+const since = new Date(new Date().setDate(today.getDate() - 30)).toISOString().split('T')[0];
 
-const DashboardChart = ({ link, linkLabel, type, metric }) => {
+const DashboardChart = ({ link, linkLabel, type, metric, apiName, period='day' }) => {
   const [isShown, setIsShown] = useState(false);
 
   const [chartData, setChartData] = useState({
@@ -26,7 +26,13 @@ const DashboardChart = ({ link, linkLabel, type, metric }) => {
   });
 
   const formatTimestampToDate = (timestamp) => {
-    return timestamp.split(`T`)[0];
+    return timestamp.split('T')[0];
+  }
+
+  const formatMetricName = (metricName) => {
+    const wordArr = metricName.split('_');
+    const capitalizedWordArr = wordArr.map(word => word[0].toUpperCase() + word.substr(1));
+    return capitalizedWordArr.join(' ');
   }
 
   const generateRandomColor = () => {
@@ -51,14 +57,11 @@ const DashboardChart = ({ link, linkLabel, type, metric }) => {
         borderColor: color
       };
 
-      for (const item of metric.values) {
-        if (Number.isInteger(item.value)) {
-          dataset.data.push(item.value);
-        } else {
-          // this is due to page_daily_video_ad_break_earnings_by_crosspost_status
-          // metric, that has a different response type
-          dataset.data.push(item.value.owned);
-        }
+      if (type === 'single_number') {
+        const item = metric.values.pop();
+        dataset.data.push(item.value);
+      } else {
+        dataset.data = metric.values.map(item => item.value);
       }
 
       datasets.push(dataset);
@@ -83,13 +86,12 @@ const DashboardChart = ({ link, linkLabel, type, metric }) => {
 
   }
 
-  const getPageInsights = async (metric) => {
+  const getInsightsMetrics = async (metric) => {
     try {
-      const url = `https://graph.facebook.com/${config.page_id}/insights?metric=${metric}&period=day&since=${since}&until=${until}&access_token=${config.page_access_token}`;
-      console.log(url);
-      const res = await fetch(url);
+      const url = `http://localhost:3000/api/${apiName}`;
+      const body = JSON.stringify({ metric, since, until, period });
+      const res = await fetch(url, { method: 'POST', body });
       const { data } = await res.json();
-      console.log(data);
       dataChangedHandler(data);
     } catch (err) {
       console.log(err);
@@ -97,17 +99,25 @@ const DashboardChart = ({ link, linkLabel, type, metric }) => {
   };
 
   useEffect(() => {
-    getPageInsights(metric);
+    getInsightsMetrics(metric);
   }, []);
 
   return (
-    <div className={styles.container}
+    <div
+      className={styles.mainDiv}
       onMouseEnter={() => setIsShown(true)}
       onMouseLeave={() => setIsShown(false)}>
           { chartData.datasets[0].data.length > 0 && <Card>
-            { chartData.name }
-            <Line data={chartData} />
-            { isShown && <Tooltip
+            <h1 className={styles.chartTitle}> { formatMetricName(chartData.name) }</h1>
+            { type === 'line' && <Line className={styles.container} data={chartData} /> }
+            { type === 'bar' && <Bar data={chartData} /> }
+            { type === 'single_number'
+                && <div>
+                  <p className={styles.singleNumber}>{chartData.datasets[0].data[0]} fans</p>
+                  <p className={styles.singleNumberDesc}>{chartData.description}</p>
+                </div>
+            }
+            { isShown && type !== 'single_number' && <Tooltip
                 title={chartData.name}
                 description={chartData.description}
                 link={link}
