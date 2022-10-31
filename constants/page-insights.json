@@ -1,0 +1,54 @@
+{
+    "sections": [
+        {
+            "title": "Page Impressions",
+            "metrics": [
+                {
+                    "id": 1,
+                    "link":"https: //developers.facebook.com/docs/graph-api/reference/v14.0/insights#tab-types",
+                    "linkLabel": "Please check the documentation for more details",
+                    "apiName": "page-insights",
+                    "metric": "page_views_total",
+                    "type": "bar"
+                },
+                {
+                    "id": 2,
+                    "link":"https: //developers.facebook.com/docs/graph-api/reference/v14.0/insights#tab-types",
+                    "linkLabel": "Please check the documentation for more details",
+                    "apiName": "page-insights",
+                    "metric": "page_consumptions",
+                    "type": "line"
+                },
+                {
+                    "id": 3,
+                    "link":"https: //developers.facebook.com/docs/graph-api/reference/v14.0/insights#tab-types",
+                    "linkLabel": "Please check the documentation for more details",
+                    "apiName": "page-insights",
+                    "metric": "page_impressions,page_impressions_unique,page_impressions_paid,page_impressions_viral,page_impressions_organic",
+                    "type": "line"
+                }
+            ]
+        },
+        {
+            "title": "People",
+            "metrics": [
+                {
+                    "id": 4,
+                    "link": "https: //developers.facebook.com/docs/graph-api/reference/v14.0/insights#tab-types",
+                    "linkLabel": "Please check the documentation for more details",
+                    "apiName": "page-insights",
+                    "metric": "page_engaged_users",
+                    "type": "bar"
+                },
+                {
+                    "id": 5,
+                    "link": "https: //developers.facebook.com/docs/graph-api/reference/v14.0/insights#tab-types",
+                    "linkLabel": "Please check the documentation for more details",
+                    "apiName": "page-insights",
+                    "metric": "page_fans",
+                    "type": "single_number"
+                }
+            ]
+        }
+    ]
+}

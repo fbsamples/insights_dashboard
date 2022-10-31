@@ -27,6 +27,7 @@ html {
 body {
   min-height: 100vh;
 	max-width: 1080px;
+  width: 100%;
   margin: 0 auto;
 }
 
@@ -39,5 +40,4 @@ a {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
 }
