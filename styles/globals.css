@@ -15,13 +15,20 @@
   --blue-300: #AFD7FF;
   --blue-100: #E8F3FF;
 }
-html,
-body {
+html {
   margin: 0;
   font-family: 'Roboto', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-image: url('./gradient.png');
+  overflow-x: hidden;
+}
+
+body {
+  min-height: 100vh;
+	max-width: 1080px;
+  width: 100%;
+  margin: 0 auto;
 }
 
 a {
@@ -31,4 +38,6 @@ a {
 
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }

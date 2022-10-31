@@ -1,8 +1,15 @@
 .card {
   background-color: white;
-  border-radius: 6px;
-  padding: 1.5rem;
-  box-shadow: 2px 2px 2px var(--gray-300);
   position: relative;
+  padding: 1.5rem;
   flex: 1;
+  box-sizing: border-box;
+}
+
+@media only screen and (min-width: 600px) {
+  .card {
+    border-radius: 6px;
+    box-shadow: 2px 2px 2px var(--gray-300);
+  }
+
 }
