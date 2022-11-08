@@ -10,24 +10,18 @@
             "metrics": [
                 {
                     "id": 1,
-                    "link":"https: //developers.facebook.com/docs/graph-api/reference/v14.0/insights#tab-types",
-                    "linkLabel": "Please check the documentation for more details",
                     "apiName": "page-insights",
                     "metric": "page_views_total",
                     "type": "bar"
                 },
                 {
                     "id": 2,
-                    "link":"https: //developers.facebook.com/docs/graph-api/reference/v14.0/insights#tab-types",
-                    "linkLabel": "Please check the documentation for more details",
                     "apiName": "page-insights",
                     "metric": "page_consumptions",
                     "type": "line"
                 },
                 {
                     "id": 3,
-                    "link":"https: //developers.facebook.com/docs/graph-api/reference/v14.0/insights#tab-types",
-                    "linkLabel": "Please check the documentation for more details",
                     "apiName": "page-insights",
                     "metric": "page_impressions,page_impressions_unique,page_impressions_paid,page_impressions_viral,page_impressions_organic",
                     "type": "line",
@@ -40,16 +34,12 @@
             "metrics": [
                 {
                     "id": 4,
-                    "link": "https: //developers.facebook.com/docs/graph-api/reference/v14.0/insights#tab-types",
-                    "linkLabel": "Please check the documentation for more details",
                     "apiName": "page-insights",
                     "metric": "page_engaged_users",
                     "type": "bar"
                 },
                 {
                     "id": 5,
-                    "link": "https: //developers.facebook.com/docs/graph-api/reference/v14.0/insights#tab-types",
-                    "linkLabel": "Please check the documentation for more details",
                     "apiName": "page-insights",
                     "metric": "page_fans",
                     "type": "single_number",
@@ -64,8 +54,6 @@
             "metrics": [
                 {
                     "id": 6,
-                    "link": "https: //developers.facebook.com/docs/graph-api/reference/v14.0/insights#tab-types",
-                    "linkLabel": "Please check the documentation for more details",
                     "apiName": "page-insights",
                     "metric": "page_positive_feedback_by_type",
                     "type": "aggregate_by_property",
@@ -84,8 +72,6 @@
             "metrics": [
                 {
                     "id": 6,
-                    "link": "https: //developers.facebook.com/docs/graph-api/reference/v14.0/insights#tab-types",
-                    "linkLabel": "Please check the documentation for more details",
                     "apiName": "page-insights",
                     "metric": "page_daily_video_ad_break_earnings_by_crosspost_status",
                     "type": "bar"
