@@ -1,0 +1,21 @@
+.container {
+  background-color: var(--gray-100);
+  padding: 1rem 1.5rem;
+  border-radius: 16px;
+  margin: 1rem 0;
+  display: flex;
+  align-items: center;
+  color: var(--gray-900);
+  font-weight: 400;
+}
+
+.icon {
+  color: var(--gray-600);
+  font-size: 1.5rem;
+  margin-right: 12px;
+}
+
+.link {
+  color: var(--meta-blue);
+  font-weight: bold;
+}
