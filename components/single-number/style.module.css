@@ -1,0 +1,21 @@
+.icon {
+  font-size: 4rem;
+  position: relative;
+  top: 10px;
+  left: -6px;
+}
+
+.metricContainer {
+  font-size: 3rem;
+  text-align: right;
+  color: var(--blue-800);
+  margin-top: 2.5rem;
+}
+
+.metricDescription {
+  font-size: 1rem;
+  text-align: right;
+  color: var(--gray-800);
+  max-width: 60%;
+  margin-left: 40%;
+}
