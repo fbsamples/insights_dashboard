@@ -14,7 +14,7 @@ import { capitalizeAll } from '../../utils/strings';
 import { formatTimestampToDate, getLast30DaysInterval } from '../../utils/date';
 import { generateRandomColor } from '../../utils/color-utils';
 
-import config from '../../config.json';
+import settings from '../../constants/settings.json';
 import styles from './style.module.css';
 
 const DashboardChart = ({ link, linkLabel, type, metric, apiName, icons, title, description, period='day' }) => {
@@ -116,7 +116,7 @@ const DashboardChart = ({ link, linkLabel, type, metric, apiName, icons, title, 
 
   const getInsightsMetrics = async (metric) => {
     try {
-      const url = `http://localhost:3000/api/${apiName}`;
+      const url = `${settings.backendUrl}/api/${apiName}`;
       const body = JSON.stringify({ metric, since, until, period });
       const res = await fetch(url, { method: 'POST', body });
       const { data, error } = await res.json();
