@@ -7,7 +7,7 @@ export default function App({ Component, pageProps }) {
       <Head>
         <link rel="shortcut" href="../static/favicon.ico" />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-        <title>Dashboard Insights</title>
+        <title>Insights Dashboard</title>
       </Head>
       <Component {...pageProps} />
     </div>

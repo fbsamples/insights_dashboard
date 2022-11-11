@@ -1,20 +1,27 @@
 import React, { useState, useEffect } from 'react';
-import config from '../../config.json';
 
-import Tooltip from '../tooltip';
-import Card from '../card';
-import Chart from "chart.js/auto";
+import * as AntDesignIcons from "react-icons/ai";
 import { Line, Bar } from "react-chartjs-2";
 
+import AggregateByProperty from '../aggregate-by-property';
+import Card from '../card';
+import Chart from "chart.js/auto";
+import SingleNumber from '../single-number';
+import ErrorCard from '../error-card';
+import Tooltip from '../tooltip';
+
+import { capitalizeAll } from '../../utils/strings';
+import { formatTimestampToDate, getLast30DaysInterval } from '../../utils/date';
+import { generateRandomColor } from '../../utils/color-utils';
+
+import settings from '../../constants/settings.json';
 import styles from './style.module.css';
 
-const today = new Date();
-const until = today.toISOString().split('T')[0];
-const since = new Date(new Date().setDate(today.getDate() - 30)).toISOString().split('T')[0];
+const DashboardChart = ({ link, linkLabel, type, metric, apiName, icons, title, description, period='day' }) => {
+  const { since, until } = getLast30DaysInterval();
 
-const DashboardChart = ({ link, linkLabel, type, metric, apiName, period='day' }) => {
   const [isShown, setIsShown] = useState(false);
-
+  const [errorMessage, setErrorMessage] = useState(null);
   const [chartData, setChartData] = useState({
     labels: [],
     datasets: [
@@ -25,62 +32,83 @@ const DashboardChart = ({ link, linkLabel, type, metric, apiName, period='day' }
     ],
   });
 
-  const formatTimestampToDate = (timestamp) => {
-    return timestamp.split('T')[0];
+  const createDefaultDataset = (label, size) => {
+    const color = generateRandomColor();
+    const dataset = {
+      data: Array(size).fill(0),
+      label: label,
+      backgroundColor: color,
+      borderColor: color,
+      loaded: false
+    };
+
+    return dataset;
   }
 
-  const formatMetricName = (metricName) => {
-    const wordArr = metricName.split('_');
-    const capitalizedWordArr = wordArr.map(word => word[0].toUpperCase() + word.substr(1));
-    return capitalizedWordArr.join(' ');
+  const updateMap = (seriesMap, seriesName, element, index) => {
+    const dataset = seriesMap.get(seriesName);
+    dataset.data[index] = element;
+    seriesMap.set(seriesName, dataset);
   }
 
-  const generateRandomColor = () => {
-    const letters = '0123456789ABCDEF';
+  const createSeriesMap = (metric) => {
+    const seriesMap = new Map();
+    const size = metric.values.length;
 
-    let color = '#';
-    while (color.length < 7) {
-      color += letters[Math.floor(Math.random() * 16)];
+    for (let i = 0; i < size; i++) {
+
+      const el = metric.values[i];
+
+      if (Number.isInteger(el.value)) {
+        const standardSeriesName = 'value';
+        if (!seriesMap.has(standardSeriesName)) {
+          const dataset = createDefaultDataset(metric.name, size);
+          seriesMap.set(standardSeriesName, dataset);
+        }
+        updateMap(seriesMap, standardSeriesName, el.value, i);
+      }
+
+      for (const property in el.value) {
+        if (!seriesMap.has(property)) {
+          const dataset = createDefaultDataset(property, size);
+          seriesMap.set(property, dataset);
+        }
+        updateMap(seriesMap, property, el.value[property], i);
+      }
     }
 
-    return color;
+    return seriesMap;
+  }
+
+  const getLabels = (data) => {
+    return data.values.map(({ end_time }) => {
+      return formatTimestampToDate(end_time);
+    });
   }
 
   const dataChangedHandler = (apiData) => {
+
     const datasets = [];
     for (const metric of apiData) {
-      const color = generateRandomColor();
-      const dataset = {
-        data: [],
-        label: metric.name,
-        backgroundColor: color,
-        borderColor: color
-      };
+      const series = createSeriesMap(metric);
 
-      if (type === 'single_number') {
-        const item = metric.values.pop();
-        dataset.data.push(item.value);
-      } else {
-        dataset.data = metric.values.map(item => item.value);
+      for (const [seriesName, dataset] of series) {
+        dataset.loaded = true;
+        datasets.push(dataset);
       }
-
-      datasets.push(dataset);
     }
 
-    const labels = [];
-    for (const { end_time } of apiData[0].values) {
-      labels.push(formatTimestampToDate(end_time));
-    }
+    const firstSeries = apiData[0];
+    const labels = getLabels(firstSeries);
 
     setChartData((curInputValues) => {
       return {
         ...curInputValues,
         datasets: datasets,
         labels: labels,
-        // what should we do when there are lots of different metrics in the same chart?
-        title: apiData[0].title,
-        name: apiData[0].name,
-        description: apiData[0].description
+        title: title || firstSeries.title,
+        name: firstSeries.name,
+        description: description || firstSeries.description
       };
     });
 
@@ -88,11 +116,17 @@ const DashboardChart = ({ link, linkLabel, type, metric, apiName, period='day' }
 
   const getInsightsMetrics = async (metric) => {
     try {
-      const url = `http://localhost:3000/api/${apiName}`;
+      const url = `${settings.backendUrl}/api/${apiName}`;
       const body = JSON.stringify({ metric, since, until, period });
       const res = await fetch(url, { method: 'POST', body });
-      const { data } = await res.json();
-      dataChangedHandler(data);
+      const { data, error } = await res.json();
+
+      if (data) {
+        dataChangedHandler(data);
+      } else {
+        setErrorMessage(error.message.substr(6));
+      }
+
     } catch (err) {
       console.log(err);
     }
@@ -107,24 +141,25 @@ const DashboardChart = ({ link, linkLabel, type, metric, apiName, period='day' }
       className={styles.mainDiv}
       onMouseEnter={() => setIsShown(true)}
       onMouseLeave={() => setIsShown(false)}>
-          { chartData.datasets[0].data.length > 0 && <Card>
-            <h1 className={styles.chartTitle}> { formatMetricName(chartData.name) }</h1>
-            { type === 'line' && <Line className={styles.container} data={chartData} /> }
+          { chartData.datasets[0].loaded && <Card>
+
+            <h1 className={styles.chartTitle}> { capitalizeAll(chartData.title) }</h1>
+            <p className={styles.metricName}> ({ chartData.name }) </p>
+
+            { type === 'line' && <Line data={chartData} /> }
             { type === 'bar' && <Bar data={chartData} /> }
-            { type === 'single_number'
-                && <div>
-                  <p className={styles.singleNumber}>{chartData.datasets[0].data[0]} fans</p>
-                  <p className={styles.singleNumberDesc}>{chartData.description}</p>
-                </div>
-            }
+            { type === 'single_number' && <SingleNumber data={chartData} icons={icons} /> }
+            { type === 'aggregate_by_property' && <AggregateByProperty datasets={chartData.datasets} icons={icons} /> }
+
             { isShown && type !== 'single_number' && <Tooltip
-                title={chartData.name}
+                title={title || chartData.name}
                 description={chartData.description}
                 link={link}
                 linkLabel={linkLabel}/>
             }
           </Card>
         }
+        { errorMessage && <ErrorCard icon="AiFillInfoCircle"> {errorMessage}</ErrorCard> }
     </div>
   );
 }

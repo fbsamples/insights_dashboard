@@ -1,0 +1,27 @@
+.card {
+  background-color: white;
+  position: relative;
+  padding: 1.5rem;
+  flex: 1;
+  box-sizing: border-box;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  color: var(--blue-800);
+}
+
+.icon {
+  font-size: 2rem;
+  height: 2rem;
+  width: 2rem;
+  position: relative;
+  margin-right: 6px;
+}
+
+@media only screen and (min-width: 600px) {
+  .card {
+    border-radius: 6px;
+    box-shadow: 2px 2px 2px var(--gray-300);
+  }
+
+}
