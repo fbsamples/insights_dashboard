@@ -12,7 +12,7 @@ import Tooltip from '../tooltip';
 
 import { capitalizeAll } from '../../utils/strings';
 import { formatTimestampToDate, getLast30DaysInterval } from '../../utils/date';
-import { generateRandomColor } from '../../utils/color-utils';
+import { generateRandomColor } from '../../utils/color';
 
 import settings from '../../constants/settings.json';
 import styles from './style.module.css';
