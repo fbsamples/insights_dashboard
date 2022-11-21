@@ -9,4 +9,12 @@ const generateRandomColor = () => {
     return color;
 }
 
-export { generateRandomColor };
+const generateRandomColorArray = (size) => {
+    const arr = new Array(size);
+    for (let i = 0; i < size; i++) {
+        arr[i] = generateRandomColor();
+    }
+    return arr;
+}
+
+export { generateRandomColor, generateRandomColorArray };
