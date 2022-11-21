@@ -1,11 +1,17 @@
 import styles from './style.module.css'
 
-const Tooltip = ({ title, description }) => {
+const Tooltip = ({ info }) => {
   const altLinkLabel = 'Click here to learn more.'
 
   return <div className={styles.container}>
-    <h1>{title}</h1>
-    <p>{description}</p>
+    { info.map((info) => {
+        return <div key={info.id}>
+            <h1 className={styles.title}>{info.title}</h1>
+            <p className={styles.metricName}>({info.name})</p>
+            <p className={styles.description}>{info.description}</p>
+          </div>;
+        })
+    }
   </div>;
 }
 
