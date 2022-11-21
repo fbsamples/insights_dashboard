@@ -3,7 +3,6 @@ import Section from '../components/section';
 import DashboardChart from '../components/chart';
 import DocumentationLink from '../components/documentation-link';
 import VideoCard from '../components/video-card';
-import ReelInsights from '../components/reel-insights';
 import styles from '../styles/style.module.css';
 
 import settings from '../constants/settings.json';
@@ -50,8 +49,6 @@ const ReelsInsights = () => {
     return <DashboardChart
       key={el.id.toString()}
       size={el.size}
-      link={el.link}
-      linkLabel={el.linkLabel}
       apiName={el.apiName}
       type={el.type}
       metric={el.metric}

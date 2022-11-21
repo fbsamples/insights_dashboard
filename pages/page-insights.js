@@ -19,8 +19,6 @@ const PageInsights = () => {
                 return <DashboardChart
                   key={el.id.toString()}
                   size={el.size}
-                  link={el.link}
-                  linkLabel={el.linkLabel}
                   apiName={el.apiName}
                   type={el.type}
                   metric={el.metric}

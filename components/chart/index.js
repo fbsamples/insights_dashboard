@@ -18,7 +18,7 @@ import constants from '../../constants/constants.json';
 import settings from '../../constants/settings.json';
 import styles from './style.module.css';
 
-const DashboardChart = ({ link, linkLabel, type, metric, apiName, icons, title, description, videoId, labels, plural, wrapMetricName, period='day' }) => {
+const DashboardChart = ({ type, metric, apiName, icons, title, description, videoId, labels, plural, wrapMetricName, period='day' }) => {
   const { since, until } = getLast30DaysInterval();
 
   const [isShown, setIsShown] = useState(false);
