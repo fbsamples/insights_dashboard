@@ -1,13 +1,15 @@
 import React from 'react';
 import * as AntDesignIcons from "react-icons/ai";
 
+import { abbreviateNumber } from '../../utils/strings';
+
 import styles from './style.module.css';
 
-const AggregateByProperty = ({ datasets, icons }) => {
+const AggregateByProperty = ({ datasets, icons, plural=true }) => {
 
     const getSumOfAllValues = (data) => {
         const value = data.reduce((a, b) => a + b);
-        return new Intl.NumberFormat().format(value);
+        return abbreviateNumber(value);
     }
 
     const getIcon = (label) => {
@@ -19,7 +21,7 @@ const AggregateByProperty = ({ datasets, icons }) => {
             return <div key={label} className={styles.toast}>
                 <span className={styles.icon}>{ getIcon(label)() }</span>
                 { getSumOfAllValues(data) + ' ' }
-                <span className={styles.propertyName}>{label}s</span>
+                <span className={styles.propertyName}>{label.toLowerCase()}{plural && 's'}</span>
             </div>;
             })
         }
