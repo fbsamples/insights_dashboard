@@ -5,7 +5,7 @@ import PageInsights from './page-insights';
 import VideoInsights from './video-insights';
 import ReelsInsights from './reels-insights';
 import InstagramInsights from './instagram-insights';
-import styles from '../styles/styles.module.css'
+import styles from '../styles/style.module.css'
 
 const Home = () => {
   const [activeTab, setActiveTab] = useState('tab1');
