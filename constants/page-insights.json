@@ -45,6 +45,9 @@
                     "type": "single_number",
                     "icons": {
                         "page_fans": "AiOutlineUser"
+                    },
+                    "labels": {
+                        "page_fans": "fans"
                     }
                 }
             ]
