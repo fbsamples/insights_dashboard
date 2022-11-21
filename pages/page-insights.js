@@ -1,7 +1,7 @@
 import Section from '../components/section';
 import DashboardChart from '../components/chart';
 import DocumentationLink from '../components/documentation-link';
-import styles from '../styles/styles.module.css';
+import styles from '../styles/style.module.css';
 
 import pageInsights from '../constants/page-insights.json';
 
@@ -26,6 +26,7 @@ const PageInsights = () => {
                   metric={el.metric}
                   title={el.title}
                   description={el.description}
+                  labels={el.labels}
                   icons={el.icons}>
                 </DashboardChart>
               })
