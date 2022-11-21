@@ -4,9 +4,9 @@ export default async function handler(req, res) {
   const { metric, since, until, period } = JSON.parse(req.body);
   const url = assembleUrl(metric, since, until, period);
   const apiRes = await fetch(url);
-  const { data, error } = await apiRes.json();
+  const response = await apiRes.json();
 
-  res.status(200).json({ data, error });
+  res.status(200).json(response);
 }
 
 const assembleUrl = (metric, since, until, period) => {
