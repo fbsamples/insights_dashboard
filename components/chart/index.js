@@ -18,7 +18,7 @@ import constants from '../../constants/constants.json';
 import settings from '../../constants/settings.json';
 import styles from './style.module.css';
 
-const DashboardChart = ({ type, metric, apiName, icons, title, description, videoId, labels, plural, wrapMetricName, period='day' }) => {
+const DashboardChart = ({ type, insights, metrics, icons, title, description, videoId, labels, plural, wrapMetricName, period='day' }) => {
   const { since, until } = getLast30DaysInterval();
 
   const [isShown, setIsShown] = useState(false);
@@ -105,7 +105,7 @@ const DashboardChart = ({ type, metric, apiName, icons, title, description, vide
       return completeDataset;
   }
 
-  const dataChangedHandler = (apiData) => {
+  const formatData = (apiData) => {
 
     let datasets = [];
     for (const metric of apiData) {
@@ -132,36 +132,20 @@ const DashboardChart = ({ type, metric, apiName, icons, title, description, vide
         datasets: datasets,
         labels: chartLabels,
         title: title || firstSeries.title,
-        name: metric,
+        name: metrics.join(','),
         description: description || firstSeries.description,
       };
     });
 
   }
 
-  const getInsightsMetrics = async (metric, signal) => {
-    try {
-      const url = `${settings.backendUrl}/api/${apiName}`;
-      const body = JSON.stringify({ metric, since, until, period, videoId });
-      const res = await fetch(url, { method: 'POST', body, signal });
-      const response = await res.json();
-
-      if (response.data && response.data.length > 0) {
-        dataChangedHandler(response.data);
-      } else {
-        setErrorMessage(response.error.message.substr(6));
-      }
-
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   useEffect(() => {
-    const controller = new AbortController();
-    const signal = controller.signal;
-    getInsightsMetrics(metric, signal);
-    return () => controller.abort();
+    if (insights.length === 0) {
+      setErrorMessage('Sorry, but we could not load this metric right now.');
+      return;
+    }
+
+    formatData(insights);
   }, []);
 
   return (
@@ -169,7 +153,7 @@ const DashboardChart = ({ type, metric, apiName, icons, title, description, vide
       className={styles.mainDiv}
       onMouseEnter={() => setIsShown(true)}
       onMouseLeave={() => setIsShown(false)}>
-          { chartData.datasets.length > 0 && chartData.datasets[0].loaded && <Card shadow={apiName !== 'video-insights'}>
+          { chartData.datasets.length > 0 && chartData.datasets[0].loaded && <Card shadow={false}>
 
             <h1 className={styles.chartTitle}> { capitalizeAll(chartData.title) }</h1>
             <div className={`${styles.metricName} ${wrapMetricName ? styles.wrap : ''}`} title={chartData.name}> ({ chartData.name }) </div>
