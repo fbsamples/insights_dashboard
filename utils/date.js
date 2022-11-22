@@ -1,5 +1,13 @@
 const formatTimestampToDate = (timestamp) => {
-    return timestamp.split('T')[0];
+    const dateArr = timestamp.split('T')[0].split('-');
+    return dateArr[1] + '/' + dateArr[2] + '/' + dateArr[0].substr(-2);
+}
+
+const formatTimestampToDateAndTime = (timestamp) => {
+    const arr = timestamp.split('T');
+    const time = arr[1].split('+')[0];
+    const date = formatTimestampToDate(timestamp);
+    return time.substr(0, time.length-3) + ' · ' + date;
 }
 
 const getLast30DaysInterval = () => {
@@ -9,4 +17,4 @@ const getLast30DaysInterval = () => {
     return { since, until };
 }
 
-export { formatTimestampToDate, getLast30DaysInterval };
+export { formatTimestampToDate, getLast30DaysInterval, formatTimestampToDateAndTime };

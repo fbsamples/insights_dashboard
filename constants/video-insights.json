@@ -1,0 +1,78 @@
+{
+    "docs": {
+        "description": "For details around the metrics and how to integrate with the API,",
+        "linkLabel": "check the documentation",
+        "link": "https://developers.facebook.com/docs/graph-api/reference/video/video_insights"
+    },
+    "sections": [
+        {
+            "title": "Video Insights",
+            "metrics": [
+                {
+                    "id": 1,
+                    "apiName": "video-insights",
+                    "metric": "total_video_view_total_time,total_video_avg_time_watched",
+                    "type": "double_number",
+                    "title": "Time watched (ms)",
+                    "wrapMetricName": true,
+                    "labels": {
+                        "total_video_view_total_time": "total",
+                        "total_video_avg_time_watched": "avg"
+                    }
+                },
+                {
+                    "id": 2,
+                    "apiName": "video-insights",
+                    "metric": "total_video_ad_break_earnings",
+                    "type": "double_number",
+                    "wrapMetricName": true,
+                    "title": "Lifetime In-Stream Ad Revenue",
+                    "labels": {
+                        "total_video_ad_break_earnings": "cents"
+                    }
+                },
+                {
+                    "id": 3,
+                    "apiName": "video-insights",
+                    "metric": "total_video_impressions,total_video_impressions_unique",
+                    "type": "double_number",
+                    "wrapMetricName": true,
+                    "title": "Video Impressions",
+                    "icons": {
+                        "total_video_ad_break_earnings": "AiOutlineDollarCircle"
+                    },
+                    "labels": {
+                        "total_video_impressions": "total",
+                        "total_video_impressions_unique": "unique"
+                    }
+                },
+                {
+                    "id": 4,
+                    "apiName": "video-insights",
+                    "metric": "total_video_views,total_video_views_organic,total_video_views_unique,total_video_complete_views",
+                    "type": "bar",
+                    "wrapMetricName": true
+                },
+                {
+                    "id": 5,
+                    "apiName": "video-insights",
+                    "metric": "total_video_reactions_by_type_total",
+                    "type": "pie"
+                },
+                {
+                    "id": 6,
+                    "apiName": "video-insights",
+                    "metric": "total_video_views_by_distribution_type",
+                    "type": "aggregate_by_property",
+                    "title": "Video Views By Distribution Type",
+                    "plural": false,
+                    "icons": {
+                        "crossposted": "AiOutlineSwap",
+                        "page_owned": "AiFillBook",
+                        "shared": "AiOutlineShareAlt"
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -6,8 +6,10 @@ import styles from './style.module.css';
 const DocumentationLink = ({ description, linkLabel, link }) => {
     return <div className={styles.container}>
         <BsFillBookFill className={styles.icon}/>
-        { description }&nbsp;
-        <a className={styles.link} href={link} target="blank">{linkLabel}</a>
+        <span>
+            { description }&nbsp;
+            <a className={styles.link} href={link} target="blank">{linkLabel}</a>
+        </span>
     </div>
 }
 

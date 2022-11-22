@@ -2,7 +2,6 @@
   background-color: var(--meta-gray-opaque);
   color: #fff;
   z-index: 20;
-  max-width: 600px;
   text-align: center;
   border-radius: 4px;
   padding: 5px 0;
@@ -15,16 +14,23 @@
   transition: opacity 0.3s;
 }
 
-.container > h1 {
+.title {
   font-size: 1rem;
   margin: 0;
   padding: 0;
   text-align: left;
+  word-break: break-all;
 }
 
-.container > p,
-.container > a {
-  margin: 4px 0 0;
+.metricName {
+  font-size: 0.8rem;
+  color: var(--blue-300);
+  text-align: left;
+  font-weight: bold;
+}
+
+.description {
+  margin: 4px 0 4px;
   padding: 0;
   font-size: 0.8rem;
   text-align: left;

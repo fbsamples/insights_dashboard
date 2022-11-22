@@ -4,5 +4,10 @@ const capitalizeAll = (metricName) => {
     return capitalizedWordArr.join(' ');
 }
 
+const abbreviateNumber = (number) => {
+    return new Intl.NumberFormat('en-US', {
+        notation: "compact",
+        maximumFractionDigits: 2 }).format(number);
+}
 
-export { capitalizeAll };
+export { capitalizeAll, abbreviateNumber };
