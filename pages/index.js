@@ -14,6 +14,8 @@ import settings from '../constants/settings.json';
 import pageInsights from '../constants/page-insights.json';
 import reelsInsights from '../constants/reels-insights.json';
 import videoInsights from '../constants/video-insights.json';
+import instagramInsights from '../constants/instagram-insights.json';
+import instagramMediaInsights from '../constants/instagram-media-insights.json';
 
 import styles from '../styles/style.module.css';
 
@@ -28,17 +30,19 @@ const Home = () => {
     try {
       const url = `${settings.backendUrl}/api/${apiName}`;
 
-      const bodyObj = { metric, since, until, period };
+      const bodyObj = { metric: metric.join(','), since, until, period };
       if (video) bodyObj.videoId = video.id;
 
       const body = JSON.stringify(bodyObj);
       const res = await fetch(url, { method: 'POST', body });
       const response = await res.json();
-
+      if (!video) console.log(response);
       if (response.data && response.data.length > 0) {
         if (video) {
+          if (stateName === 'instagramMediaInsights') console.log(video, response.data);
           dispatch({ type: stateName, payload: { ...video, insights: response.data } });
         } else {
+          console.log(stateName, response.data);
           dispatch({ type: stateName, payload: response.data });
         }
       }
@@ -70,14 +74,20 @@ const Home = () => {
   };
 
   useEffect(() => {
-    // Load page insights
+    // Load Page Insights
     getInsights(pageInsights.apiName, pageInsights.metrics, 'pageInsights');
 
-    // Load reels and their insights
+    // Load Reels and their Insights
     getMediasAndTheirInsights(reelsInsights, 'get-reels-posts', 'reelsInsights');
 
-    // Load video insights
+    // Load Video Insights
     getMediasAndTheirInsights(videoInsights, 'get-videos', 'videoInsights');
+
+    // Load Instagram Insights
+    getInsights(instagramInsights.apiName, instagramInsights.metrics, 'instagramInsights');
+
+    // Load Instagram Media and their Insights
+    getMediasAndTheirInsights(instagramMediaInsights, 'get-ig-media', 'instagramMediaInsights');
   }, []);
 
 

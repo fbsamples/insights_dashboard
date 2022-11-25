@@ -5,12 +5,12 @@ import Section from '../components/section';
 import DashboardChart from '../components/chart';
 import DocumentationLink from '../components/documentation-link';
 import VideoCard from '../components/video-card';
-import styles from '../styles/style.module.css';
 
 import { selectInsights } from '../utils/data-formatting';
 
-import settings from '../constants/settings.json';
 import reelsInsights from '../constants/reels-insights.json';
+
+import styles from '../styles/style.module.css';
 
 const ReelsInsights = () => {
   const section = reelsInsights.sections[0];
