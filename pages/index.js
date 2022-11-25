@@ -36,13 +36,11 @@ const Home = () => {
       const body = JSON.stringify(bodyObj);
       const res = await fetch(url, { method: 'POST', body });
       const response = await res.json();
-      if (!video) console.log(response);
+
       if (response.data && response.data.length > 0) {
         if (video) {
-          if (stateName === 'instagramMediaInsights') console.log(video, response.data);
           dispatch({ type: stateName, payload: { ...video, insights: response.data } });
         } else {
-          console.log(stateName, response.data);
           dispatch({ type: stateName, payload: response.data });
         }
       }
