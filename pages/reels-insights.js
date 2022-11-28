@@ -27,7 +27,7 @@ const ReelsInsights = () => {
 
   const renderChart = (el, videoData) => {
     return <DashboardChart
-      key={el.id.toString()+videoData.id}
+      key={`${el.id.toString()}-${videoData.id}`}
       size={el.size}
       type={el.type}
       insights={selectInsights(el.metrics, videoData.insights)}
@@ -49,7 +49,7 @@ const ReelsInsights = () => {
       linkLabel={reelsInsights.docs.linkLabel}/>
     <Section title={section.title} key={section.title}>
         <div className={styles.rowContainer}>
-          { reelsInsightsData.length > 0 && reelsInsightsData.map(reelData => {
+          { reelsInsightsData.map(reelData => {
               return renderReelInsights(reelData);
             })
           }
