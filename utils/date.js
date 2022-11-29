@@ -7,7 +7,7 @@ const formatTimestampToDateAndTime = (timestamp) => {
     const arr = timestamp.split('T');
     const time = arr[1].split('+')[0];
     const date = formatTimestampToDate(timestamp);
-    return time.substr(0, time.length-3) + ' · ' + date;
+    return 'Time: ' + time.substr(0, time.length-3) + ' · Date: ' + date;
 }
 
 const getLast30DaysInterval = () => {

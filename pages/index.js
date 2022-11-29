@@ -43,9 +43,10 @@ const Home = () => {
         }
       }
 
-      // @Natalie I thought we could do the error treatment here
-      // in case response.error exists...
-      // any suggestion on how could we deal with this?
+      if (response.error) {
+        console.log(response.error);
+        dispatch({ type: `${stateName}Error`, payload: response.error });
+      }
 
     } catch (err) {
       console.log(err);
@@ -63,6 +64,8 @@ const Home = () => {
           getInsights(insightsObj.apiName, insightsObj.metrics, stateName, media);
         }
       }
+
+      console.log('video-retrieving', error);
 
     } catch (err) {
       console.log(err);

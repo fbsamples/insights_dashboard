@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
-import Section from '../components/section';
 import DashboardChart from '../components/chart';
 import DocumentationLink from '../components/documentation-link';
+import ErrorCard from '../components/error-card';
+import Section from '../components/section';
 import VideoCard from '../components/video-card';
 import styles from '../styles/style.module.css';
 
@@ -15,6 +16,7 @@ import reelsInsights from '../constants/reels-insights.json';
 const ReelsInsights = () => {
   const section = reelsInsights.sections[0];
   const reelsInsightsData = useSelector(state => state.reelsInsights);
+  const reelsInsightsError = useSelector(state => state.reelsInsightsError);
 
   const renderReelInsights = (reelData) => {
     return <VideoCard key={reelData.id} video={reelData}>
@@ -47,6 +49,7 @@ const ReelsInsights = () => {
       description={reelsInsights.docs.description}
       link={reelsInsights.docs.link}
       linkLabel={reelsInsights.docs.linkLabel}/>
+    { reelsInsightsError && <ErrorCard icon="AiFillWarning" error={reelsInsightsError}/> }
     <Section title={section.title} key={section.title}>
         <div className={styles.rowContainer}>
           { reelsInsightsData.map(reelData => {

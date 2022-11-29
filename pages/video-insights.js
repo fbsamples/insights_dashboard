@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
-import Section from '../components/section';
-import DocumentationLink from '../components/documentation-link';
 import DashboardChart from '../components/chart';
+import DocumentationLink from '../components/documentation-link';
+import ErrorCard from '../components/error-card';
+import Section from '../components/section';
 import VideoCard from '../components/video-card';
 
-import { formatTimestampToDateAndTime } from '../utils/date';
 import { selectInsights } from '../utils/data-formatting';
 
 import videoInsights from '../constants/video-insights';
@@ -16,6 +16,8 @@ import styles from '../styles/style.module.css';
 
 const VideoInsights = () => {
   const videoInsightsData = useSelector(state => state.videoInsights);
+  const videoInsightsError = useSelector(state => state.videoInsightsError);
+
   const section = videoInsights.sections[0];
 
   const renderVideoInsights = (videoData) => {
@@ -49,6 +51,7 @@ const VideoInsights = () => {
       description={videoInsights.docs.description}
       link={videoInsights.docs.link}
       linkLabel={videoInsights.docs.linkLabel}/>
+    { videoInsightsError && <ErrorCard icon="AiFillWarning" error={videoInsightsError}/> }
     <Section title={section.title} key={section.title}>
       <div className={styles.rowContainer}>
         { videoInsightsData.map(videoData => {

@@ -1,8 +1,6 @@
 import styles from './style.module.css'
 
 const Tooltip = ({ info }) => {
-  const altLinkLabel = 'Click here to learn more.'
-
   return <div className={styles.container}>
     { info.map((info) => {
         return <div key={info.id}>
