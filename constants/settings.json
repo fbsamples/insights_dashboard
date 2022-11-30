@@ -1,5 +1,6 @@
 {
     "backendUrl": "http://localhost:3000",
+    "videoLimit": 10,
     "pieChart": {
         "radius": 100,
         "maintainAspecRatio": false,

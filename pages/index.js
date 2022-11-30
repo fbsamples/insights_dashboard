@@ -1,14 +1,94 @@
-import React, { useState } from 'react';
-import Head from 'next/head'
+import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import Head from 'next/head';
+
 import Card from '../components/card';
 import PageInsights from './page-insights';
 import VideoInsights from './video-insights';
 import ReelsInsights from './reels-insights';
 import InstagramInsights from './instagram-insights';
-import styles from '../styles/style.module.css'
+
+import { getLast30DaysInterval } from '../utils/date';
+
+import settings from '../constants/settings.json';
+import pageInsights from '../constants/page-insights.json';
+import reelsInsights from '../constants/reels-insights.json';
+import videoInsights from '../constants/video-insights.json';
+import instagramInsights from '../constants/instagram-insights.json';
+import instagramMediaInsights from '../constants/instagram-media-insights.json';
+
+import styles from '../styles/style.module.css';
 
 const Home = () => {
+  const { since, until } = getLast30DaysInterval();
+  const period = 'day';
+
   const [activeTab, setActiveTab] = useState('tab1');
+  const dispatch = useDispatch();
+
+  const getInsights = async (apiName, metric, stateName, video) => {
+    try {
+      const url = `${settings.backendUrl}/api/${apiName}`;
+
+      const bodyObj = { metric: metric.join(','), since, until, period };
+      if (video) bodyObj.videoId = video.id;
+
+      const body = JSON.stringify(bodyObj);
+      const res = await fetch(url, { method: 'POST', body });
+      const response = await res.json();
+
+      if (response.data && response.data.length > 0) {
+        if (video) {
+          dispatch({ type: stateName, payload: { ...video, insights: response.data } });
+        } else {
+          dispatch({ type: stateName, payload: response.data });
+        }
+      } else if (response.error) {
+        dispatch({ type: `${stateName}Error`, payload: response.error });
+      }
+
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const getMediasAndTheirInsights = async (insightsObj, apiEndpoint, stateName) => {
+    try {
+      const url = `${settings.backendUrl}/api/${apiEndpoint}`;
+      const res = await fetch(url);
+      const { data, error } = await res.json();
+
+      if (data) {
+        for (const media of data) {
+          getInsights(insightsObj.apiName, insightsObj.metrics, stateName, media);
+        }
+      } else if (error) {
+        dispatch({ type: `${stateName}Error`, payload: error });
+      }
+
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    // Load Page Insights
+    getInsights(pageInsights.apiName, pageInsights.metrics, 'pageInsights');
+
+    // Load Reels and their Insights
+    getMediasAndTheirInsights(reelsInsights, 'get-reels-posts', 'reelsInsights');
+
+    // Load Video Insights
+    getMediasAndTheirInsights(videoInsights, 'get-videos', 'videoInsights');
+
+    // Load Instagram Insights
+    getInsights(instagramInsights.apiName, instagramInsights.metrics, 'instagramInsights');
+
+    // Load Instagram Media and their Insights
+    getMediasAndTheirInsights(instagramMediaInsights, 'get-ig-media', 'instagramMediaInsights');
+  }, []);
+
+
   return (
     <div className={styles.container}>
       <Card>

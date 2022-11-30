@@ -4,14 +4,15 @@
         "linkLabel": "check the documentation",
         "link": "https://developers.facebook.com/docs/graph-api/reference/video/video_insights/#reels-metrics"
     },
+    "metrics": ["post_video_view_time", "post_video_avg_time_watched", "post_video_social_actions", "blue_reels_play_count", "post_video_likes_by_reaction_type"],
+    "apiName": "video-insights",
     "sections": [
         {
             "title": "Reels Insights",
-            "metrics": [
+            "charts": [
                 {
                     "id": 2,
-                    "apiName": "video-insights",
-                    "metric": "post_video_view_time,post_video_avg_time_watched",
+                    "metrics": ["post_video_view_time", "post_video_avg_time_watched"],
                     "type": "double_number",
                     "title": "Reel View Time (ms)",
                     "labels": {
@@ -21,8 +22,7 @@
                 },
                 {
                     "id": 3,
-                    "apiName": "video-insights",
-                    "metric": "post_video_social_actions",
+                    "metrics": ["post_video_social_actions"],
                     "type": "aggregate_by_property",
                     "title": "Social Interactions With the Reel",
                     "plural": true,
@@ -33,8 +33,7 @@
                 },
                 {
                     "id": 1,
-                    "apiName": "video-insights",
-                    "metric": "blue_reels_play_count",
+                    "metrics": ["blue_reels_play_count"],
                     "type": "single_number",
                     "labels": {
                         "blue_reels_play_count": "plays"
@@ -45,8 +44,7 @@
                 },
                 {
                     "id": 4,
-                    "apiName": "video-insights",
-                    "metric": "post_video_likes_by_reaction_type",
+                    "metrics": ["post_video_likes_by_reaction_type"],
                     "type": "pie",
                     "title": "Likes by Reaction Type"
                 }

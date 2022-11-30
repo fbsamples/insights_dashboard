@@ -1,0 +1,34 @@
+.chartTitle {
+  font-size: 1.2rem;
+  margin-bottom: 0.2rem;
+  color: var(--gray-800);
+  white-space: nowrap;
+}
+
+.metrics {
+  margin-bottom: 1rem;
+  font-size: 0.8rem;
+  color: var(--gray-600);
+}
+
+.metric {
+    padding: 3px 0px;
+}
+
+.metric:last-of-type {
+    margin-bottom: 12px;
+}
+
+.icon {
+    color: var(--blue-600);
+    margin-right: 6px;
+}
+
+.metricName {
+    color: var(--blue-600);
+    font-weight: bold;
+}
+
+.metricDescription {
+    color: var(--gray-800);
+}

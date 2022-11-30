@@ -1,64 +1,46 @@
 import React, { useState, useEffect } from 'react';
-import Section from '../components/section';
+import { useSelector } from 'react-redux';
+
 import DashboardChart from '../components/chart';
 import DocumentationLink from '../components/documentation-link';
+import ErrorCard from '../components/error-card';
+import Section from '../components/section';
 import VideoCard from '../components/video-card';
-import styles from '../styles/style.module.css';
 
-import settings from '../constants/settings.json';
+import { selectInsights } from '../utils/data-formatting';
+
 import reelsInsights from '../constants/reels-insights.json';
 
+import styles from '../styles/style.module.css';
+
 const ReelsInsights = () => {
-  const [reels, setReels] = useState([]);
   const section = reelsInsights.sections[0];
+  const reelsInsightsData = useSelector(state => state.reelsInsights);
+  const reelsInsightsError = useSelector(state => state.reelsInsightsError);
 
-  const getReels = async (signal) => {
-    try {
-      const url = `${settings.backendUrl}/api/get-reels-posts`;
-      const res = await fetch(url, { signal });
-      const { data, error } = await res.json();
-
-      if (data) {
-        setReels(data);
-      } else {
-        setErrorMessage(error.message.substr(6));
-      }
-
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  useEffect(() => {
-    const controller = new AbortController();
-    const signal = controller.signal;
-    getReels(signal);
-    return () => controller.abort();
-  }, []);
-
-  const renderReelInsights = (video) => {
-    return <VideoCard key={video.id} video={video}>
-       { section.metrics.map(el => {
-            return renderChart(el, video.id);
+  const renderReelInsights = (reelData) => {
+    return <VideoCard key={reelData.id} video={reelData}>
+       { section.charts.map(el => {
+            return renderChart(el, reelData);
           })
         }
     </VideoCard>
   }
 
-  const renderChart = (el, videoId) => {
+  const renderChart = (el, videoData) => {
     return <DashboardChart
-      key={el.id.toString()}
+      key={`${el.id.toString()}-${videoData.id}`}
       size={el.size}
-      apiName={el.apiName}
       type={el.type}
-      metric={el.metric}
+      insights={selectInsights(el.metrics, videoData.insights)}
+      metrics={el.metrics}
       title={el.title}
       description={el.description}
       icons={el.icons}
       labels={el.labels}
       plural={el.plural}
       wrapMetricName={el.wrapMetricName}
-      videoId={videoId}>
+      videoId={videoData.id}>
     </DashboardChart>;
   }
 
@@ -67,14 +49,16 @@ const ReelsInsights = () => {
       description={reelsInsights.docs.description}
       link={reelsInsights.docs.link}
       linkLabel={reelsInsights.docs.linkLabel}/>
-    <Section title={section.title} key={section.title}>
-      <div className={styles.rowContainer}>
-        { reels.map(reel => {
-            return renderReelInsights(reel);
-          })
-        }
-      </div>
-    </Section>
+    { reelsInsightsError && <ErrorCard icon="AiFillWarning" error={reelsInsightsError}/> }
+    { !reelsInsightsError && <Section title={section.title} key={section.title}>
+          <div className={styles.rowContainer}>
+            { reelsInsightsData.map(reelData => {
+                return renderReelInsights(reelData);
+              })
+            }
+          </div>
+      </Section>
+    }
   </div>;
 }
 
