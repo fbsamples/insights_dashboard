@@ -6,12 +6,12 @@ import DocumentationLink from '../components/documentation-link';
 import ErrorCard from '../components/error-card';
 import Section from '../components/section';
 import VideoCard from '../components/video-card';
-import styles from '../styles/style.module.css';
 
 import { selectInsights } from '../utils/data-formatting';
 
-import settings from '../constants/settings.json';
 import reelsInsights from '../constants/reels-insights.json';
+
+import styles from '../styles/style.module.css';
 
 const ReelsInsights = () => {
   const section = reelsInsights.sections[0];

@@ -1,0 +1,33 @@
+{
+    "docs": {
+        "description": "For details around the metrics and how to integrate with the API,",
+        "linkLabel": "check the documentation",
+        "link": "https://developers.facebook.com/docs/instagram-api/guides/insights"
+    },
+    "metrics": [
+        "engagement",
+        "impressions",
+        "reach"
+    ],
+    "apiName": "ig-media-insights",
+    "sections": [
+        {
+            "title": "Media Insights",
+            "charts": [
+                {
+                    "id": 1,
+                    "metrics": [
+                        "engagement",
+                        "impressions",
+                        "reach"
+                    ],
+                    "icons": {
+                        "engagement": "AiOutlineDeploymentUnit",
+                        "impressions": "AiOutlineEye",
+                        "reach": "AiOutlineUser"
+                    }
+                }
+            ]
+        }
+    ]
+}

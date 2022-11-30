@@ -1,0 +1,34 @@
+
+.container {
+  position: relative;
+  margin: 12px 6px 12px;
+  background: rgb(247, 251, 255);
+  border-radius: 6px;
+}
+
+.image {
+  width: 200px;
+  height: 200px;
+  background-color: black;
+}
+
+.metricContainer {
+  padding: 6px 16px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.metric {
+  color: var(--blue-600);
+}
+
+.metricIcon {
+  margin-right: 6px;
+}
+
+.metricValue {
+  font-weight: bold;
+  color: var(--blue-600);
+}
