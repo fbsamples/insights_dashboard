@@ -21,7 +21,7 @@ const PageInsights = () => {
       link={pageInsights.docs.link}
       linkLabel={pageInsights.docs.linkLabel}/>
     { pageInsightsError && <ErrorCard icon="AiFillWarning" error={pageInsightsError}/> }
-    { pageInsightsData.length > 0 && pageInsights.sections.map(section => {
+    { !pageInsightsError && pageInsightsData.length > 0 && pageInsights.sections.map(section => {
         return <Section title={section.title} key={section.title}>
           <div className={styles.rowContainer}>
             { section.charts.map(el => {

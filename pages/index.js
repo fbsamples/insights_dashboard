@@ -41,10 +41,7 @@ const Home = () => {
         } else {
           dispatch({ type: stateName, payload: response.data });
         }
-      }
-
-      if (response.error) {
-        console.log(response.error);
+      } else if (response.error) {
         dispatch({ type: `${stateName}Error`, payload: response.error });
       }
 
@@ -63,9 +60,9 @@ const Home = () => {
         for (const media of data) {
           getInsights(insightsObj.apiName, insightsObj.metrics, stateName, media);
         }
+      } else if (error) {
+        dispatch({ type: `${stateName}Error`, payload: error });
       }
-
-      console.log('video-retrieving', error);
 
     } catch (err) {
       console.log(err);

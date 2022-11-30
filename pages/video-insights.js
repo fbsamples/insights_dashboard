@@ -52,14 +52,15 @@ const VideoInsights = () => {
       link={videoInsights.docs.link}
       linkLabel={videoInsights.docs.linkLabel}/>
     { videoInsightsError && <ErrorCard icon="AiFillWarning" error={videoInsightsError}/> }
-    <Section title={section.title} key={section.title}>
-      <div className={styles.rowContainer}>
-        { videoInsightsData.map(videoData => {
-            return renderVideoInsights(videoData);
-          })
-        }
-      </div>
-    </Section>
+    { !videoInsightsError && <Section title={section.title} key={section.title}>
+        <div className={styles.rowContainer}>
+          { videoInsightsData.map(videoData => {
+              return renderVideoInsights(videoData);
+            })
+          }
+        </div>
+      </Section>
+    }
   </div>;
 }
 

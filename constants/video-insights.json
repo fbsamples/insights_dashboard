@@ -7,7 +7,6 @@
     "metrics": [
         "total_video_view_total_time",
         "total_video_avg_time_watched",
-        "total_video_ad_break_earnings",
         "total_video_impressions",
         "total_video_impressions_unique",
         "total_video_views",
@@ -31,16 +30,6 @@
                     "labels": {
                         "total_video_view_total_time": "total",
                         "total_video_avg_time_watched": "avg"
-                    }
-                },
-                {
-                    "id": 2,
-                    "metrics": ["total_video_ad_break_earnings"],
-                    "type": "double_number",
-                    "wrapMetricName": true,
-                    "title": "Lifetime In-Stream Ad Revenue",
-                    "labels": {
-                        "total_video_ad_break_earnings": "cents"
                     }
                 },
                 {
