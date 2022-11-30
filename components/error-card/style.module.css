@@ -3,12 +3,44 @@
   position: relative;
   padding: 1.5rem;
   flex: 1;
-  display: inline-block;
-  box-sizing: border-box;
   font-size: 1rem;
   display: flex;
-  align-items: center;
+  align-items: stretch;
+  flex-direction: column;
   color: var(--blue-800);
+}
+
+.rowContainer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.messageOverflow {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: inline-block;
+  white-space:nowrap;
+  max-width: 60vw;
+}
+
+.additionalDetails {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  color: var(--gray-600);
+  margin-top: 6px;
+  font-size: 0.95rem;
+}
+
+.spacer {
+  margin-right: 12px;
+}
+
+.label {
+  font-weight: bold;
 }
 
 .icon {
@@ -16,7 +48,7 @@
   height: 2rem;
   width: 2rem;
   position: relative;
-  margin-right: 6px;
+  margin-right: 9px;
 }
 
 @media only screen and (min-width: 600px) {

@@ -5,7 +5,7 @@ import { formatTimestampToDateAndTime } from '../../utils/date';
 const VideoCard = ({children, video}) => {
     return <div className={styles.videoContainer} key={video.id}>
       <div className={styles.videoDescription}>
-        <h2>{video.description}</h2>
+        <h2>Video Title: {video.description}</h2>
         <span>ID: {video.id}</span>
       </div>
       <h3 className={styles.videoDateAndTime}>{formatTimestampToDateAndTime(video.updated_time)}</h3>

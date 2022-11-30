@@ -154,7 +154,6 @@ const DashboardChart = ({ type, insights, metrics, icons, title, description, vi
       onMouseEnter={() => setIsShown(true)}
       onMouseLeave={() => setIsShown(false)}>
           { chartData.datasets.length > 0 && chartData.datasets[0].loaded && <Card shadow={false}>
-
             <h1 className={styles.chartTitle}> { capitalizeAll(chartData.title) }</h1>
             <div className={`${styles.metricName} ${wrapMetricName ? styles.wrap : ''}`} title={chartData.name}> ({ chartData.name }) </div>
 
@@ -168,7 +167,7 @@ const DashboardChart = ({ type, insights, metrics, icons, title, description, vi
             { isShown && type !== 'single_number' && <Tooltip info={tooltipInfo}/> }
           </Card>
         }
-        { errorMessage && <ErrorCard icon="AiFillInfoCircle"> {errorMessage} </ErrorCard> }
+        { errorMessage && <ErrorCard icon="AiFillInfoCircle" error={{ message: errorMessage }} /> }
     </div>
   );
 }

@@ -43,11 +43,9 @@ const Home = () => {
         } else {
           dispatch({ type: stateName, payload: response.data });
         }
+      } else if (response.error) {
+        dispatch({ type: `${stateName}Error`, payload: response.error });
       }
-
-      // @Natalie I thought we could do the error treatment here
-      // in case response.error exists...
-      // any suggestion on how could we deal with this?
 
     } catch (err) {
       console.log(err);
@@ -64,6 +62,8 @@ const Home = () => {
         for (const media of data) {
           getInsights(insightsObj.apiName, insightsObj.metrics, stateName, media);
         }
+      } else if (error) {
+        dispatch({ type: `${stateName}Error`, payload: error });
       }
 
     } catch (err) {
