@@ -10,13 +10,14 @@ import VideoCard from '../components/video-card';
 import { selectInsights } from '../utils/data-formatting';
 
 import reelsInsights from '../constants/reels-insights.json';
+import errorMessages from '../constants/error-messages.json';
 
 import styles from '../styles/style.module.css';
 
 const ReelsInsights = () => {
   const section = reelsInsights.sections[0];
   const reelsInsightsData = useSelector(state => state.reelsInsights);
-  const reelsInsightsError = useSelector(state => state.reelsInsightsError);
+  const error = useSelector(state => state.error.reelsInsights);
 
   const renderReelInsights = (reelData) => {
     return <VideoCard key={reelData.id} video={reelData}>
@@ -49,14 +50,15 @@ const ReelsInsights = () => {
       description={reelsInsights.docs.description}
       link={reelsInsights.docs.link}
       linkLabel={reelsInsights.docs.linkLabel}/>
-    { reelsInsightsError && <ErrorCard icon="AiFillWarning" error={reelsInsightsError}/> }
-    { !reelsInsightsError && <Section title={section.title} key={section.title}>
-          <div className={styles.rowContainer}>
-            { reelsInsightsData.map(reelData => {
-                return renderReelInsights(reelData);
-              })
-            }
-          </div>
+    { error && <ErrorCard icon="AiFillWarning" error={error}/> }
+    { !error && <Section title={section.title} subtitle={section.subtitle} key={section.title}>
+        { reelsInsightsData.length === 0 && <ErrorCard message={errorMessages.noReelsAvailable}/>}
+        <div className={styles.rowContainer}>
+          { reelsInsightsData.map(reelData => {
+              return renderReelInsights(reelData);
+            })
+          }
+        </div>
       </Section>
     }
   </div>;

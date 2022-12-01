@@ -5,20 +5,20 @@ import { Line, Bar, Pie } from "react-chartjs-2";
 import AggregateByProperty from '../aggregate-by-property';
 import Card from '../card';
 import Chart from "chart.js/auto";
-import SingleNumber from '../single-number';
 import DoubleNumber from '../double-number';
 import ErrorCard from '../error-card';
+import SingleNumber from '../single-number';
+import SkeletonChart from '../skeleton-chart';
 import Tooltip from '../tooltip';
 
 import { capitalizeAll } from '../../utils/strings';
 import { formatTimestampToDate, getLast30DaysInterval } from '../../utils/date';
 import { generateRandomColor, generateRandomColorArray } from '../../utils/color';
 
-import constants from '../../constants/constants.json';
 import settings from '../../constants/settings.json';
 import styles from './style.module.css';
 
-const DashboardChart = ({ type, insights, metrics, icons, title, description, videoId, labels, plural, wrapMetricName, period='day' }) => {
+const DashboardChart = ({ type, insights, metrics, icons, title, description, videoId, labels, plural, wrapMetricName, loading, size, period='day' }) => {
   const { since, until } = getLast30DaysInterval();
 
   const [isShown, setIsShown] = useState(false);
@@ -140,13 +140,15 @@ const DashboardChart = ({ type, insights, metrics, icons, title, description, vi
   }
 
   useEffect(() => {
+    if (loading) return;
+
     if (insights.length === 0) {
       setErrorMessage('Sorry, but we could not load this metric right now.');
       return;
     }
 
     formatData(insights);
-  }, []);
+  }, [insights, loading]);
 
   return (
     <div
@@ -160,14 +162,15 @@ const DashboardChart = ({ type, insights, metrics, icons, title, description, vi
             { type === 'line' && <Line data={chartData} /> }
             { type === 'bar' && <Bar data={chartData} options={settings.barChart} /> }
             { type === 'pie' && <Pie data={chartData} options={settings.pieChart} height={250} width={400}/> }
-            { type === 'single_number' && <SingleNumber data={chartData} icons={icons} labels={labels}/> }
-            { type === 'double_number' && <DoubleNumber datasets={chartData.datasets} icons={icons} labels={labels}/> }
-            { type === 'aggregate_by_property' && <AggregateByProperty datasets={chartData.datasets} plural={plural} icons={icons} /> }
+            { type === 'singleNumber' && <SingleNumber data={chartData} icons={icons} labels={labels}/> }
+            { type === 'doubleNumber' && <DoubleNumber datasets={chartData.datasets} icons={icons} labels={labels}/> }
+            { type === 'aggregateByProperty' && <AggregateByProperty datasets={chartData.datasets} plural={plural} icons={icons} /> }
 
-            { isShown && type !== 'single_number' && <Tooltip info={tooltipInfo}/> }
+            { isShown && type !== 'singleNumber' && <Tooltip info={tooltipInfo}/> }
           </Card>
         }
-        { errorMessage && <ErrorCard icon="AiFillInfoCircle" error={{ message: errorMessage }} /> }
+        { errorMessage && <ErrorCard icon='AiFillInfoCircle' error={{ message: errorMessage }} /> }
+        { loading && <SkeletonChart size={size}/> }
     </div>
   );
 }

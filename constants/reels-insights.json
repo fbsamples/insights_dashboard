@@ -9,11 +9,12 @@
     "sections": [
         {
             "title": "Reels Insights",
+            "subtitle": "Metrics are displayed per reel",
             "charts": [
                 {
                     "id": 2,
                     "metrics": ["post_video_view_time", "post_video_avg_time_watched"],
-                    "type": "double_number",
+                    "type": "doubleNumber",
                     "title": "Reel View Time (ms)",
                     "labels": {
                         "post_video_view_time": "total",
@@ -23,7 +24,7 @@
                 {
                     "id": 3,
                     "metrics": ["post_video_social_actions"],
-                    "type": "aggregate_by_property",
+                    "type": "aggregateByProperty",
                     "title": "Social Interactions With the Reel",
                     "plural": true,
                     "icons": {
@@ -34,7 +35,7 @@
                 {
                     "id": 1,
                     "metrics": ["blue_reels_play_count"],
-                    "type": "single_number",
+                    "type": "singleNumber",
                     "labels": {
                         "blue_reels_play_count": "plays"
                     },
