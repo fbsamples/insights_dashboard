@@ -15,8 +15,15 @@
 }
 
 .textContainer {
-  max-height: 100px;
   overflow-y: scroll;
+}
+
+.small {
+  max-height: 100px;
+}
+
+.big {
+  max-height: fit-content;
 }
 
 .btn {

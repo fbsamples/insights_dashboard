@@ -15,8 +15,10 @@ import { capitalizeAll } from '../../utils/strings';
 import { formatTimestampToDate, getLast30DaysInterval } from '../../utils/date';
 import { generateRandomColor, generateRandomColorArray } from '../../utils/color';
 
+import errors from '../../constants/error-messages.json';
 import settings from '../../constants/settings.json';
 import styles from './style.module.css';
+import types from '../../constants/chart-types.json';
 
 const DashboardChart = ({ type, insights, metrics, icons, title, description, videoId, labels, plural, wrapMetricName, loading, size, period='day' }) => {
   const { since, until } = getLast30DaysInterval();
@@ -116,7 +118,7 @@ const DashboardChart = ({ type, insights, metrics, icons, title, description, vi
       }
     }
 
-    if (type === 'pie') {
+    if (type === types.pie) {
       const newDataset = formatDataForPieChart(datasets);
       datasets = [];
       datasets.push(newDataset);
@@ -143,7 +145,7 @@ const DashboardChart = ({ type, insights, metrics, icons, title, description, vi
     if (loading) return;
 
     if (insights.length === 0) {
-      setErrorMessage('Sorry, but we could not load this metric right now.');
+      setErrorMessage({ message: errors.metricNotAvailable });
       return;
     }
 
@@ -159,17 +161,17 @@ const DashboardChart = ({ type, insights, metrics, icons, title, description, vi
             <h1 className={styles.chartTitle}> { capitalizeAll(chartData.title) }</h1>
             <div className={`${styles.metricName} ${wrapMetricName ? styles.wrap : ''}`} title={chartData.name}> ({ chartData.name }) </div>
 
-            { type === 'line' && <Line data={chartData} /> }
-            { type === 'bar' && <Bar data={chartData} options={settings.barChart} /> }
-            { type === 'pie' && <Pie data={chartData} options={settings.pieChart} height={250} width={400}/> }
-            { type === 'singleNumber' && <SingleNumber data={chartData} icons={icons} labels={labels}/> }
-            { type === 'doubleNumber' && <DoubleNumber datasets={chartData.datasets} icons={icons} labels={labels}/> }
-            { type === 'aggregateByProperty' && <AggregateByProperty datasets={chartData.datasets} plural={plural} icons={icons} /> }
+            { type === types.line && <Line data={chartData} /> }
+            { type === types.bar && <Bar data={chartData} options={settings.barChart} /> }
+            { type === types.pie && <Pie data={chartData} options={settings.pieChart} height={250} width={400}/> }
+            { type === types.singleNumber && <SingleNumber data={chartData} icons={icons} labels={labels}/> }
+            { type === types.doubleNumber && <DoubleNumber datasets={chartData.datasets} icons={icons} labels={labels}/> }
+            { type === types.aggregateByProperty && <AggregateByProperty datasets={chartData.datasets} plural={plural} icons={icons} /> }
 
-            { isShown && type !== 'singleNumber' && <Tooltip info={tooltipInfo}/> }
+            { isShown && type !== types.singleNumber && <Tooltip info={tooltipInfo}/> }
           </Card>
         }
-        { errorMessage && <ErrorCard icon='AiFillInfoCircle' error={{ message: errorMessage }} /> }
+        { errorMessage && <ErrorCard icon='AiFillInfoCircle' error={errorMessage} /> }
         { loading && <SkeletonChart size={size}/> }
     </div>
   );

@@ -5,21 +5,14 @@ import { AiOutlinePlus, AiOutlineMinus } from 'react-icons/ai';
 import styles from './style.module.css';
 
 const Tooltip = ({ info }) => {
-  const ref = useRef();
   const [increased, setIncreased] = useState(false);
 
   const updateTooltipSize = () => {
-    if (increased) {
-      ref.current.style.maxHeight = '100px';
-    } else {
-      ref.current.style.maxHeight = 'fit-content';
-    }
-
     setIncreased(!increased);
   }
 
   return <div className={styles.tooltip}>
-    <div className={styles.textContainer} ref={ref}>
+    <div className={`${styles.textContainer} ${!increased ? styles.small : styles.big}`}>
       { info.map((info) => {
           return <div key={info.id}>
               <h1 className={styles.title}>{info.title}</h1>
