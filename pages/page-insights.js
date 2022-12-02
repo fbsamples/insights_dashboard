@@ -22,7 +22,7 @@ const PageInsights = () => {
       linkLabel={pageInsights.docs.linkLabel}/>
     { error
       ? <ErrorCard icon="AiFillWarning" error={error}/>
-      : error && pageInsights.sections.map(section => {
+      : pageInsights.sections.map(section => {
         return <Section title={section.title} key={section.title}>
           { <div className={styles.rowContainer}>
               { section.charts.map(el => {
