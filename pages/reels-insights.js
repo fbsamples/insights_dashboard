@@ -50,16 +50,17 @@ const ReelsInsights = () => {
       description={reelsInsights.docs.description}
       link={reelsInsights.docs.link}
       linkLabel={reelsInsights.docs.linkLabel}/>
-    { error && <ErrorCard icon="AiFillWarning" error={error}/> }
-    { !error && <Section title={section.title} subtitle={section.subtitle} key={section.title}>
-        { reelsInsightsData.length === 0 && <ErrorCard message={errorMessages.noReelsAvailable}/>}
-        <div className={styles.rowContainer}>
-          { reelsInsightsData.map(reelData => {
-              return renderReelInsights(reelData);
-            })
-          }
-        </div>
-      </Section>
+    { error
+      ? <ErrorCard icon="AiFillWarning" error={error}/>
+      : <Section title={section.title} subtitle={section.subtitle} key={section.title}>
+          { reelsInsightsData.length === 0 && <ErrorCard message={errorMessages.noReelsAvailable}/>}
+          <div className={styles.rowContainer}>
+            { reelsInsightsData.map(reelData => {
+                return renderReelInsights(reelData);
+              })
+            }
+          </div>
+        </Section>
     }
   </div>;
 }

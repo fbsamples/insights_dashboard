@@ -33,8 +33,9 @@ const InstagramInsights = () => {
       description={instagramInsights.docs.description}
       link={instagramInsights.docs.link}
       linkLabel={instagramInsights.docs.linkLabel}/>
-    { instagramInsightsError && <ErrorCard icon="AiFillWarning" error={instagramInsightsError}/> }
-    { !instagramInsightsError && <Section title={accountInsightsSection.title} key={accountInsightsSection.title}>
+    { instagramInsightsError
+      ? <ErrorCard icon="AiFillWarning" error={instagramInsightsError}/>
+      : <Section title={accountInsightsSection.title} key={accountInsightsSection.title}>
         <div className={styles.rowContainer}>
           { instagramInsightsData.length > 0 && accountInsightsSection.charts.map(el => {
               return <DashboardChart
@@ -53,8 +54,9 @@ const InstagramInsights = () => {
         </div>
       </Section>
     }
-    { instagramMediaInsightsError && <ErrorCard icon="AiFillWarning" error={instagramMediaInsightsError}/> }
-    { !instagramMediaInsightsError && <Section title={mediaInsightsSection.title} key={mediaInsightsSection.title}>
+    { instagramMediaInsightsError
+      ? <ErrorCard icon="AiFillWarning" error={instagramMediaInsightsError}/>
+      : <Section title={mediaInsightsSection.title} key={mediaInsightsSection.title}>
         <Card>
           <IgMediaHeader metrics={instagramMediaInsights.metrics} icons={igMediaIcons} instagramMediaInsightsData={instagramMediaInsightsData}/>
           { instagramMediaInsightsData.length === 0 && !instagramMediaInsightsError && <ErrorCard message={errorMessages.noIgMediaAvailable}/>}
