@@ -20,11 +20,12 @@
     "sections": [
         {
             "title": "Video Insights",
+            "subtitle": "Metrics are displayed per video",
             "charts": [
                 {
                     "id": 1,
                     "metrics": ["total_video_view_total_time", "total_video_avg_time_watched"],
-                    "type": "double_number",
+                    "type": "doubleNumber",
                     "title": "Time watched (ms)",
                     "wrapMetricName": true,
                     "labels": {
@@ -35,7 +36,7 @@
                 {
                     "id": 3,
                     "metrics": ["total_video_impressions", "total_video_impressions_unique"],
-                    "type": "double_number",
+                    "type": "doubleNumber",
                     "wrapMetricName": true,
                     "title": "Video Impressions",
                     "icons": {
@@ -60,7 +61,7 @@
                 {
                     "id": 6,
                     "metrics": ["total_video_views_by_distribution_type"],
-                    "type": "aggregate_by_property",
+                    "type": "aggregateByProperty",
                     "title": "Video Views By Distribution Type",
                     "plural": false,
                     "icons": {

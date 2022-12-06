@@ -3,11 +3,11 @@ import * as AntDesignIcons from "react-icons/ai";
 
 import styles from './style.module.css';
 
-const ErrorCard = ({ error, icon }) => {
+const ErrorCard = ({ error={}, icon='AiFillInfoCircle', message }) => {
   return <div className={styles.card}>
     <div className={styles.rowContainer}>
       { icon && <span className={styles.icon}>{ AntDesignIcons[icon]() }</span> }
-      <span className={styles.messageOverflow} title={error.message}>{ error.message }</span>
+      <span className={styles.messageOverflow} title={error?.message || message}>{ error?.message || message }</span>
     </div>
     <div className={styles.additionalDetails}>
       { Object.keys(error).map(key => {

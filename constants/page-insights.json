@@ -25,18 +25,21 @@
                 {
                     "id": 1,
                     "metrics": ["page_views_total"],
-                    "type": "bar"
+                    "type": "bar",
+                    "size": "small"
                 },
                 {
                     "id": 2,
                     "metrics": ["page_consumptions"],
-                    "type": "line"
+                    "type": "line",
+                    "size": "small"
                 },
                 {
                     "id": 3,
                     "metrics": ["page_impressions", "page_impressions_unique", "page_impressions_paid", "page_impressions_viral", "page_impressions_organic"],
                     "type": "line",
-                    "title": "Page Impressions Per Type"
+                    "title": "Page Impressions Per Type",
+                    "size": "big"
                 }
             ]
         },
@@ -46,12 +49,14 @@
                 {
                     "id": 4,
                     "metrics": ["page_engaged_users"],
-                    "type": "bar"
+                    "type": "bar",
+                    "size": "small"
                 },
                 {
                     "id": 5,
                     "metrics": ["page_fans"],
-                    "type": "single_number",
+                    "type": "singleNumber",
+                    "size": "small",
                     "icons": {
                         "page_fans": "AiOutlineUser"
                     },
@@ -67,7 +72,8 @@
                 {
                     "id": 6,
                     "metrics": ["page_positive_feedback_by_type"],
-                    "type": "aggregate_by_property",
+                    "type": "aggregateByProperty",
+                    "size": "big",
                     "icons": {
                         "like": "AiFillLike",
                         "link": "AiOutlineLink",
