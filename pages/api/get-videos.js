@@ -9,7 +9,7 @@ export default async function handler(req, res) {
 }
 
 const assembleUrl = () => {
-  let url = `${config.domain}/${config.page_id}/videos`;
+  let url = `${settings.domain}/${config.page_id}/videos`;
   url += `?access_token=${config.page_access_token}&limit=${settings.videoLimit}`;
   return url;
 }

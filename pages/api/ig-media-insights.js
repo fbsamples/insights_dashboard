@@ -1,4 +1,5 @@
 import config from '../../config.json';
+import settings from '../../constants/settings.json';
 
 export default async function handler(req, res) {
   const { metric, since, until, period, videoId } = JSON.parse(req.body);
@@ -10,7 +11,7 @@ export default async function handler(req, res) {
 }
 
 const assembleUrl = (metric, since, until, period, videoId) => {
-  let url = `${config.domain}/${videoId}/insights`;
+  let url = `${settings.domain}/${videoId}/insights`;
   url += `?access_token=${config.ig_access_token}&limit=10`;
   url += `&metric=${metric}&period=${period}&since=${since}&until=${until}`;
   return url;
