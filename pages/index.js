@@ -26,6 +26,12 @@ const Home = () => {
   const [activeTab, setActiveTab] = useState('tab1');
   const dispatch = useDispatch();
 
+  const dispatchError = (error, stateName) => {
+    const payload = {};
+    payload[stateName] = error;
+    dispatch({ type: 'error', payload });
+  }
+
   const getInsights = async (apiName, metric, stateName, video) => {
     try {
       const url = `${settings.backendUrl}/api/${apiName}`;
@@ -43,8 +49,8 @@ const Home = () => {
         } else {
           dispatch({ type: stateName, payload: response.data });
         }
-      } else if (response.error) {
-        dispatch({ type: `${stateName}Error`, payload: response.error });
+      } else if (response.error && !video) {
+        dispatchError(response.error, stateName);
       }
 
     } catch (err) {
@@ -63,7 +69,7 @@ const Home = () => {
           getInsights(insightsObj.apiName, insightsObj.metrics, stateName, media);
         }
       } else if (error) {
-        dispatch({ type: `${stateName}Error`, payload: error });
+        dispatchError(error, stateName);
       }
 
     } catch (err) {

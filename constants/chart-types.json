@@ -1,0 +1,8 @@
+{
+    "bar": "bar",
+    "line": "line",
+    "pie": "pie",
+    "aggregateByProperty": "aggregateByProperty",
+    "singleNumber": "singleNumber",
+    "doubleNumber": "doubleNumber"
+}

@@ -11,12 +11,13 @@ import { selectInsights } from '../utils/data-formatting';
 
 import videoInsights from '../constants/video-insights';
 import settings from '../constants/settings';
+import errorMessages from '../constants/error-messages.json';
 
 import styles from '../styles/style.module.css';
 
 const VideoInsights = () => {
   const videoInsightsData = useSelector(state => state.videoInsights);
-  const videoInsightsError = useSelector(state => state.videoInsightsError);
+  const error = useSelector(state => state.error.videoInsights);
 
   const section = videoInsights.sections[0];
 
@@ -51,15 +52,17 @@ const VideoInsights = () => {
       description={videoInsights.docs.description}
       link={videoInsights.docs.link}
       linkLabel={videoInsights.docs.linkLabel}/>
-    { videoInsightsError && <ErrorCard icon="AiFillWarning" error={videoInsightsError}/> }
-    { !videoInsightsError && <Section title={section.title} key={section.title}>
-        <div className={styles.rowContainer}>
-          { videoInsightsData.map(videoData => {
-              return renderVideoInsights(videoData);
-            })
-          }
-        </div>
-      </Section>
+    { error
+      ? <ErrorCard icon="AiFillWarning" error={error}/>
+      : <Section title={section.title} subtitle={section.subtitle} key={section.title}>
+          { videoInsightsData.length === 0 && <ErrorCard message={errorMessages.noVideosAvailable}/>}
+          <div className={styles.rowContainer}>
+            { videoInsightsData.map(videoData => {
+                return renderVideoInsights(videoData);
+              })
+            }
+          </div>
+        </Section>
     }
   </div>;
 }
