@@ -7,10 +7,23 @@
   flex-direction: column;
 }
 
-.title {
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   margin: 0 0 1rem;
+}
+
+.title {
   padding: 0;
+  margin: 0 0 4px;
   font-size: 1.4rem;
   font-weight: 600;
   color: var(--blue-800);
+}
+
+.subtitle {
+  color: var(--gray-800);
+  font-size: 0.8rem;
+  text-transform: lowercase;
 }

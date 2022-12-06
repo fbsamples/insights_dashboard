@@ -2,11 +2,15 @@ const initialState = {
   instagramInsights: [],
   instagramMediaInsights: [],
   pageInsights: [],
-  pageInsightsError: null,
   videoInsights: [],
-  videoInsightsError: null,
   reelsInsights: [],
-  reelsInsightsError: null
+  error: {
+    instagramInsights: null,
+    instagramMediaInsights: null,
+    pageInsights: null,
+    videoInsights: null,
+    reelsInsights: null,
+  }
 }
 
 export default function appReducer(state = initialState, action) {
@@ -17,16 +21,12 @@ export default function appReducer(state = initialState, action) {
       return { ...state, instagramMediaInsights: [...state.instagramMediaInsights, action.payload] };
     case 'pageInsights':
       return { ...state, pageInsights: [...state.pageInsights, ...action.payload] };
-    case 'pageInsightsError':
-      return { ...state, pageInsightsError: {...state.pageInsightsError, ...action.payload} };
     case 'videoInsights':
       return { ...state, videoInsights: [...state.videoInsights, action.payload] };
-    case 'videoInsightsError':
-      return { ...state, videoInsightsError: {...state.videoInsightsError, ...action.payload} };
     case 'reelsInsights':
       return { ...state, reelsInsights: [...state.reelsInsights, action.payload] };
-    case 'reelsInsightsError':
-      return { ...state, reelsInsightsError: {...state.reelsInsightsError, ...action.payload} };
+    case 'error':
+      return { ...state, error: {...state.error, ...action.payload} };
     default:
       return state
   }
