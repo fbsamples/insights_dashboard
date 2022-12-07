@@ -4,11 +4,19 @@ import * as AntDesignIcons from "react-icons/ai";
 import styles from './style.module.css';
 
 const ErrorCard = ({ error={}, icon='AiFillInfoCircle', message }) => {
+  const apiErrorLabel = 'API Error';
   return <div className={styles.card}>
     <div className={styles.rowContainer}>
       { icon && <span className={styles.icon}>{ AntDesignIcons[icon]() }</span> }
-      <span className={styles.messageOverflow} title={error?.message || message}>{ error?.message || message }</span>
+      <span className={styles.messageOverflow} title={message || apiErrorLabel}>{ error?.message ? apiErrorLabel : message }</span>
     </div>
+
+    { error?.message && <div className={styles.apiError}>
+        <span className={styles.label}>Message: </span>
+        {error.message}
+      </div>
+    }
+
     <div className={styles.additionalDetails}>
       { Object.keys(error).map(key => {
           if (key !== 'message') {

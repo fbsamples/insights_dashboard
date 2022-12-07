@@ -17,7 +17,8 @@
         "page_positive_feedback_by_type",
         "page_daily_video_ad_break_earnings_by_crosspost_status"
     ],
-    "apiName": "page-insights",
+    "insightsApiName": "page-insights",
+    "stateName": "pageInsights",
     "sections": [
         {
             "title": "Page Impressions",

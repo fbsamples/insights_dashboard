@@ -1,0 +1,53 @@
+
+.title {
+  color: var(--blue-600);
+  margin: 12px 0px;
+  padding: 0 16px;
+}
+
+.subtitle {
+  color: var(--gray-800);
+  margin-bottom: 6px;
+  padding: 0 16px;
+}
+
+.subtitle:nth-of-type(2) {
+  margin-bottom: 16px;
+}
+
+.missingField {
+  border: 1px solid rgb(249, 249, 249);
+  background-color: rgb(250, 250, 250);
+  padding: 16px;
+  border-radius: 6px;
+  margin-top: 12px;
+  color: var(--gray-800);
+  line-height: 1.6rem;
+}
+
+.fieldName {
+  color: var(--blue-600);
+  font-weight: bold;
+}
+
+.link {
+  background-color: var(--blue-100);
+  color: var(--blue-600);
+  border-radius: 60px;
+  padding: 10px 20px;
+  max-width: fit-content;
+  font-weight: bold;
+  margin-top: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.link:hover {
+  opacity: 90%;
+}
+
+.icon {
+  margin-right: 6px;
+}

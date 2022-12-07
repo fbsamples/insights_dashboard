@@ -10,6 +10,7 @@ const initialState = {
     pageInsights: null,
     videoInsights: null,
     reelsInsights: null,
+    configFile: null
   }
 }
 

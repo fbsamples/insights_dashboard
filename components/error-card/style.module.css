@@ -12,8 +12,9 @@
 
 .rowContainer {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: flex-start;
+  margin-bottom: 4px;
   font-size: 1.1rem;
   font-weight: bold;
 }
@@ -35,6 +36,10 @@
   font-size: 0.95rem;
 }
 
+.apiError {
+  margin: 4px 0px 2px;
+}
+
 .spacer {
   margin-right: 12px;
 }
@@ -44,9 +49,9 @@
 }
 
 .icon {
-  font-size: 2rem;
-  height: 2rem;
-  width: 2rem;
+  font-size: 1.5rem;
+  height: 1.5rem;
+  width: 1.5rem;
   position: relative;
   margin-right: 9px;
 }

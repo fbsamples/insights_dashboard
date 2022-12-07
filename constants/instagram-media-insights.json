@@ -9,7 +9,9 @@
         "impressions",
         "reach"
     ],
-    "apiName": "ig-media-insights",
+    "insightsApiName": "ig-media-insights",
+    "fetchingApiName": "get-ig-media",
+    "stateName": "instagramMediaInsights",
     "sections": [
         {
             "title": "Media Insights",

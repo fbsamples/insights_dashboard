@@ -5,7 +5,9 @@
         "link": "https://developers.facebook.com/docs/graph-api/reference/video/video_insights/#reels-metrics"
     },
     "metrics": ["post_video_view_time", "post_video_avg_time_watched", "post_video_social_actions", "blue_reels_play_count", "post_video_likes_by_reaction_type"],
-    "apiName": "video-insights",
+    "insightsApiName": "video-insights",
+    "fetchingApiName": "get-reels-posts",
+    "stateName": "reelsInsights",
     "sections": [
         {
             "title": "Reels Insights",
