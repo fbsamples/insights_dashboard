@@ -1,4 +1,5 @@
 {
+    "domain": "https://graph.facebook.com",
     "backendUrl": "http://localhost:3000",
     "videoLimit": 10,
     "pieChart": {

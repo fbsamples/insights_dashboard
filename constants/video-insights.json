@@ -16,7 +16,9 @@
         "total_video_reactions_by_type_total",
         "total_video_views_by_distribution_type"
     ],
-    "apiName": "video-insights",
+    "insightsApiName": "video-insights",
+    "fetchingApiName": "get-videos",
+    "stateName": "videoInsights",
     "sections": [
         {
             "title": "Video Insights",

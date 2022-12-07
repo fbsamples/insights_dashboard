@@ -10,7 +10,8 @@
         "reach",
         "profile_views"
     ],
-    "apiName": "instagram-insights",
+    "insightsApiName": "instagram-insights",
+    "stateName": "instagramInsights",
     "sections": [
         {
             "title": "Account Insights",
