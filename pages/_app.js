@@ -1,12 +1,13 @@
 import { createStore } from 'redux'
 import { Provider } from 'react-redux';
-import rootReducer from './reducer';
+import { wrapper } from '../app/store';
 
 import Head from 'next/head';
 import '../styles/globals.css';
 
-export default function App({ Component, pageProps }) {
-  const store = createStore(rootReducer);
+export default function App({ Component, ...rest }) {
+  const { store, props } = wrapper.useWrappedStore(rest);
+  const { pageProps } = props;
   return (
     <Provider store={store}>
       <div>

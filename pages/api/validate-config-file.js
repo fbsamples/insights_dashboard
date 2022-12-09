@@ -1,7 +1,8 @@
-import config from '../../config.json';
+import { getAppConfig } from '../../utils/config';
 import config_file_errors from '../../constants/config-file-errors.json';
 
 export default async function handler(req, res) {
+  const config = getAppConfig();
   const type = req.query.type;
 
   const errors = [];
