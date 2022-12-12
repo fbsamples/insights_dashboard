@@ -1,4 +1,4 @@
-import config from '../../config.json';
+import { getAppConfig } from '../../utils/config';
 import settings from '../../constants/settings.json';
 
 export default async function handler(req, res) {
@@ -9,6 +9,7 @@ export default async function handler(req, res) {
 }
 
 const assembleUrl = () => {
+  const config = getAppConfig();
   let url = `${settings.domain}/${config.page_id}/video_reels`;
   url += `?access_token=${config.page_access_token}&limit=${settings.videoLimit}`;
   return url;

@@ -2,23 +2,20 @@ import Card from '../card';
 
 import { AiOutlineLink } from 'react-icons/ai';
 
+import config_file_errors from '../../constants/config-file-errors.json';
 import styles from './style.module.css';
 
 const ConfigFileErrors = ({ errors }) => {
-  const title = 'Looks like your config file is missing some fields';
-  const subtitle = 'You need to create/update the config.json file in the root of the project. After you do it, refresh the page.';
-  const subtitle2 = 'Check out the fields that you need to include in the config.json file: ';
-
   const loadDoc = (docLink) => {
     window.open(docLink, '_blank');
   }
 
   return <Card>
-    <h1 className={styles.title}>{title}</h1>
-    <p className={styles.subtitle}>{subtitle}</p>
-    <p className={styles.subtitle}>{subtitle2}</p>
+    <h1 className={styles.title}>{config_file_errors.header.title}</h1>
+    <p className={styles.subtitle}>{config_file_errors.header.subtitle}</p>
+    <p className={styles.subtitle}>{config_file_errors.header.subtitle2}</p>
     { errors.map((error, idx) => {
-      return <div className={styles.missingField} key={idx}>
+      return <div id={`error-${error.field_name}`} className={styles.missingField} key={idx}>
         <div>
           <span className={styles.fieldName}>{error.field_name}: </span>
           {error.message}

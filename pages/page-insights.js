@@ -14,7 +14,6 @@ import styles from '../styles/style.module.css';
 const PageInsights = () => {
   const pageInsightsData = useSelector(state => state.pageInsights);
   const error = useSelector(state => state.error.pageInsights);
-
   return <div>
     <DocumentationLink
       description={pageInsights.docs.description}

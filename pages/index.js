@@ -26,12 +26,35 @@ const VALIDATION_TYPES = {
 }
 
 const Home = () => {
+  const menu = [
+    {
+      id: 'page',
+      title: 'Page Insights',
+      component: <PageInsights/>
+    },
+    {
+      id: 'reels',
+      title: 'Reels Insights',
+      component: <ReelsInsights/>
+    },
+    {
+      id: 'video',
+      title: 'Video Insights',
+      component: <VideoInsights/>
+    },
+    {
+      id: 'ig',
+      title: 'Instagram Insights',
+      component: <InstagramInsights/>
+    }
+  ];
+
   const dispatch = useDispatch();
 
   const { since, until } = getLast30DaysInterval();
   const period = 'day';
 
-  const [activeTab, setActiveTab] = useState('tab1');
+  const [activeTab, setActiveTab] = useState(menu[0].id);
   const [configFileErrors, setConfigFileErrors] = useState(null);
   const [configFileOptionalFieldsErrors, setConfigFileOptionalFieldsErrors] = useState(null);
 
@@ -140,17 +163,25 @@ const Home = () => {
         : <Card>
             <div className={styles.tabs}>
               <ul className={styles.nav}>
-                <li className={activeTab === 'tab1' ? styles.active : ''} onClick={() => setActiveTab('tab1')}>Page Insights</li>
-                <li className={activeTab === 'tab2' ? styles.active : ''} onClick={() => setActiveTab('tab2')}>Reels Insights</li>
-                <li className={activeTab === 'tab3' ? styles.active : ''} onClick={() => setActiveTab('tab3')}>Video Insights</li>
-                <li className={activeTab === 'tab4' ? styles.active : ''} onClick={() => setActiveTab('tab4')}>Instagram Insights</li>
+                {
+                  menu.map((item) =>
+                    <li
+                      id={`${item.id}-tab`}
+                      key={`${item.id}-tab`}
+                      className={activeTab === item.id ? styles.active : ''}
+                      onClick={() => setActiveTab(item.id)}
+                    >
+                      {item.title}
+                    </li>
+                  )
+                }
               </ul>
-              <div>
-                {activeTab === 'tab1' && <PageInsights/>}
-                {activeTab === 'tab2' && <ReelsInsights/>}
-                {activeTab === 'tab3' && <VideoInsights/>}
-                {activeTab === 'tab4' && <InstagramInsights/>}
-              </div>
+              {
+                menu.map((item) => activeTab === item.id ?
+                  <div id={item.id} key={item.id}>{item.component}</div> :
+                  null
+                )
+              }
             </div>
           </Card>
       }
