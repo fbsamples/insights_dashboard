@@ -1,17 +1,24 @@
-import { getAppConfig } from '../../utils/config';
+import { hasPageConfig, hasIGConfig } from '../common/validations';
 import config_file_errors from '../../constants/config-file-errors.json';
 import pageInsights from '../../constants/page-insights.json';
 
 
-describe('Navigation', () => {
+describe('Configuration', () => {
   it('should handle page and video config', () => {
-    const config = getAppConfig();
     cy.visitLocal();
-    if (config['page_id'] && config['page_id'] !== null && config['page_id'].length > 0
-      && config['page_access_token'] && config['page_access_token'] !== null && config['page_access_token'].length > 0
-    ) {
+    if (hasPageConfig()) {
       cy.get('#page-tab').should('exist');
-      cy.get('#page #documentation').contains(pageInsights.docs.description);
+      cy.get('#page .documentation').contains(pageInsights.docs.description);
+      cy.get("#page").then($el => {
+        if ($el.find('.section').length > 0) {
+          cy.get(".section-header h1").should('exist');
+          cy.get(".section-body > div")
+            .children().its('length')
+            .should('be.gt', 0);
+        } else {
+          cy.get(".error-card .title").contains(config_file_errors.api.title)
+        }
+      });
     }
     else {
       cy.get('h1').contains(config_file_errors.header.title)
@@ -21,20 +28,23 @@ describe('Navigation', () => {
   })
 
   it('should handle instagram config', () => {
-    const config = getAppConfig();
     cy.visitLocal();
-    if (
-      config['page_id'] && config['page_id'] !== null && config['page_id'].length > 0
-      && config['page_access_token'] && config['page_access_token'] !== null && config['page_access_token'].length > 0
-    ) {
-      if (
-        config['ig_user_id'] && config['ig_user_id'] !== null && config['ig_user_id'].length > 0
-        && config['ig_access_token'] && config['ig_access_token'] !== null && config['ig_access_token'].length > 0
-      ) {
-        cy.get('#ig-tab').should('exist');
-        cy.get('#ig-tab').click();
-        cy.wait(2000)
-        cy.get('#ig #documentation').contains(pageInsights.docs.description);
+    if (hasPageConfig()) {
+      cy.get('#ig-tab').should('exist');
+      cy.get('#ig-tab').click();
+      cy.wait(2000)
+      if (hasIGConfig()) {
+        cy.get('#ig .documentation').contains(pageInsights.docs.description);
+        cy.get("#ig").then($el => {
+          if ($el.find('.section').length > 0) {
+            cy.get(".section-header h1").should('exist');
+            cy.get(".section-body > div")
+              .children().its('length')
+              .should('be.gt', 0);
+          } else {
+            cy.get(".error-card .title").contains(config_file_errors.api.title)
+          }
+        });
       }
       else {
         cy.get('h1').contains(config_file_errors.header.title)

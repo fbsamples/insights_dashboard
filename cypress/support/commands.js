@@ -26,4 +26,5 @@
 
 Cypress.Commands.add('visitLocal', () => {
     cy.visit('http://localhost:3000/')
+    cy.wait(2000)
 })
