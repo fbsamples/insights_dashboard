@@ -38,7 +38,6 @@ describe('Page Insights', () => {
                       link += item.value.link;
                       other += item.value.other;
                     })
-                    console.log(abbreviateNumber(like));
                     cy.get('#chart-page_positive_feedback_by_type').should(($card) => {
                       expect($card.find('.like .metric-value')).to.contain(abbreviateNumber(like));
                       expect($card.find('.comment .metric-value')).to.contain(abbreviateNumber(comment));
