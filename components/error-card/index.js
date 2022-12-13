@@ -1,18 +1,19 @@
 import React from 'react';
 import * as AntDesignIcons from "react-icons/ai";
+import config_file_errors from '../../constants/config-file-errors.json';
 
 import styles from './style.module.css';
 
 const ErrorCard = ({ error={}, icon='AiFillInfoCircle', message }) => {
-  const apiErrorLabel = 'API Error';
-  return <div className={styles.card}>
+  const errorTitle = config_file_errors.api.title;
+  return <div className={`error-card ${styles.card}`}>
     <div className={styles.rowContainer}>
       { icon && <span className={styles.icon}>{ AntDesignIcons[icon]() }</span> }
-      <span className={styles.messageOverflow} title={message || apiErrorLabel}>{ error?.message ? apiErrorLabel : message }</span>
+      <span className={`title ${styles.messageOverflow}`} title={message || errorTitle}>{ error?.message ? errorTitle : message }</span>
     </div>
 
     { error?.message && <div className={styles.apiError}>
-        <span className={styles.label}>Message: </span>
+        <span className={styles.label}>{`${config_file_errors.api.title.label}: `} </span>
         {error.message}
       </div>
     }

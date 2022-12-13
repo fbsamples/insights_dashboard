@@ -4,6 +4,10 @@
         "subtitle": "You need to create/update the config.json file in the root of the project. After you do it, refresh the page.",
         "subtitle2": "Check out the fields that you need to include in the config.json file: "
     },
+    "api": {
+        "title": "API Error",
+        "label": "Message"
+    },
     "mandatory": {
         "page_id": {
             "message": "Please add the page_id field to your config file.",

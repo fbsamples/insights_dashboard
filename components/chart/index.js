@@ -157,7 +157,7 @@ const DashboardChart = ({ type, insights, metrics, icons, title, description, vi
       className={styles.mainDiv}
       onMouseEnter={() => setIsShown(true)}
       onMouseLeave={() => setIsShown(false)}>
-          { chartData.datasets.length > 0 && chartData.datasets[0].loaded && <Card shadow={false}>
+          { chartData.datasets.length > 0 && chartData.datasets[0].loaded && <Card shadow={false} id={`chart-${chartData.name}`}>
             <h1 className={styles.chartTitle}> { capitalizeAll(chartData.title) }</h1>
             <div className={`${styles.metricName} ${wrapMetricName ? styles.wrap : ''}`} title={chartData.name}> ({ chartData.name }) </div>
 

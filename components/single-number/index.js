@@ -23,7 +23,7 @@ const SingleNumber = ({ data, icons, labels }) => {
     return <div>
         <p className={styles.metricContainer}>
             <span className={styles.icon}>{ getIcon()() }</span>
-            { getLastNumber() } {getLabel()}
+            <span className="metric-value">{ getLastNumber() } {getLabel()}</span>
         </p>
         <p className={styles.metricDescription}>{data.description}</p>
     </div>;

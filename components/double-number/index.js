@@ -7,10 +7,6 @@ import styles from './style.module.css';
 
 const DoubleNumber = ({ datasets, icons, labels }) => {
 
-    const getIcon = (label) => {
-        return AntDesignIcons[icons[label]];
-    }
-
     const getLabel = (label) => {
         return labels[label];
     }

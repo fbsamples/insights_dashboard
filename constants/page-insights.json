@@ -14,8 +14,7 @@
         "page_impressions_organic",
         "page_engaged_users",
         "page_fans",
-        "page_positive_feedback_by_type",
-        "page_daily_video_ad_break_earnings_by_crosspost_status"
+        "page_positive_feedback_by_type"
     ],
     "insightsApiName": "page-insights",
     "stateName": "pageInsights",

@@ -18,9 +18,9 @@ const AggregateByProperty = ({ datasets, icons, plural=true }) => {
 
     return <div>
         { datasets.map(({ data, label }) => {
-            return <div key={label} className={styles.toast}>
+            return <div key={label} className={`${label.toLowerCase()} ${styles.toast}`}>
                 <span className={styles.icon}>{ getIcon(label)() }</span>
-                { getSumOfAllValues(data) + ' ' }
+                <span className="metric-value">{ getSumOfAllValues(data) + ' ' }</span>
                 <span className={styles.propertyName}>{label.toLowerCase()}{plural && 's'}</span>
             </div>;
             })
