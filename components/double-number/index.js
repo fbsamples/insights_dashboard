@@ -6,7 +6,6 @@ import { abbreviateNumber } from '../../utils/strings';
 import styles from './style.module.css';
 
 const DoubleNumber = ({ datasets, icons, labels }) => {
-
     const getLabel = (label) => {
         return labels[label];
     }
@@ -19,10 +18,12 @@ const DoubleNumber = ({ datasets, icons, labels }) => {
 
     return <div>
         <p className={styles.metricContainer}>
-            { getLastNumber(datasets[0].data) } { getLabel(datasets[0].label) }
+            <span className={`metric-value-${datasets[0].label}`}>{ getLastNumber(datasets[0].data) }</span>
+            <span> { getLabel(datasets[0].label) }</span>
         </p>
-        { datasets.length > 1 && <p className={styles.secondMetricContainer}>
-            { getLastNumber(datasets[1].data) } { getLabel(datasets[1].label) }
+        { datasets.length > 1 && <p className={styles.metricContainer}>
+            <span className={`metric-value-${datasets[1].label}`}>{ getLastNumber(datasets[1].data) }</span>
+            <span> { getLabel(datasets[1].label) }</span>
         </p> }
 
     </div>;

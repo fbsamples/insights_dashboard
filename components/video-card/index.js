@@ -5,7 +5,7 @@ import styles from './style.module.css';
 const VideoCard = ({children, video}) => {
   const altLabel = 'no title found';
 
-  return <div className={styles.videoContainer} key={video.id}>
+  return <div className={styles.videoContainer} id={video.id} key={video.id}>
     <div className={styles.videoDescription}>
       <h2>
         Video Title: {video.description}

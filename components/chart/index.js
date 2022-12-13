@@ -128,6 +128,7 @@ const DashboardChart = ({ type, insights, metrics, icons, title, description, vi
     const chartLabels = getLabels(firstSeries);
 
     setToolTipInfo(apiData);
+    if (type === types.aggregateByProperty) console.log(apiData);
     setChartData((curInputValues) => {
       return {
         ...curInputValues,
