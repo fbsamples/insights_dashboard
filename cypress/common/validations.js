@@ -11,3 +11,17 @@ export const hasIGConfig = () => {
   return config['ig_user_id'] && config['ig_user_id'] !== null && config['ig_user_id'].length > 0
   && config['ig_access_token'] && config['ig_access_token'] !== null && config['ig_access_token'].length > 0
 }
+
+export const testSingleNumber = (metric, reelId) => {
+  let lastElement = metric.values.slice(-1);
+  cy.get(`#${reelId} #chart-${metric.name} .metric-value`).should(($p) => {
+      expect($p).to.contain(abbreviateNumber(lastElement[0].value))
+  })
+}
+
+export const testDoubleNumberMetric = (metric, reelId) => {
+  let lastElement = metric.values.slice(-1);
+  cy.get(`#${reelId} .metric-value-${metric.name}`).should(($p) => {
+      expect($p).to.contain(abbreviateNumber(lastElement[0].value))
+  })
+}

@@ -1,10 +1,10 @@
-import { hasPageConfig, hasIGConfig } from '../common/validations';
+import { hasPageConfig, hasIGConfig, testDoubleNumberMetric, testSingleNumber } from '../common/validations';
 import { getAppConfig } from '../../utils/config';
 import { abbreviateNumber } from '../../utils/strings';
 import config_file_errors from '../../constants/config-file-errors.json';
 import reelsInsights from '../../constants/reels-insights.json';
 
-const testAggregateByProperty = (metric, reelId) => {
+const testVideoSocialActions = (metric, reelId) => {
     const values = metric.values[0].value;
     cy.get(`#${reelId} #chart-${metric.name}`).should(($card) => {
         expect($card.find('.comment .metric-value')).to.contain(abbreviateNumber(values.COMMENT));
@@ -12,25 +12,11 @@ const testAggregateByProperty = (metric, reelId) => {
     })
 }
 
-const testSingleNumber = (metric, reelId) => {
-    let lastElement = metric.values.slice(-1);
-    cy.get(`#${reelId} #chart-${metric.name} .metric-value`).should(($p) => {
-        expect($p).to.contain(abbreviateNumber(lastElement[0].value))
-    })
-}
-
-const testDoubleNumberMetric = (metric, reelId) => {
-    let lastElement = metric.values.slice(-1);
-    cy.get(`#${reelId} .metric-value-${metric.name}`).should(($p) => {
-        expect($p).to.contain(abbreviateNumber(lastElement[0].value))
-    })
-}
-
 describe('Reels Insights', () => {
   it('should have metrics to the charts', () => {
 
     const metrics = new Map([
-        ['post_video_social_actions', testAggregateByProperty],
+        ['post_video_social_actions', testVideoSocialActions],
         ['blue_reels_play_count', testSingleNumber],
         ['post_video_view_time', testDoubleNumberMetric],
         ['post_video_avg_time_watched', testDoubleNumberMetric]
