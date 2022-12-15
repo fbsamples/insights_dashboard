@@ -1,4 +1,5 @@
 import { getAppConfig } from '../../utils/config';
+import { abbreviateNumber } from '../../utils/strings';
 
 export const hasPageConfig = () => {
   const config = getAppConfig();
@@ -24,4 +25,10 @@ export const testDoubleNumberMetric = (metric, reelId) => {
   cy.get(`#${reelId} .metric-value-${metric.name}`).should(($p) => {
       expect($p).to.contain(abbreviateNumber(lastElement[0].value))
   })
+}
+
+export const testValueType = (metric, type) => {
+  metric.values.forEach(item => {
+    expect(item.value).to.be.a(type);
+  });
 }
