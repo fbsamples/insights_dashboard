@@ -10,14 +10,14 @@ const IgMedia = ({ data, icons }) => {
         return AntDesignIcons[icons[metricName]];
     }
 
-    return <div className={styles.container}>
+    return <div className={styles.container} id={data.id}>
         { data.media_type === 'IMAGE' &&  <img src={data.media_url} className={styles.image}/> }
         { data.media_type === 'VIDEO' &&  <video src={data.media_url} className={styles.image} controls/> }
         <div className={styles.metricContainer}>
             { data.insights.map(el => {
-                return <div className={styles.metric} key={el.id}>
+                return <div className={`ig-media-${el.name} ${styles.metric}`} key={el.id}>
                     <span className={styles.metricIcon}>{ getIcon(el.name)() }</span>
-                    <span className={styles.metricValue}>{ abbreviateNumber(el.values[0].value) }</span>
+                    <span className={`metric-value ${styles.metricValue}`}>{ abbreviateNumber(el.values[0].value) }</span>
                 </div>
             })}
         </div>

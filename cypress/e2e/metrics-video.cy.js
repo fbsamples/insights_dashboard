@@ -41,6 +41,8 @@ describe('Video Insights', () => {
 
     cy.get('#video-tab').click();
 
+    cy.wait(2000);
+
     if (hasPageConfig()) {
       cy.get("#video").then($el => {
         if ($el.find('.section').length > 0) {

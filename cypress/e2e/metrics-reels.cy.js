@@ -26,6 +26,8 @@ describe('Reels Insights', () => {
 
     cy.get('#reels-tab').click();
 
+    cy.wait(2000);
+
     if (hasPageConfig()) {
       cy.get("#reels").then($el => {
         if ($el.find('.section').length > 0) {

@@ -46,6 +46,7 @@ describe('Page Insights', () => {
                     })
                     break;
                   default:
+                    cy.get(`div[id*='${metric.name}']`).should('exist');
                     metric.values.forEach(item => {
                       expect(item.value).to.be.a('number');
                     })

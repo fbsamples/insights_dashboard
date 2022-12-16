@@ -13,16 +13,17 @@ export const hasIGConfig = () => {
   && config['ig_access_token'] && config['ig_access_token'] !== null && config['ig_access_token'].length > 0
 }
 
-export const testSingleNumber = (metric, reelId) => {
+export const testSingleNumber = (metric, id) => {
   let lastElement = metric.values.slice(-1);
-  cy.get(`#${reelId} #chart-${metric.name} .metric-value`).should(($p) => {
+  cy.get(`#${id} #chart-${metric.name} .metric-value`).should(($p) => {
       expect($p).to.contain(abbreviateNumber(lastElement[0].value))
   })
 }
 
-export const testDoubleNumberMetric = (metric, reelId) => {
+
+export const testDoubleNumberMetric = (metric, id) => {
   let lastElement = metric.values.slice(-1);
-  cy.get(`#${reelId} .metric-value-${metric.name}`).should(($p) => {
+  cy.get(`#${id} .metric-value-${metric.name}`).should(($p) => {
       expect($p).to.contain(abbreviateNumber(lastElement[0].value))
   })
 }
