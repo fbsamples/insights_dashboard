@@ -9,7 +9,10 @@ You will need the following:
     - [Video Insights API](https://developers.facebook.com/docs/video-api/guides/insights/)
     - [Instagram Insights API](https://developers.facebook.com/docs/instagram-api/guides/insights)
 
-* [nodeJS](https://nodejs.org/en/download/) or you can install via Homebrew(MacOS only) - `brew install node`
+* If running locally:
+    * [nodeJS](https://nodejs.org/en/download/), which you can install via Homebrew(MacOS only) - `brew install node`
+* If running in devcontainer:
+    * [Docker](https://www.docker.com/) or another environment that supports devcontainers e.g. [GitHub Codespaces](https://github.com/features/codespaces).
 
 * You will need to have a Facebook Page and an App created in Meta Developers. If you don’t have an app, follow the guide [here](https://developers.facebook.com/docs/development/) to create your app first.
 
