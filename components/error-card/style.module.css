@@ -1,0 +1,65 @@
+.card {
+  background-color: white;
+  position: relative;
+  padding: 1.5rem;
+  flex: 1;
+  font-size: 1rem;
+  display: flex;
+  align-items: stretch;
+  flex-direction: column;
+  color: var(--blue-800);
+}
+
+.rowContainer {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+  margin-bottom: 4px;
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.messageOverflow {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: inline-block;
+  white-space:nowrap;
+  max-width: 60vw;
+}
+
+.additionalDetails {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  color: var(--gray-600);
+  margin-top: 6px;
+  font-size: 0.95rem;
+}
+
+.apiError {
+  margin: 4px 0px 2px;
+}
+
+.spacer {
+  margin-right: 12px;
+}
+
+.label {
+  font-weight: bold;
+}
+
+.icon {
+  font-size: 1.5rem;
+  height: 1.5rem;
+  width: 1.5rem;
+  position: relative;
+  margin-right: 9px;
+}
+
+@media only screen and (min-width: 600px) {
+  .card {
+    border-radius: 6px;
+    border: 1px solid var(--gray-100);
+  }
+
+}

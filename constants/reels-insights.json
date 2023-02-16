@@ -1,0 +1,58 @@
+{
+    "docs": {
+        "description": "For details around the metrics and how to integrate with the API,",
+        "linkLabel": "check the documentation",
+        "link": "https://developers.facebook.com/docs/graph-api/reference/video/video_insights/#reels-metrics"
+    },
+    "metrics": ["post_video_view_time", "post_video_avg_time_watched", "post_video_social_actions", "blue_reels_play_count", "post_video_likes_by_reaction_type"],
+    "insightsApiName": "video-insights",
+    "fetchingApiName": "get-reels-posts",
+    "stateName": "reelsInsights",
+    "sections": [
+        {
+            "title": "Reels Insights",
+            "subtitle": "Metrics are displayed per reel",
+            "charts": [
+                {
+                    "id": 2,
+                    "metrics": ["post_video_view_time", "post_video_avg_time_watched"],
+                    "type": "doubleNumber",
+                    "title": "Reel View Time (ms)",
+                    "labels": {
+                        "post_video_view_time": "total",
+                        "post_video_avg_time_watched": "avg"
+                    }
+                },
+                {
+                    "id": 3,
+                    "metrics": ["post_video_social_actions"],
+                    "type": "aggregateByProperty",
+                    "title": "Social Interactions With the Reel",
+                    "plural": true,
+                    "icons": {
+                        "COMMENT": "AiOutlineComment",
+                        "SHARE": "AiOutlineShareAlt"
+                    }
+                },
+                {
+                    "id": 1,
+                    "metrics": ["blue_reels_play_count"],
+                    "type": "singleNumber",
+                    "labels": {
+                        "blue_reels_play_count": "plays"
+                    },
+                    "icons": {
+                        "blue_reels_play_count": "AiFillCaretRight"
+                    }
+                },
+                {
+                    "id": 4,
+                    "metrics": ["post_video_likes_by_reaction_type"],
+                    "type": "pie",
+                    "title": "Likes by Reaction Type"
+                }
+
+            ]
+        }
+    ]
+}

@@ -1,0 +1,22 @@
+.card {
+  background-color: white;
+  position: relative;
+  padding: 1.5rem;
+  flex: 1;
+  box-sizing: border-box;
+}
+
+@media only screen and (min-width: 600px) {
+  .card {
+    border-radius: 6px;
+  }
+
+  .shadow {
+    box-shadow: 2px 2px 2px var(--gray-300);
+  }
+
+  .outline {
+    border: 1px solid var(--gray-100);
+  }
+
+}

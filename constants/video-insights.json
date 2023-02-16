@@ -1,0 +1,78 @@
+{
+    "docs": {
+        "description": "For details around the charts and how to integrate with the API,",
+        "linkLabel": "check the documentation",
+        "link": "https://developers.facebook.com/docs/graph-api/reference/video/video_insights"
+    },
+    "metrics": [
+        "total_video_view_total_time",
+        "total_video_avg_time_watched",
+        "total_video_impressions",
+        "total_video_impressions_unique",
+        "total_video_views",
+        "total_video_views_organic",
+        "total_video_views_unique",
+        "total_video_complete_views",
+        "total_video_reactions_by_type_total",
+        "total_video_views_by_distribution_type"
+    ],
+    "insightsApiName": "video-insights",
+    "fetchingApiName": "get-videos",
+    "stateName": "videoInsights",
+    "sections": [
+        {
+            "title": "Video Insights",
+            "subtitle": "Metrics are displayed per video",
+            "charts": [
+                {
+                    "id": 1,
+                    "metrics": ["total_video_view_total_time", "total_video_avg_time_watched"],
+                    "type": "doubleNumber",
+                    "title": "Time watched (ms)",
+                    "wrapMetricName": true,
+                    "labels": {
+                        "total_video_view_total_time": "total",
+                        "total_video_avg_time_watched": "avg"
+                    }
+                },
+                {
+                    "id": 3,
+                    "metrics": ["total_video_impressions", "total_video_impressions_unique"],
+                    "type": "doubleNumber",
+                    "wrapMetricName": true,
+                    "title": "Video Impressions",
+                    "icons": {
+                        "total_video_ad_break_earnings": "AiOutlineDollarCircle"
+                    },
+                    "labels": {
+                        "total_video_impressions": "total",
+                        "total_video_impressions_unique": "unique"
+                    }
+                },
+                {
+                    "id": 4,
+                    "metrics": ["total_video_views", "total_video_views_organic", "total_video_views_unique", "total_video_complete_views"],
+                    "type": "bar",
+                    "wrapMetricName": true
+                },
+                {
+                    "id": 5,
+                    "metrics": ["total_video_reactions_by_type_total"],
+                    "type": "pie"
+                },
+                {
+                    "id": 6,
+                    "metrics": ["total_video_views_by_distribution_type"],
+                    "type": "aggregateByProperty",
+                    "title": "Video Views By Distribution Type",
+                    "plural": false,
+                    "icons": {
+                        "crossposted": "AiOutlineSwap",
+                        "page_owned": "AiFillBook",
+                        "shared": "AiOutlineShareAlt"
+                    }
+                }
+            ]
+        }
+    ]
+}

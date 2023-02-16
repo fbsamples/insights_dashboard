@@ -1,0 +1,43 @@
+
+:root {
+  --meta-blue: #0064E0;
+  --meta-gray: #1C2B33;
+  --meta-gray-opaque: rgba(28, 43, 51, 0.8);
+  --gray-900: #283943;
+  --gray-800: #344854;
+  --gray-700: #465A69;
+  --gray-600: #67788A;
+  --gray-300: #CBD2D9;
+  --gray-100: #F1F4F7;
+  --blue-900: #001E6E;
+  --blue-800: #004BB9;
+  --blue-600: #0082FB;
+  --blue-300: #AFD7FF;
+  --blue-100: #E8F3FF;
+}
+html {
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-image: url('./gradient.png');
+  overflow-x: hidden;
+}
+
+body {
+  min-height: 100vh;
+	max-width: 1080px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}

@@ -1,0 +1,87 @@
+{
+    "docs": {
+        "description": "For details around the metrics and how to integrate with the API,",
+        "linkLabel": "check the documentation",
+        "link": "https://developers.facebook.com/docs/graph-api/reference/v14.0/insights#availmetrics"
+    },
+    "metrics": [
+        "page_views_total",
+        "page_consumptions",
+        "page_impressions",
+        "page_impressions_unique",
+        "page_impressions_paid",
+        "page_impressions_viral",
+        "page_impressions_organic",
+        "page_engaged_users",
+        "page_fans",
+        "page_positive_feedback_by_type"
+    ],
+    "insightsApiName": "page-insights",
+    "stateName": "pageInsights",
+    "sections": [
+        {
+            "title": "Page Impressions",
+            "charts": [
+                {
+                    "id": 1,
+                    "metrics": ["page_views_total"],
+                    "type": "bar",
+                    "size": "small"
+                },
+                {
+                    "id": 2,
+                    "metrics": ["page_consumptions"],
+                    "type": "line",
+                    "size": "small"
+                },
+                {
+                    "id": 3,
+                    "metrics": ["page_impressions", "page_impressions_unique", "page_impressions_paid", "page_impressions_viral", "page_impressions_organic"],
+                    "type": "line",
+                    "title": "Page Impressions Per Type",
+                    "size": "big"
+                }
+            ]
+        },
+        {
+            "title": "People",
+            "charts": [
+                {
+                    "id": 4,
+                    "metrics": ["page_engaged_users"],
+                    "type": "bar",
+                    "size": "small"
+                },
+                {
+                    "id": 5,
+                    "metrics": ["page_fans"],
+                    "type": "singleNumber",
+                    "size": "small",
+                    "icons": {
+                        "page_fans": "AiOutlineUser"
+                    },
+                    "labels": {
+                        "page_fans": "fans"
+                    }
+                }
+            ]
+        },
+        {
+            "title": "Feedback",
+            "charts": [
+                {
+                    "id": 6,
+                    "metrics": ["page_positive_feedback_by_type"],
+                    "type": "aggregateByProperty",
+                    "size": "big",
+                    "icons": {
+                        "like": "AiFillLike",
+                        "link": "AiOutlineLink",
+                        "comment": "AiOutlineComment",
+                        "other": "AiFillBulb"
+                    }
+                }
+            ]
+        }
+    ]
+}

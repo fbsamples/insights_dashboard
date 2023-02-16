@@ -1,0 +1,50 @@
+{
+    "docs": {
+        "description": "For details around the metrics and how to integrate with the API,",
+        "linkLabel": "check the documentation",
+        "link": "https://developers.facebook.com/docs/instagram-api/guides/insights"
+    },
+    "metrics": [
+        "follower_count",
+        "impressions",
+        "reach",
+        "profile_views"
+    ],
+    "insightsApiName": "instagram-insights",
+    "stateName": "instagramInsights",
+    "sections": [
+        {
+            "title": "Account Insights",
+            "charts": [
+                {
+                    "id": 1,
+                    "metrics": [
+                        "follower_count"
+                    ],
+                    "type": "bar"
+                },
+                {
+                    "id": 2,
+                    "metrics": [
+                        "profile_views"
+                    ],
+                    "type": "line"
+                },
+                {
+                    "id": 3,
+                    "metrics": [
+                        "impressions"
+                    ],
+                    "type": "line"
+                },
+                {
+                    "id": 4,
+                    "metrics": [
+                        "reach"
+                    ],
+                    "type": "bar"
+                }
+            ]
+        }
+    ]
+}

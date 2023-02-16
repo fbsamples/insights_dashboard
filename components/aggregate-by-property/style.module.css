@@ -1,0 +1,26 @@
+
+.propertyName {
+  font-size: 1rem;
+  font-weight: normal;
+}
+
+.toast {
+  background-color: var(--blue-100);
+  padding: 0.5rem 1.2rem 0.7rem;
+  margin-right: 6px;
+  border-radius: 50rem;
+  font-weight: 600;
+  color: var(--blue-800);
+  font-size: 1.5rem;
+  max-width: fit-content;
+  display: inline-block;
+}
+
+.icon {
+  font-size: 2rem;
+  height: 2rem;
+  width: 2rem;
+  position: relative;
+  top: 6px;
+  margin-right: 6px;
+}

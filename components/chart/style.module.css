@@ -1,0 +1,32 @@
+.container {
+  flex: 1;
+}
+
+.mainDiv {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  flex-direction: column;
+  flex: 1;
+}
+
+.chartTitle {
+  font-size: 1.2rem;
+  margin-bottom: 0.2rem;
+  color: var(--gray-800);
+  white-space: nowrap;
+}
+
+.metricName {
+  margin-bottom: 1rem;
+  font-size: 0.8rem;
+  color: var(--gray-600);
+}
+
+.wrap {
+  padding-top:0;
+  flex-wrap: wrap;
+  max-width: 220px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

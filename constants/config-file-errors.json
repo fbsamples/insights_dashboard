@@ -1,0 +1,35 @@
+{
+    "header": {
+        "title": "Looks like your config file is missing some fields",
+        "subtitle": "You need to create/update the config.json file in the root of the project. After you do it, refresh the page.",
+        "subtitle2": "Check out the fields that you need to include in the config.json file: "
+    },
+    "api": {
+        "title": "API Error",
+        "label": "Message"
+    },
+    "mandatory": {
+        "page_id": {
+            "message": "Please add the page_id field to your config file.",
+            "doc_info": "You can find more information on how to get your Page ID in the documentation linked below.",
+            "doc_link": "https://www.facebook.com/business/help/2814101678867149"
+        },
+        "page_access_token": {
+            "message": "Please add the page_access_token field to your config file.",
+            "doc_info": "You can find more information on how to generate a page_access_token in the documentation linked below.",
+            "doc_link": "https://developers.facebook.com/docs/pages/access-tokens/"
+        }
+    },
+    "optional": {
+        "ig_user_id": {
+            "message": "Please add the ig_user_id field to your config file.",
+            "doc_info": "You can find more information on how to get the Instagram User ID of your account in the documentation linked below.",
+            "doc_link": "https://developers.facebook.com/docs/instagram-api/getting-started"
+        },
+        "ig_access_token": {
+            "message": "Please add the ig_access_token field to your config file.",
+            "doc_info": "You can find more information on how to generate an Instagram Access Token in the documentation linked below.",
+            "doc_link": "https://developers.facebook.com/docs/instagram-api/getting-started"
+        }
+    }
+}
