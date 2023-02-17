@@ -1,4 +1,4 @@
 {
 	"image": "node",
-	"appPort": 3000
+	"forwardPorts": ["localhost:3000"]
 }
