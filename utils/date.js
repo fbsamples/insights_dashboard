@@ -17,4 +17,11 @@ const getLast30DaysInterval = () => {
     return { since, until };
 }
 
-export { formatTimestampToDate, getLast30DaysInterval, formatTimestampToDateAndTime };
+const getLastNDaysInterval = (num) => {
+    const today = new Date();
+    const until = today.toISOString().split('T')[0];
+    const since = new Date(new Date().setDate(today.getDate() - num)).toISOString().split('T')[0];
+    return { since, until };
+}
+
+export { formatTimestampToDate, getLast30DaysInterval, getLastNDaysInterval, formatTimestampToDateAndTime };

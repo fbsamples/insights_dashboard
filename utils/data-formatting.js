@@ -11,4 +11,23 @@ const selectInsights = (metrics, rawAPIData) => {
   return selectedInsights;
 }
 
-export { selectInsights };
+const selectAdsInsights = (metrics, rawAPIData) => {
+  const metricsSet = new Set(metrics);
+  const selectedInsights = [];
+  if (!rawAPIData || !rawAPIData['account']){
+    return selectedInsights;
+  }
+  const mapper = (list, key) => list.map(value => (
+    {
+      "value": value[key],
+      "end_time": value['date_stop']
+    }
+  ));
+  metricsSet.forEach((metric) => {
+    const metricValues = mapper(rawAPIData['account'], metric);
+    selectedInsights.push({"name": metric, "values": metricValues, "id": 'insights' + '-' + metric});
+  });
+  return selectedInsights;
+}
+
+export { selectInsights, selectAdsInsights };

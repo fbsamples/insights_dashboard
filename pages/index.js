@@ -8,8 +8,9 @@ import PageInsights from './page-insights';
 import VideoInsights from './video-insights';
 import ReelsInsights from './reels-insights';
 import InstagramInsights from './instagram-insights';
+import AdsInsights from './ads-insights';
 
-import { getLast30DaysInterval } from '../utils/date';
+import { getLast30DaysInterval, getLastNDaysInterval } from '../utils/date';
 
 import settings from '../constants/settings.json';
 import pageInsights from '../constants/page-insights.json';
@@ -17,6 +18,7 @@ import reelsInsights from '../constants/reels-insights.json';
 import videoInsights from '../constants/video-insights.json';
 import instagramInsights from '../constants/instagram-insights.json';
 import instagramMediaInsights from '../constants/instagram-media-insights.json';
+import adsInsights from '../constants/ads-insights.json';
 
 import styles from '../styles/style.module.css';
 
@@ -27,6 +29,11 @@ const VALIDATION_TYPES = {
 
 const Home = () => {
   const menu = [
+    {
+      id: 'ads',
+      title: 'Ads Insights',
+      component: <AdsInsights/>
+    },
     {
       id: 'page',
       title: 'Page Insights',
@@ -51,7 +58,7 @@ const Home = () => {
 
   const dispatch = useDispatch();
 
-  const { since, until } = getLast30DaysInterval();
+  const { since, until } = getLastNDaysInterval(30);
   const period = 'day';
 
   const [activeTab, setActiveTab] = useState(menu[0].id);
@@ -63,6 +70,70 @@ const Home = () => {
     payload[stateName] = error;
     dispatch({ type: 'error', payload });
   }
+
+  const getAdAccountInsights = async (insightsObj) => {
+    try {
+      // Fetch Account level insights
+      const url = `${settings.backendUrl}/api/${insightsObj.insightsApiNameAccount}`;
+      const bodyObj = { since, until };
+      const body = JSON.stringify(bodyObj);
+      const res = await fetch(url, { method: 'POST', body });
+      const { data, error } = await res.json();
+
+      if (data) {
+        dispatch({ type: insightsObj.stateNameAccounts, payload: data });
+      } else if (error) {
+        console.log(error);
+        dispatchError(error, insightsObj.stateNameAccounts);
+      }
+
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const getCampaignsAndTheirInsights = async (insightsObj) => {
+    try {
+      // Fetch Adgroups first using fetchingApi
+      const url = `${settings.backendUrl}/api/${insightsObj.fetchingApiNameAdGroups}`;
+      const res = await fetch(url);
+      const { data, error } = await res.json();
+
+      if (data) {
+        for (const adGroup of data) {
+          // For each adgroup, using a nested query fetch Ad Campaign and its insights
+          getAdCampaignInsights(insightsObj, adGroup);
+        }
+      } else if (error) {
+        dispatchError(error, insightsObj.stateName);
+      }
+
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const getAdCampaignInsights = async(insightsObj, adGroup) => {
+    try {
+      const url = `${settings.backendUrl}/api/${insightsObj.insightsApiNameCampaigns}`;
+      const bodyObj = { since, until, adGroup };
+
+
+      const body = JSON.stringify(bodyObj);
+      const res = await fetch(url, { method: 'POST', body });
+      const response = await res.json();
+
+      if (response) {
+          dispatch({ type: insightsObj.stateNameCampaigns, payload: response });
+      } else if (response.error) {
+        dispatchError(response.error, insightsObj.stateName);
+      }
+
+    } catch (err) {
+      console.log(err);
+    }
+
+  };
 
   const getInsights = async (insightsObj, video) => {
     try {
@@ -136,6 +207,12 @@ const Home = () => {
     }
 
     if (configFileErrors.mandatory.length > 0) return;
+
+    // Loads Ad Account and its Insights
+    getAdAccountInsights(adsInsights);
+
+    // Load Ads Campaigns and its Insights
+    getCampaignsAndTheirInsights(adsInsights);
 
     // Load Page Insights
     getInsights(pageInsights);
