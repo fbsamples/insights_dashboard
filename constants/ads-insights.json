@@ -7,7 +7,7 @@
     "metrics": [
         "spend", "reach", "impressions"
     ],
-    "fetchingApiNameAdGroups": "get-adgroups",
+    "fetchingApiNameAdCampaigns": "get-adcampaigns",
     "insightsApiNameCampaigns": "get-ad-campaign-insights-all",
     "insightsApiNameAccount": "get-ad-account-insights-daily",
     "stateNameAccounts": "adsInsightsAccount",

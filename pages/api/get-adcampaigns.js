@@ -10,7 +10,11 @@ export default async function handler(req, res) {
 
 const assembleUrl = () => {
   const config = getAppConfig();
-  let url = `${settings.domain}/act_${config.ad_account_id}/ads`;
+  let url = `${settings.domain}/act_${config.ad_account_id}/campaigns`;
   url += `?access_token=${config.user_access_token}`;
+  // Add filters for active campaigns
+  url += `&filtering=[{'field':'effective_status','operator':'IN','value':['ACTIVE']},`
+  // Add filters for mesaging objectives
+  url += `{'field':'objective','operator':'IN','value':['POST_ENGAGEMENT','OUTCOME_ENGAGEMENT', 'MESSAGES']}]`
   return url;
 }

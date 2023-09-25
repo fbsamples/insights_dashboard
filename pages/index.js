@@ -94,15 +94,15 @@ const Home = () => {
 
   const getCampaignsAndTheirInsights = async (insightsObj) => {
     try {
-      // Fetch Adgroups first using fetchingApi
-      const url = `${settings.backendUrl}/api/${insightsObj.fetchingApiNameAdGroups}`;
+      // Fetch AdCampaigns first using fetchingApi
+      const url = `${settings.backendUrl}/api/${insightsObj.fetchingApiNameAdCampaigns}`;
       const res = await fetch(url);
       const { data, error } = await res.json();
 
       if (data) {
-        for (const adGroup of data) {
-          // For each adgroup, using a nested query fetch Ad Campaign and its insights
-          getAdCampaignInsights(insightsObj, adGroup);
+        for (const adCampaign of data) {
+          // For each adCampaign, using a nested query fetch its insights
+          getAdCampaignInsights(insightsObj, adCampaign);
         }
       } else if (error) {
         dispatchError(error, insightsObj.stateName);
@@ -113,10 +113,10 @@ const Home = () => {
     }
   };
 
-  const getAdCampaignInsights = async(insightsObj, adGroup) => {
+  const getAdCampaignInsights = async(insightsObj, adCampaign) => {
     try {
       const url = `${settings.backendUrl}/api/${insightsObj.insightsApiNameCampaigns}`;
-      const bodyObj = { since, until, adGroup };
+      const bodyObj = { since, until, adCampaign };
 
 
       const body = JSON.stringify(bodyObj);
