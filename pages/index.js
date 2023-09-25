@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import Head from 'next/head';
 
 import Card from '../components/card';
 import ConfigFileErrors from '../components/config-file-errors';
@@ -10,9 +9,8 @@ import ReelsInsights from './reels-insights';
 import InstagramInsights from './instagram-insights';
 import AdsInsights from './ads-insights';
 
-import { getLast30DaysInterval, getLastNDaysInterval } from '../utils/date';
+import { getLastNDaysInterval } from '../utils/date';
 
-import settings from '../constants/settings.json';
 import pageInsights from '../constants/page-insights.json';
 import reelsInsights from '../constants/reels-insights.json';
 import videoInsights from '../constants/video-insights.json';
@@ -20,6 +18,7 @@ import instagramInsights from '../constants/instagram-insights.json';
 import instagramMediaInsights from '../constants/instagram-media-insights.json';
 import adsInsights from '../constants/ads-insights.json';
 
+import config from '../utils/config';
 import styles from '../styles/style.module.css';
 
 const VALIDATION_TYPES = {
@@ -32,27 +31,27 @@ const Home = () => {
     {
       id: 'ads',
       title: 'Ads Insights',
-      component: <AdsInsights/>
+      component: <AdsInsights />
     },
     {
       id: 'page',
       title: 'Page Insights',
-      component: <PageInsights/>
+      component: <PageInsights />
     },
     {
       id: 'reels',
       title: 'Reels Insights',
-      component: <ReelsInsights/>
+      component: <ReelsInsights />
     },
     {
       id: 'video',
       title: 'Video Insights',
-      component: <VideoInsights/>
+      component: <VideoInsights />
     },
     {
       id: 'ig',
       title: 'Instagram Insights',
-      component: <InstagramInsights/>
+      component: <InstagramInsights />
     }
   ];
 
@@ -74,7 +73,7 @@ const Home = () => {
   const getAdAccountInsights = async (insightsObj) => {
     try {
       // Fetch Account level insights
-      const url = `${settings.backendUrl}/api/${insightsObj.insightsApiNameAccount}`;
+      const url = `${config.backendUrl}/api/${insightsObj.insightsApiNameAccount}`;
       const bodyObj = { since, until };
       const body = JSON.stringify(bodyObj);
       const res = await fetch(url, { method: 'POST', body });
@@ -95,7 +94,7 @@ const Home = () => {
   const getCampaignsAndTheirInsights = async (insightsObj) => {
     try {
       // Fetch AdCampaigns first using fetchingApi
-      const url = `${settings.backendUrl}/api/${insightsObj.fetchingApiNameAdCampaigns}`;
+      const url = `${config.backendUrl}/api/${insightsObj.fetchingApiNameAdCampaigns}`;
       const res = await fetch(url);
       const { data, error } = await res.json();
 
@@ -113,9 +112,9 @@ const Home = () => {
     }
   };
 
-  const getAdCampaignInsights = async(insightsObj, adCampaign) => {
+  const getAdCampaignInsights = async (insightsObj, adCampaign) => {
     try {
-      const url = `${settings.backendUrl}/api/${insightsObj.insightsApiNameCampaigns}`;
+      const url = `${config.backendUrl}/api/${insightsObj.insightsApiNameCampaigns}`;
       const bodyObj = { since, until, adCampaign };
 
 
@@ -124,7 +123,7 @@ const Home = () => {
       const response = await res.json();
 
       if (response) {
-          dispatch({ type: insightsObj.stateNameCampaigns, payload: response });
+        dispatch({ type: insightsObj.stateNameCampaigns, payload: response });
       } else if (response.error) {
         dispatchError(response.error, insightsObj.stateName);
       }
@@ -137,7 +136,7 @@ const Home = () => {
 
   const getInsights = async (insightsObj, video) => {
     try {
-      const url = `${settings.backendUrl}/api/${insightsObj.insightsApiName}`;
+      const url = `${config.backendUrl}/api/${insightsObj.insightsApiName}`;
 
       const metricStr = insightsObj.metrics.join(',');
       const bodyObj = { metric: metricStr, since, until, period };
@@ -165,7 +164,7 @@ const Home = () => {
 
   const getMediasAndTheirInsights = async (insightsObj) => {
     try {
-      const url = `${settings.backendUrl}/api/${insightsObj.fetchingApiName}`;
+      const url = `${config.backendUrl}/api/${insightsObj.fetchingApiName}`;
       const res = await fetch(url);
       const { data, error } = await res.json();
 
@@ -183,7 +182,7 @@ const Home = () => {
   };
 
   const validateConfigFile = async (type) => {
-    const url = `${settings.backendUrl}/api/validate-config-file?type=${type}`;
+    const url = `${config.backendUrl}/api/validate-config-file?type=${type}`;
     const res = await fetch(url);
     const response = await res.json();
 
@@ -235,32 +234,32 @@ const Home = () => {
 
   return (
     <div className={styles.container}>
-      { configFileErrors && configFileErrors.mandatory.length > 0
+      {configFileErrors && configFileErrors.mandatory.length > 0
         ? <ConfigFileErrors errors={configFileErrors.mandatory} />
         : <Card>
-            <div className={styles.tabs}>
-              <ul className={styles.nav}>
-                {
-                  menu.map((item) =>
-                    <li
-                      id={`${item.id}-tab`}
-                      key={`${item.id}-tab`}
-                      className={activeTab === item.id ? styles.active : ''}
-                      onClick={() => setActiveTab(item.id)}
-                    >
-                      {item.title}
-                    </li>
-                  )
-                }
-              </ul>
+          <div className={styles.tabs}>
+            <ul className={styles.nav}>
               {
-                menu.map((item) => activeTab === item.id ?
-                  <div id={item.id} key={item.id}>{item.component}</div> :
-                  null
+                menu.map((item) =>
+                  <li
+                    id={`${item.id}-tab`}
+                    key={`${item.id}-tab`}
+                    className={activeTab === item.id ? styles.active : ''}
+                    onClick={() => setActiveTab(item.id)}
+                  >
+                    {item.title}
+                  </li>
                 )
               }
-            </div>
-          </Card>
+            </ul>
+            {
+              menu.map((item) => activeTab === item.id ?
+                <div id={item.id} key={item.id}>{item.component}</div> :
+                null
+              )
+            }
+          </div>
+        </Card>
       }
     </div>
   )

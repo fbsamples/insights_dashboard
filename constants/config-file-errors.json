@@ -9,6 +9,13 @@
         "label": "Message"
     },
     "mandatory": {
+        "domain": {
+            "message": "Please add the Facebook Graph API domain field to your config file.",
+            "doc_info": "You can find more information on how to fetch the API below",
+            "doc_link": "https://developers.facebook.com/docs/graph-api"
+        }
+    },
+    "optional": {
         "page_id": {
             "message": "Please add the page_id field to your config file.",
             "doc_info": "You can find more information on how to get your Page ID in the documentation linked below.",
@@ -18,9 +25,7 @@
             "message": "Please add the page_access_token field to your config file.",
             "doc_info": "You can find more information on how to generate a page_access_token in the documentation linked below.",
             "doc_link": "https://developers.facebook.com/docs/pages/access-tokens/"
-        }
-    },
-    "optional": {
+        },
         "ig_user_id": {
             "message": "Please add the ig_user_id field to your config file.",
             "doc_info": "You can find more information on how to get the Instagram User ID of your account in the documentation linked below.",

@@ -1,5 +1,4 @@
-import { getAppConfig } from '../../utils/config';
-import settings from '../../constants/settings.json';
+import config from '../../utils/config';
 
 export default async function handler(req, res) {
   const { metric, videoId } = JSON.parse(req.body);
@@ -11,8 +10,7 @@ export default async function handler(req, res) {
 }
 
 const assembleUrl = (metric, videoId) => {
-  const config = getAppConfig();
-  let url = `${settings.domain}/${videoId}/video_insights?`;
+  let url = `${config.domain}/${videoId}/video_insights?`;
   if (metric) url += `metric=${metric}&`;
   url += `access_token=${config.page_access_token}`;
   return url;

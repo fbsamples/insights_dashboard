@@ -24,29 +24,37 @@ You will need the following:
 
 ## Running the project
 
-### `npm install`
+#### 1. `npm install`
 
 Installs project dependencies.
 Open the terminal and run `npm install`.
 
-### `config.json`
-File with your Meta information related to Pages and Instagram to fetch the Insights data.
-Open the  `config.json` file in the root folder of the project and replace the placeholders (PAGE_ID, PAGE_ACCESS_TOKEN, IG_USER_ID, IG_ACCESS_TOKEN) with your Facebook Page and IG User information (IDs and Tokens).
 
-### `npm run dev`
+#### 2. Set up .env.local file
+
+Copy the file `.sample.env.local` to `.env.local`
+
+```bash
+cp .sample.env.local .env.local
+```
+
+Edit the `.env.local` file to add all the values for your project including your Meta information related to Pages, Instagram and Ad Account to fetch the Insights data.
+
+
+#### 3. `npm run dev`
 Runs the app in the development mode.
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 The page will reload when you make changes.\
 You may also see any errors in the console.
 
-### `npm run build`
+#### 4. `npm run build`
 
 Builds the app for production to the `build` folder.
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
 
-### `npm run cypress`
+#### 5. `npm run cypress`
 
 Launches the test runner with Cypress in the interactive watch mode.
 

@@ -1,9 +1,0 @@
-{
-    "domain": "https://graph.facebook.com/v17.0/",
-    "page_id": "PAGE_ID",
-    "page_access_token": "PAGE_ACCESS_TOKEN",
-    "ad_account_id": "AD_ACCOUNT_ID",
-    "user_access_token": "USER_ACCESS_TOKEN",
-    "ig_user_id": "IG_USER_ID",
-    "ig_access_token": "IG_USER_ACCESS_TOKEN"
-}

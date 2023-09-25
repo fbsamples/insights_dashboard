@@ -1,12 +1,9 @@
-import { hasPageConfig, hasIGConfig } from '../common/validations';
-import { getAppConfig } from '../../utils/config';
+import { hasPageConfig } from '../common/validations';
 import { abbreviateNumber } from '../../utils/strings';
-import config_file_errors from '../../constants/config-file-errors.json';
 import pageInsights from '../../constants/page-insights.json';
 
 describe('Page Insights', () => {
   it('should have metrics to the charts', () => {
-    const summedMetrics = ['page_positive_feedback_by_type', 'page_fans'];
     cy.visitLocal();
     if (hasPageConfig()) {
       cy.get("#page").then($el => {

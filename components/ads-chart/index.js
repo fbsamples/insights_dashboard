@@ -4,7 +4,6 @@ import { Line, Bar, Pie } from "react-chartjs-2";
 
 import AggregateByProperty from '../aggregate-by-property';
 import Card from '../card';
-import Chart from "chart.js/auto";
 import DoubleNumber from '../double-number';
 import ErrorCard from '../error-card';
 import SingleNumber from '../single-number';
@@ -16,7 +15,7 @@ import { formatTimestampToDate, getLast30DaysInterval } from '../../utils/date';
 import { generateRandomColor, generateRandomColorArray } from '../../utils/color';
 
 import errors from '../../constants/error-messages.json';
-import settings from '../../constants/settings.json';
+import config from '../../utils/config';
 import styles from '../chart/style.module.css';
 import types from '../../constants/chart-types.json';
 
@@ -154,8 +153,8 @@ const DashboardChart = ({ type, insights, metrics, icons, title, wrapMetricName,
             <div className={`${styles.metricName} ${wrapMetricName ? styles.wrap : ''}`} title={chartData.name}> ({ chartData.name }) </div>
 
             { type === types.line && <Line data={chartData} /> }
-            { type === types.bar && <Bar data={chartData} options={settings.barChart} /> }
-            { type === types.pie && <Pie data={chartData} options={settings.pieChart} height={250} width={400}/> }
+            { type === types.bar && <Bar data={chartData} options={config.barChart} /> }
+            { type === types.pie && <Pie data={chartData} options={config.pieChart} height={250} width={400}/> }
             { type === types.singleNumber && <SingleNumber data={chartData} icons={icons} labels={labels}/> }
             { type === types.doubleNumber && <DoubleNumber datasets={chartData.datasets} icons={icons} labels={labels}/> }
             { type === types.aggregateByProperty && <AggregateByProperty datasets={chartData.datasets} plural={plural} icons={icons} /> }
