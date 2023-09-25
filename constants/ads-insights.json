@@ -8,11 +8,10 @@
         "spend", "reach", "impressions"
     ],
     "fetchingApiNameAdCampaigns": "get-adcampaigns",
-    "insightsApiNameCampaigns": "get-ad-campaign-insights-all",
     "insightsApiNameAccount": "get-ad-account-insights-daily",
     "stateNameAccounts": "adsInsightsAccount",
     "stateNameCampaigns": "adsInsightsCampaigns",
-    "sections": [
+    "graphs": [
         {
             "title": "Top level Metrics",
             "charts": [
@@ -25,5 +24,8 @@
                 }
             ]
         }
-    ]
+    ],
+    "table": {
+        "title": "Statistics By Campaigns"
+    }
 }

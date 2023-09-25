@@ -14,7 +14,7 @@ const selectInsights = (metrics, rawAPIData) => {
 const selectAdsInsights = (metrics, rawAPIData) => {
   const metricsSet = new Set(metrics);
   const selectedInsights = [];
-  if (!rawAPIData || !rawAPIData['account']){
+  if (!rawAPIData || !rawAPIData['account']) {
     return selectedInsights;
   }
   const mapper = (list, key) => list.map(value => (
@@ -25,9 +25,14 @@ const selectAdsInsights = (metrics, rawAPIData) => {
   ));
   metricsSet.forEach((metric) => {
     const metricValues = mapper(rawAPIData['account'], metric);
-    selectedInsights.push({"name": metric, "values": metricValues, "id": 'insights' + '-' + metric});
+    selectedInsights.push({ "name": metric, "values": metricValues, "id": 'insights' + '-' + metric });
   });
   return selectedInsights;
 }
 
-export { selectInsights, selectAdsInsights };
+const convertKeytoTitleCase = (string) => {
+  return string.replace(/^[-_]*(.)/, (_, c) => c.toUpperCase())
+    .replace(/[-_]+(.)/g, (_, c) => ' ' + c.toUpperCase())
+}
+
+export { selectInsights, selectAdsInsights, convertKeytoTitleCase };

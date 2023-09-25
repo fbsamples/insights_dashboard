@@ -95,14 +95,13 @@ const Home = () => {
     try {
       // Fetch AdCampaigns first using fetchingApi
       const url = `${config.backendUrl}/api/${insightsObj.fetchingApiNameAdCampaigns}`;
-      const res = await fetch(url);
+      const bodyObj = { since, until };
+      const body = JSON.stringify(bodyObj);
+      const res = await fetch(url, { method: 'POST', body });
       const { data, error } = await res.json();
 
       if (data) {
-        for (const adCampaign of data) {
-          // For each adCampaign, using a nested query fetch its insights
-          getAdCampaignInsights(insightsObj, adCampaign);
-        }
+        dispatch({ type: insightsObj.stateNameCampaigns, payload: data });
       } else if (error) {
         dispatchError(error, insightsObj.stateName);
       }
@@ -110,28 +109,6 @@ const Home = () => {
     } catch (err) {
       console.log(err);
     }
-  };
-
-  const getAdCampaignInsights = async (insightsObj, adCampaign) => {
-    try {
-      const url = `${config.backendUrl}/api/${insightsObj.insightsApiNameCampaigns}`;
-      const bodyObj = { since, until, adCampaign };
-
-
-      const body = JSON.stringify(bodyObj);
-      const res = await fetch(url, { method: 'POST', body });
-      const response = await res.json();
-
-      if (response) {
-        dispatch({ type: insightsObj.stateNameCampaigns, payload: response });
-      } else if (response.error) {
-        dispatchError(response.error, insightsObj.stateName);
-      }
-
-    } catch (err) {
-      console.log(err);
-    }
-
   };
 
   const getInsights = async (insightsObj, video) => {
