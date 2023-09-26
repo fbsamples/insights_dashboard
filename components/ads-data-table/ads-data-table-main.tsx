@@ -16,11 +16,12 @@ const columns: GridColDef[] = [
         field: 'name',
         headerName: 'Campaign Name',
         flex: 1,
-        minWidth: 300,
+        minWidth: 280,
     },
     {
         field: 'id',
         headerName: 'Id',
+        minWidth: 160,
     },
     {
         field: 'effective_status',
@@ -28,8 +29,9 @@ const columns: GridColDef[] = [
     },
     {
         field: 'insights.data.0.spend',
+        headerName: 'Spend',
         align: 'right',
-        headerName: 'Spend'
+        valueFormatter: params => formatNumber(params, '$')
     },
     {
         field: 'budget_remaining',
@@ -125,7 +127,7 @@ interface Props {
 }
 
 export default function AdsDataTableMain(props: Props) {
-    let { campaigns, accountCurrency} = props;
+    let { campaigns, accountCurrency } = props;
     let rows: GridRowsProp = campaigns.map((campaign) => {
         let flat: GridRowModel = flatten(campaign);
         return flat;
@@ -133,12 +135,12 @@ export default function AdsDataTableMain(props: Props) {
 
 
     return (
-        <div style={{ height: 500, width: '100%', backgroundColor: 'white' }}>
+        <div style={{ height: 650, width: '100%', backgroundColor: 'white' }}>
             <StripedDataGrid
                 sx={{
                     "& .MuiDataGrid-cell": {
-                    whiteSpace: "normal !important",
-                    wordWrap: "break-word important"
+                        whiteSpace: "normal !important",
+                        wordWrap: "break-word important"
                     }
                 }}
                 rowHeight={50}
@@ -146,7 +148,14 @@ export default function AdsDataTableMain(props: Props) {
                     params.indexRelativeToCurrentPage % 2 === 0 ? 'even' : 'odd'
                 }
                 loading={rows.length === 0}
-                rows={rows} columns={columns} />
+                rows={rows} columns={columns}
+                initialState={{
+                    pagination: {
+                        paginationModel: { pageSize: 10 },
+                    },
+                }}
+                pageSizeOptions={[5, 10, 25]}
+            />
         </div>
     );
 }

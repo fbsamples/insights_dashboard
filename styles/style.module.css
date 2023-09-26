@@ -1,8 +1,8 @@
 .container {
   box-sizing: border-box;
   display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
   gap: 12px;
   margin: 16px;
   margin: 0;

@@ -31,9 +31,9 @@ export default function appReducer(state = initialState, action) {
     case 'reelsInsights':
       return { ...state, reelsInsights: [...state.reelsInsights, action.payload] };
     case 'adsInsightsAccount':
-      return { ...state, adsInsightsAccount: state.adsInsightsAccount.concat(...action.payload) };
+      return { ...state, adsInsightsAccount: action.payload };
     case 'adsInsightsCampaigns':
-      return { ...state, adsInsightsCampaigns: state.adsInsightsCampaigns.concat(...action.payload) };
+      return { ...state, adsInsightsCampaigns: action.payload };
     case 'error':
       return { ...state, error: {...state.error, ...action.payload} };
     default:

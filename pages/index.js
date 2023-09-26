@@ -27,11 +27,23 @@ const VALIDATION_TYPES = {
 }
 
 const Home = () => {
+  const [filters, setFilters] = useState({
+    messenger_only: true,
+    active_only: true,
+  });
+
+  const handleFiltersChange = (event) => {
+    setFilters({
+      ...filters,
+      [event.target.name]: event.target.checked,
+    });
+  };
+
   const menu = [
     {
       id: 'ads',
       title: 'Ads Insights',
-      component: <AdsInsights />
+      component: <AdsInsights filters={filters} handleFiltersChange={handleFiltersChange} />
     },
     {
       id: 'page',
@@ -62,7 +74,7 @@ const Home = () => {
 
   const [activeTab, setActiveTab] = useState(menu[0].id);
   const [configFileErrors, setConfigFileErrors] = useState(null);
-  const [configFileOptionalFieldsErrors, setConfigFileOptionalFieldsErrors] = useState(null);
+  const [configFileOptionalFieldsErrors] = useState(null);
 
   const dispatchError = (error, stateName) => {
     const payload = {};
@@ -95,8 +107,9 @@ const Home = () => {
     try {
       // Fetch AdCampaigns first using fetchingApi
       const url = `${config.backendUrl}/api/${insightsObj.fetchingApiNameAdCampaigns}`;
-      const bodyObj = { since, until };
+      const bodyObj = { since, until, filters };
       const body = JSON.stringify(bodyObj);
+
       const res = await fetch(url, { method: 'POST', body });
       const { data, error } = await res.json();
 
@@ -206,7 +219,7 @@ const Home = () => {
 
     // Load Instagram Media and their Insights
     getMediasAndTheirInsights(instagramMediaInsights);
-  }, [configFileErrors, configFileOptionalFieldsErrors]);
+  }, [configFileErrors, configFileOptionalFieldsErrors, filters]);
 
 
   return (

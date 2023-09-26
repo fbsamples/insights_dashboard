@@ -1,4 +1,11 @@
+import * as React from 'react';
 import { useSelector } from 'react-redux';
+
+import FormLabel from '@mui/material/FormLabel';
+import FormControl from '@mui/material/FormControl';
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Switch from '@mui/material/Switch';
 
 import ErrorCard from '../components/error-card';
 import AdsDashboardChart from '../components/ads-chart';
@@ -12,7 +19,7 @@ import adsInsights from '../constants/ads-insights.json';
 
 import styles from '../styles/style.module.css';
 
-const AdsInsights = () => {
+const AdsInsights = ({filters, handleFiltersChange}) => {
   const adsInsightsAccountsData = useSelector(state => state.adsInsightsAccount);
   const adsInsightsCampaignData = useSelector(state => state.adsInsightsCampaigns);
   const accountCurrency = adsInsightsAccountsData && adsInsightsAccountsData[0] && adsInsightsAccountsData[0].currency ? adsInsightsAccountsData[0].currency : '';
@@ -28,6 +35,26 @@ const AdsInsights = () => {
     {error
       ? <ErrorCard icon="AiFillWarning" error={error} />
       : <>
+        {
+
+          <FormControl component="fieldset" >
+            <FormLabel component="legend">Filters</FormLabel>
+            <FormGroup aria-label="position" row>
+              <FormControlLabel
+                control={
+                  <Switch checked={filters.messenger_only} onChange={handleFiltersChange} name="messenger_only" />
+                }
+                label="Messenger Only"
+              />
+              <FormControlLabel
+                control={
+                  <Switch checked={filters.active_only} onChange={handleFiltersChange} name="active_only" />
+                }
+                label="Active campaigns only"
+              />
+            </FormGroup>
+          </FormControl>
+        }
         {
           adsInsights.graphs.map(section => {
             return <Section title={section.title} key={section.title}>
@@ -53,7 +80,7 @@ const AdsInsights = () => {
           })
         }
         {
-          <Section title={adsInsights.table.title} key={adsInsights.table}><AdsDataTableMain campaigns={adsInsightsCampaignData} accountCurrency={accountCurrency}/></Section>
+          <Section title={adsInsights.table.title} key={adsInsights.table}><AdsDataTableMain campaigns={adsInsightsCampaignData} accountCurrency={accountCurrency} /></Section>
         }
       </>
     }
