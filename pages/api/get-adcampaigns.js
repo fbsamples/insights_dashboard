@@ -18,11 +18,10 @@ const assembleUrl = (since, until, filters) => {
       filtering.push({ field: 'effective_status', operator: 'IN', value: ['ACTIVE'] })
     }
 
-    filters.messenger_only ?
-      filtering.push({ field: 'objective', operator: 'IN', value: ['MESSAGES'] }) :
+    if (filters.messenger_only) {
       filtering.push({ field: 'objective', operator: 'IN', value: ['POST_ENGAGEMENT', 'OUTCOME_ENGAGEMENT', 'MESSAGES'] })
+    }
   }
-
   url += `?access_token=${config.user_access_token}`;
   // Add filters for active campaigns
   url += `&filtering=${JSON.stringify(filtering)}`
