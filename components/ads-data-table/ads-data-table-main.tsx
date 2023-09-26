@@ -13,16 +13,23 @@ const formatNumber = (params: GridValueFormatterParams<number>, type: string) =>
 
 const columns: GridColDef[] = [
     {
+        field: 'name',
+        headerName: 'Campaign Name',
+        flex: 1,
+        minWidth: 300,
+    },
+    {
         field: 'id',
         headerName: 'Id',
     },
     {
-        field: 'name',
-        headerName: 'Name',
-    },
-    {
         field: 'effective_status',
         headerName: 'Status',
+    },
+    {
+        field: 'insights.data.0.spend',
+        align: 'right',
+        headerName: 'Spend'
     },
     {
         field: 'budget_remaining',
@@ -57,11 +64,6 @@ const columns: GridColDef[] = [
         field: 'insights.data.0.reach',
         align: 'right',
         headerName: 'Reach'
-    },
-    {
-        field: 'insights.data.0.spend',
-        align: 'right',
-        headerName: 'Spend'
     },
 ];
 
@@ -118,11 +120,12 @@ interface Data {
 }
 
 interface Props {
-    campaigns: Array<Data>
+    campaigns: Array<Data>;
+    accountCurrency: string;
 }
 
 export default function AdsDataTableMain(props: Props) {
-    let { campaigns } = props;
+    let { campaigns, accountCurrency} = props;
     let rows: GridRowsProp = campaigns.map((campaign) => {
         let flat: GridRowModel = flatten(campaign);
         return flat;
@@ -132,10 +135,17 @@ export default function AdsDataTableMain(props: Props) {
     return (
         <div style={{ height: 500, width: '100%', backgroundColor: 'white' }}>
             <StripedDataGrid
+                sx={{
+                    "& .MuiDataGrid-cell": {
+                    whiteSpace: "normal !important",
+                    wordWrap: "break-word important"
+                    }
+                }}
                 rowHeight={50}
                 getRowClassName={(params) =>
                     params.indexRelativeToCurrentPage % 2 === 0 ? 'even' : 'odd'
                 }
+                loading={rows.length === 0}
                 rows={rows} columns={columns} />
         </div>
     );

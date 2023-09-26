@@ -13,7 +13,7 @@
     "stateNameCampaigns": "adsInsightsCampaigns",
     "graphs": [
         {
-            "title": "Top level Metrics",
+            "title": "Top level Metrics (Account Level)",
             "charts": [
                 {
                     "id": 3,

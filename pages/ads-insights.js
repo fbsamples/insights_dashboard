@@ -15,6 +15,7 @@ import styles from '../styles/style.module.css';
 const AdsInsights = () => {
   const adsInsightsAccountsData = useSelector(state => state.adsInsightsAccount);
   const adsInsightsCampaignData = useSelector(state => state.adsInsightsCampaigns);
+  const accountCurrency = adsInsightsAccountsData && adsInsightsAccountsData[0] && adsInsightsAccountsData[0].currency ? adsInsightsAccountsData[0].currency : '';
   const error = useSelector(state => state.error.adsInsightsAccount);
 
   return <div>
@@ -52,7 +53,7 @@ const AdsInsights = () => {
           })
         }
         {
-          <Section title={adsInsights.table.title} key={adsInsights.table}><AdsDataTableMain campaigns={adsInsightsCampaignData} /></Section>
+          <Section title={adsInsights.table.title} key={adsInsights.table}><AdsDataTableMain campaigns={adsInsightsCampaignData} accountCurrency={accountCurrency}/></Section>
         }
       </>
     }
