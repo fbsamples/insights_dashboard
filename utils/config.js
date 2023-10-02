@@ -9,6 +9,9 @@ export default {
     user_access_token: process.env.USER_ACCESS_TOKEN,
     ig_user_id: process.env.IG_USER_ID,
     ig_access_token: process.env.IG_USER_ACCESS_TOKEN,
+    waba_id: process.env.WABA_ID,
+    template_id: process.env.TEMPLATE_ID,
+    mm_access_token: process.env.MM_ACCESS_TOKEN,
 
     // URL where you host this code
     backendUrl: process.env.NEXT_PUBLIC_BACKEND_URL,
