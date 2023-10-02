@@ -9,6 +9,28 @@
   width: auto;
 }
 
+.icon {
+  font-size: 1rem;
+  position: relative;
+  left: -6px;
+  margin-left: 2.5rem;
+}
+
+.metricContainer {
+  font-size: 1rem;
+  text-align: right;
+  color: var(--blue-800);
+  margin-top: 2.5rem;
+}
+
+.metricDescription {
+  font-size: 1rem;
+  text-align: right;
+  color: var(--gray-800);
+  max-width: 60%;
+  margin-left: 40%;
+}
+
 .tabs {
   height: auto;
   color: black;

@@ -6,6 +6,7 @@ const initialState = {
   reelsInsights: [],
   adsInsightsAccount: [],
   adsInsightsCampaigns: [],
+  marketingMessageInsights: [],
   error: {
     instagramInsights: null,
     instagramMediaInsights: null,
@@ -15,6 +16,7 @@ const initialState = {
     configFile: null,
     adsInsightsAccount: null,
     adsInsightsCampaigns: null,
+    marketingMessageInsights: null,
   }
 }
 
@@ -34,6 +36,8 @@ export default function appReducer(state = initialState, action) {
       return { ...state, adsInsightsAccount: action.payload };
     case 'adsInsightsCampaigns':
       return { ...state, adsInsightsCampaigns: action.payload };
+    case 'marketingMessageInsights':
+      return { ...state, marketingMessageInsights: [...state.marketingMessageInsights, ...action.payload] };
     case 'error':
       return { ...state, error: {...state.error, ...action.payload} };
     default:

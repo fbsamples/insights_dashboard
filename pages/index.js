@@ -8,8 +8,9 @@ import VideoInsights from './video-insights';
 import ReelsInsights from './reels-insights';
 import InstagramInsights from './instagram-insights';
 import AdsInsights from './ads-insights';
+import MarketingMessageInsights from './marketing-message-insights';
 
-import { getLastNDaysInterval } from '../utils/date';
+import { getLast30DayEpoc, getLastNDaysInterval } from '../utils/date';
 
 import pageInsights from '../constants/page-insights.json';
 import reelsInsights from '../constants/reels-insights.json';
@@ -17,6 +18,7 @@ import videoInsights from '../constants/video-insights.json';
 import instagramInsights from '../constants/instagram-insights.json';
 import instagramMediaInsights from '../constants/instagram-media-insights.json';
 import adsInsights from '../constants/ads-insights.json';
+import marketingMessageInsights from '../constants/marketing-message-insights.json';
 
 import config from '../utils/config';
 import styles from '../styles/style.module.css';
@@ -44,6 +46,11 @@ const Home = () => {
       id: 'ads',
       title: 'Ads Insights',
       component: <AdsInsights filters={filters} handleFiltersChange={handleFiltersChange} />
+    },
+    {
+      id: 'mm',
+      title: 'Marketing Message Insights',
+      component: <MarketingMessageInsights />
     },
     {
       id: 'page',
@@ -117,6 +124,28 @@ const Home = () => {
         dispatch({ type: insightsObj.stateNameCampaigns, payload: data });
       } else if (error) {
         dispatchError(error, insightsObj.stateName);
+      }
+
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const getMarketingMessageInsights = async (insightsObj) => {
+    try {
+      const url = `${config.backendUrl}/api/${insightsObj.insightsApiName}`;
+      const metricStr = "'" + insightsObj.metrics.join('\',\'') + "'";
+      const { since, until } = getLast30DayEpoc();
+      const bodyObj = { metric: metricStr, since, until };
+
+      const body = JSON.stringify(bodyObj);
+      const res = await fetch(url, { method: 'POST', body });
+      const response = await res.json();
+
+      if (response.data && response.data.length > 0) {
+        dispatch({ type: insightsObj.stateName, payload: response.data });
+      } else if (response.error) {
+        dispatchError(response.error, insightsObj.stateName);
       }
 
     } catch (err) {
@@ -202,6 +231,9 @@ const Home = () => {
 
     // Load Ads Campaigns and its Insights
     getCampaignsAndTheirInsights(adsInsights);
+
+    // Load Marketing Message Insights
+    getMarketingMessageInsights(marketingMessageInsights);
 
     // Load Page Insights
     getInsights(pageInsights);
