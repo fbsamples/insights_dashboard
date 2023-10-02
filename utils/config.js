@@ -5,7 +5,6 @@ export default {
     // Account information
     page_id: process.env.PAGE_ID,
     page_access_token: process.env.PAGE_ACCESS_TOKEN,
-    ad_account_id: process.env.AD_ACCOUNT_ID,
     user_access_token: process.env.USER_ACCESS_TOKEN,
     ig_user_id: process.env.IG_USER_ID,
     ig_access_token: process.env.IG_USER_ACCESS_TOKEN,

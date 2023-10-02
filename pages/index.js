@@ -41,11 +41,22 @@ const Home = () => {
     });
   };
 
+  const [adAccountId, setAdAccountId] = useState('');
+
+  const handleAdAccountIdChange = (event) => {
+    setAdAccountId(event.target.value);
+  };
+
   const menu = [
     {
       id: 'ads',
       title: 'Ads Insights',
-      component: <AdsInsights filters={filters} handleFiltersChange={handleFiltersChange} />
+      component: <AdsInsights
+        filters={filters}
+        adAccountId={adAccountId}
+        handleFiltersChange={handleFiltersChange}
+        handleAdAccountIdChange={handleAdAccountIdChange}
+      />
     },
     {
       id: 'mm',
@@ -89,11 +100,36 @@ const Home = () => {
     dispatch({ type: 'error', payload });
   }
 
+  const getAdAccounts = async (insightsObj) => {
+    try {
+      // Fetch All Ad Accounts
+      const url = `${config.backendUrl}/api/${insightsObj.fetchingApiAdAccounts}`;
+      const res = await fetch(url);
+      const { data, error } = await res.json();
+      console.log(data);
+
+
+      if (data) {
+        const activeAdAccounts = data.filter((account) => {
+          return account.insights && account.insights.data && account.insights.data.length > 0 // Active Ad Accounts only with insights
+        });
+
+        setAdAccountId(activeAdAccounts[0].id); // Set the first one as default
+        dispatch({ type: insightsObj.stateNameAdAccounts, payload: activeAdAccounts });
+      } else if (error) {
+        dispatchError(error, insightsObj.stateNameAdAccounts);
+      }
+
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const getAdAccountInsights = async (insightsObj) => {
     try {
       // Fetch Account level insights
       const url = `${config.backendUrl}/api/${insightsObj.insightsApiNameAccount}`;
-      const bodyObj = { since, until };
+      const bodyObj = { adAccountId };
       const body = JSON.stringify(bodyObj);
       const res = await fetch(url, { method: 'POST', body });
       const { data, error } = await res.json();
@@ -114,7 +150,7 @@ const Home = () => {
     try {
       // Fetch AdCampaigns first using fetchingApi
       const url = `${config.backendUrl}/api/${insightsObj.fetchingApiNameAdCampaigns}`;
-      const bodyObj = { since, until, filters };
+      const bodyObj = { since, until, filters, adAccountId};
       const body = JSON.stringify(bodyObj);
 
       const res = await fetch(url, { method: 'POST', body });
@@ -226,11 +262,16 @@ const Home = () => {
 
     if (configFileErrors.mandatory.length > 0) return;
 
-    // Loads Ad Account and its Insights
-    getAdAccountInsights(adsInsights);
+    // Loads List of Ad Accounts
+    getAdAccounts(adsInsights);
 
-    // Load Ads Campaigns and its Insights
-    getCampaignsAndTheirInsights(adsInsights);
+    if (adAccountId !== '') {
+      // Loads Ad Account and its Insights
+      getAdAccountInsights(adsInsights);
+
+      // Load Ads Campaigns and its Insights
+      getCampaignsAndTheirInsights(adsInsights);
+    }
 
     // Load Marketing Message Insights
     getMarketingMessageInsights(marketingMessageInsights);
@@ -251,7 +292,7 @@ const Home = () => {
 
     // Load Instagram Media and their Insights
     getMediasAndTheirInsights(instagramMediaInsights);
-  }, [configFileErrors, configFileOptionalFieldsErrors, filters]);
+  }, [configFileErrors, configFileOptionalFieldsErrors, filters, adAccountId]);
 
 
   return (

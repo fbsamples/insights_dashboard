@@ -40,10 +40,6 @@
             "message": "Please add the user_access_token field to your config file.",
             "doc_info": "You can find more information on how to generate a user_access_token in the documentation linked below.",
             "doc_link": "https://developers.facebook.com/docs/pages/access-tokens/"
-        },
-        "ad_account_id": {
-            "message": "Please add the ad_account_id field to your config file.",
-            "doc_info": "Please fetch your add accounts by making a call GET /me/adaccounts"
         }
     }
 }

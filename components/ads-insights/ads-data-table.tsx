@@ -126,7 +126,7 @@ interface Props {
     accountCurrency: string;
 }
 
-export default function AdsDataTableMain(props: Props) {
+export default function AdsDataTable(props: Props) {
     let { campaigns, accountCurrency } = props;
     let rows: GridRowsProp = campaigns.map((campaign) => {
         let flat: GridRowModel = flatten(campaign);

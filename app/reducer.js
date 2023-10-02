@@ -4,6 +4,7 @@ const initialState = {
   pageInsights: [],
   videoInsights: [],
   reelsInsights: [],
+  adsInsightsAdAccounts: [],
   adsInsightsAccount: [],
   adsInsightsCampaigns: [],
   marketingMessageInsights: [],
@@ -14,6 +15,7 @@ const initialState = {
     videoInsights: null,
     reelsInsights: null,
     configFile: null,
+    adsInsightsAdAccounts: null,
     adsInsightsAccount: null,
     adsInsightsCampaigns: null,
     marketingMessageInsights: null,
@@ -32,6 +34,8 @@ export default function appReducer(state = initialState, action) {
       return { ...state, videoInsights: [...state.videoInsights, action.payload] };
     case 'reelsInsights':
       return { ...state, reelsInsights: [...state.reelsInsights, action.payload] };
+    case 'adsInsightsAdAccounts':
+        return { ...state, adsInsightsAdAccounts: action.payload };
     case 'adsInsightsAccount':
       return { ...state, adsInsightsAccount: action.payload };
     case 'adsInsightsCampaigns':

@@ -1,15 +1,15 @@
 import config from '../../utils/config';
 
 export default async function handler(req, res) {
-  const { since, until, filters } = JSON.parse(req.body);
-  const url = assembleUrl(since, until, filters);
+  const { since, until, filters, adAccountId } = JSON.parse(req.body);
+  const url = assembleUrl(since, until, filters, adAccountId);
   const apiRes = await fetch(url);
   const { data, error } = await apiRes.json();
   res.status(200).json({ data, error });
 }
 
-const assembleUrl = (since, until, filters) => {
-  let url = `${config.domain}/act_${config.ad_account_id}/campaigns`;
+const assembleUrl = (since, until, filters, adAccountId) => {
+  let url = `${config.domain}/${adAccountId}/campaigns`;
 
   let filtering = [];
 
