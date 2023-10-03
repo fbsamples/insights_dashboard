@@ -106,8 +106,6 @@ const Home = () => {
       const url = `${config.backendUrl}/api/${insightsObj.fetchingApiAdAccounts}`;
       const res = await fetch(url);
       const { data, error } = await res.json();
-      console.log(data);
-
 
       if (data) {
         const activeAdAccounts = data.filter((account) => {
@@ -117,7 +115,7 @@ const Home = () => {
         setAdAccountId(activeAdAccounts[0].id); // Set the first one as default
         dispatch({ type: insightsObj.stateNameAdAccounts, payload: activeAdAccounts });
       } else if (error) {
-        dispatchError(error, insightsObj.stateNameAdAccounts);
+        dispatchError(error, insightsObj.error);
       }
 
     } catch (err) {
@@ -138,7 +136,7 @@ const Home = () => {
         dispatch({ type: insightsObj.stateNameAccounts, payload: data });
       } else if (error) {
         console.log(error);
-        dispatchError(error, insightsObj.stateNameAccounts);
+        dispatchError(error, insightsObj.error);
       }
 
     } catch (err) {
@@ -159,7 +157,7 @@ const Home = () => {
       if (data) {
         dispatch({ type: insightsObj.stateNameCampaigns, payload: data });
       } else if (error) {
-        dispatchError(error, insightsObj.stateName);
+        dispatchError(error, insightsObj.error);
       }
 
     } catch (err) {
@@ -176,12 +174,12 @@ const Home = () => {
 
       const body = JSON.stringify(bodyObj);
       const res = await fetch(url, { method: 'POST', body });
-      const response = await res.json();
+      const { data, error } = await res.json();
 
-      if (response.data && response.data.length > 0) {
-        dispatch({ type: insightsObj.stateName, payload: response.data });
-      } else if (response.error) {
-        dispatchError(response.error, insightsObj.stateName);
+      if (data && data.length > 0) {
+        dispatch({ type: insightsObj.stateName, payload: data });
+      } else if (error) {
+        dispatchError(error, insightsObj.stateName);
       }
 
     } catch (err) {

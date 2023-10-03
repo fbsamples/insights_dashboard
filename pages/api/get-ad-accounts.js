@@ -9,7 +9,6 @@ export default async function handler(_req, res) {
 
 const assembleUrl = () => {
   let url = `${config.domain}/me/adaccounts`;
-
   url += `?access_token=${config.user_access_token}`;
   url += `&fields=id,name,insights`;
 

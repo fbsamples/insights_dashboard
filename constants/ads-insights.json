@@ -13,6 +13,7 @@
     "stateNameAccounts": "adsInsightsAccount",
     "stateNameAdAccounts": "adsInsightsAdAccounts",
     "stateNameCampaigns": "adsInsightsCampaigns",
+    "error": "adsInsights",
     "graphs": [
         {
             "title": "Top level Metrics (Account Level)",

@@ -13,6 +13,11 @@
             "message": "Please add the Facebook Graph API domain field to your config file.",
             "doc_info": "You can find more information on how to fetch the API below",
             "doc_link": "https://developers.facebook.com/docs/graph-api"
+        },
+        "user_access_token": {
+            "message": "Please add the user_access_token field to your config file.",
+            "doc_info": "You can find more information on how to generate a user_access_token in the documentation linked below.",
+            "doc_link": "https://developers.facebook.com/docs/pages/access-tokens/"
         }
     },
     "optional": {
@@ -35,11 +40,6 @@
             "message": "Please add the ig_access_token field to your config file.",
             "doc_info": "You can find more information on how to generate an Instagram Access Token in the documentation linked below.",
             "doc_link": "https://developers.facebook.com/docs/instagram-api/getting-started"
-        },
-        "user_access_token": {
-            "message": "Please add the user_access_token field to your config file.",
-            "doc_info": "You can find more information on how to generate a user_access_token in the documentation linked below.",
-            "doc_link": "https://developers.facebook.com/docs/pages/access-tokens/"
         }
     }
 }

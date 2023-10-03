@@ -8,6 +8,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import Switch from '@mui/material/Switch';
+import errorMessages from '../constants/error-messages.json';
 
 import ErrorCard from '../components/error-card';
 import AdsDashboardChart from '../components/ads-chart';
@@ -26,54 +27,32 @@ const AdsInsights = ({ filters, handleFiltersChange, adAccountId, handleAdAccoun
   const adsInsightsAccountsData = useSelector(state => state.adsInsightsAccount);
   const adsInsightsCampaignData = useSelector(state => state.adsInsightsCampaigns);
   const accountCurrency = adsInsightsAccountsData && adsInsightsAccountsData[0] && adsInsightsAccountsData[0].currency ? adsInsightsAccountsData[0].currency : '';
-  const error = useSelector(state => state.error.adsInsightsAccount);
+  const error = useSelector(state => state.error.adsInsights);
 
-  return <div>
+  return <>
     <DocumentationLink
       description={adsInsights.docs.description}
       link={adsInsights.docs.link}
       linkLabel={adsInsights.docs.linkLabel} />
 
-
     {error
       ? <ErrorCard icon="AiFillWarning" error={error} />
       : <>
-        {<>
-            <FormControl fullWidth={true} >
+          <FormControl fullWidth={true} >
             <FormLabel component="legend">Select An Ad Account</FormLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={adAccountId}
-                label="Ad Account"
-                onChange={handleAdAccountIdChange}
-              >
-                {adsInsightsAdAccounts.map((option) => (
-                  <MenuItem value={option.id} key={option.id} sx={{ overflow: 'visible' }}>{option.name}</MenuItem>
-                ))
-                }
-              </Select>
-            </FormControl>
-
-          <FormControl component="fieldset" >
-            <FormLabel component="legend">Filters</FormLabel>
-            <FormGroup aria-label="position" row>
-              <FormControlLabel
-                control={
-                  <Switch checked={filters.messenger_only} onChange={handleFiltersChange} name="messenger_only" />
-                }
-                label="Messenger Only"
-              />
-              <FormControlLabel
-                control={
-                  <Switch checked={filters.active_only} onChange={handleFiltersChange} name="active_only" />
-                }
-                label="Active campaigns only"
-              />
-            </FormGroup>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={adAccountId}
+              label="Ad Account"
+              onChange={handleAdAccountIdChange}
+            >
+              {adsInsightsAdAccounts.map((option) => (
+                <MenuItem value={option.id} key={option.id} sx={{ overflow: 'visible' }}>{option.name}</MenuItem>
+              ))
+              }
+            </Select>
           </FormControl>
-        </>
-        }
         {
           adsInsights.graphs.map(section => {
             return <Section title={section.title} key={section.title}>
@@ -100,12 +79,29 @@ const AdsInsights = ({ filters, handleFiltersChange, adAccountId, handleAdAccoun
         }
         {
           <Section title={adsInsights.table.title} key={adsInsights.table}>
+            <FormControl component="fieldset" >
+              <FormLabel component="legend">Filters</FormLabel>
+              <FormGroup aria-label="position" row>
+                <FormControlLabel
+                  control={
+                    <Switch checked={filters.messenger_only} onChange={handleFiltersChange} name="messenger_only" />
+                  }
+                  label="Messenger only"
+                />
+                <FormControlLabel
+                  control={
+                    <Switch checked={filters.active_only} onChange={handleFiltersChange} name="active_only" />
+                  }
+                  label="Active campaigns only"
+                />
+              </FormGroup>
+            </FormControl>
             <AdsDataTable campaigns={adsInsightsCampaignData} accountCurrency={accountCurrency} />
           </Section>
         }
       </>
     }
-  </div >;
+  </>
 }
 
 export default AdsInsights;
