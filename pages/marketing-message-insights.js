@@ -28,7 +28,7 @@ const options = {
 
 const MarketingMessageInsights = () => {
   const marketingMessageInsightsData = useSelector(state => state.marketingMessageInsights);
-  const error = useSelector(state => state.error.marketingMessageInsightsData);
+  const error = useSelector(state => state.error.marketingMessageInsights);
   const labels = marketingMessageInsightsData.map(data => formatEpochTimeToDateString(data.start));
   const data = {
     labels,
@@ -53,7 +53,7 @@ const MarketingMessageInsights = () => {
       },
       {
         label: 'Link Clicked',
-        data: marketingMessageInsightsData.map(data => data.clicked[0].count),
+        data: marketingMessageInsightsData.map(data => (data.clicked && data.clicked.length > 0) ? data.clicked[0].count : 0),
         borderColor: 'rgb(255, 99, 132)',
         backgroundColor: 'rgba(255, 99, 132, 0.5)',
       },
@@ -62,7 +62,7 @@ const MarketingMessageInsights = () => {
   const totalSent = marketingMessageInsightsData.reduce((accumulator, current) => accumulator + current.sent, 0);
   const totalDelivered = marketingMessageInsightsData.reduce((accumulator, current) => accumulator + current.delivered, 0);
   const totalRead = marketingMessageInsightsData.reduce((accumulator, current) => accumulator + current.read, 0);
-  const totalClicks = marketingMessageInsightsData.reduce((accumulator, current) => accumulator + current.clicked[0].count, 0);
+  const totalClicks = marketingMessageInsightsData.reduce((accumulator, current) => (current.clicked && current.clicked.length > 0) ? accumulator + current.clicked[0].count : accumulator, 0);
   const ctr = Math.round(totalClicks / totalRead * 100.0);
 
   return <div>
