@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 
 import DashboardChart from '../components/chart';
@@ -10,7 +10,6 @@ import VideoCard from '../components/video-card';
 import { selectInsights } from '../utils/data-formatting';
 
 import videoInsights from '../constants/video-insights';
-import settings from '../constants/settings';
 import errorMessages from '../constants/error-messages.json';
 
 import styles from '../styles/style.module.css';

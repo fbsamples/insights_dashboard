@@ -1,7 +1,4 @@
-import { hasPageConfig, hasIGConfig, testDoubleNumberMetric, testSingleNumber } from '../common/validations';
-import { getAppConfig } from '../../utils/config';
-import { abbreviateNumber } from '../../utils/strings';
-import config_file_errors from '../../constants/config-file-errors.json';
+import { hasPageConfig } from '../common/validations';
 import instagramProfileInsights from '../../constants/instagram-insights.json';
 import instagramMediaInsights from '../../constants/instagram-media-insights.json';
 

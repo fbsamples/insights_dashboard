@@ -1,0 +1,20 @@
+{
+    "docs": {
+        "description": "For details around the metrics and how to integrate with the API,",
+        "linkLabel": "check the documentation",
+        "link": "https://developers.facebook.com/docs/whatsapp/business-management-api/analytics#template-analytics"
+    },
+    "metrics": [
+        "SENT",
+        "DELIVERED",
+        "READ",
+        "CLICKED"
+    ],
+    "insightsApiName": "marketing-message-insights",
+    "stateName": "marketingMessageInsights",
+    "sections": [
+        {
+            "title": "Marketing Message Insights"
+        }
+    ]
+}

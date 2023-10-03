@@ -10,6 +10,14 @@ const formatTimestampToDateAndTime = (timestamp) => {
     return 'Time: ' + time.substr(0, time.length-3) + ' · Date: ' + date;
 }
 
+const formatEpochTimeToDateString = (timestamp) => {
+    const date = new Date(timestamp * 1000);
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    return `${year}/${month}/${day}`;
+}
+
 const getLast30DaysInterval = () => {
     const today = new Date();
     const until = today.toISOString().split('T')[0];
@@ -17,4 +25,18 @@ const getLast30DaysInterval = () => {
     return { since, until };
 }
 
-export { formatTimestampToDate, getLast30DaysInterval, formatTimestampToDateAndTime };
+const getLastNDaysInterval = (num) => {
+    const today = new Date();
+    const until = today.toISOString().split('T')[0];
+    const since = new Date(new Date().setDate(today.getDate() - num)).toISOString().split('T')[0];
+    return { since, until };
+}
+
+const getLast30DayEpoc = () => {
+    const today = new Date();
+    const until = Math.round(today / 1000);
+    const since = Math.round(new Date().setDate(today.getDate() - 29) / 1000);
+    return { since, until };
+}
+
+export { formatTimestampToDate, formatEpochTimeToDateString, getLast30DaysInterval, getLastNDaysInterval, getLast30DayEpoc, formatTimestampToDateAndTime };

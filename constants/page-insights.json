@@ -11,7 +11,6 @@
         "page_impressions_unique",
         "page_impressions_paid",
         "page_impressions_viral",
-        "page_impressions_organic",
         "page_engaged_users",
         "page_fans",
         "page_positive_feedback_by_type"

@@ -1,7 +1,5 @@
 import { hasPageConfig, hasIGConfig, testDoubleNumberMetric, testValueType } from '../common/validations';
-import { getAppConfig } from '../../utils/config';
 import { abbreviateNumber } from '../../utils/strings';
-import config_file_errors from '../../constants/config-file-errors.json';
 import videoInsights from '../../constants/video-insights.json';
 
 const testVideoViewsByDistributionType = (metric, videoId) => {

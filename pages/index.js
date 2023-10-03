@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import Head from 'next/head';
 
 import Card from '../components/card';
 import ConfigFileErrors from '../components/config-file-errors';
@@ -8,16 +7,20 @@ import PageInsights from './page-insights';
 import VideoInsights from './video-insights';
 import ReelsInsights from './reels-insights';
 import InstagramInsights from './instagram-insights';
+import AdsInsights from './ads-insights';
+import MarketingMessageInsights from './marketing-message-insights';
 
-import { getLast30DaysInterval } from '../utils/date';
+import { getLast30DayEpoc, getLastNDaysInterval } from '../utils/date';
 
-import settings from '../constants/settings.json';
 import pageInsights from '../constants/page-insights.json';
 import reelsInsights from '../constants/reels-insights.json';
 import videoInsights from '../constants/video-insights.json';
 import instagramInsights from '../constants/instagram-insights.json';
 import instagramMediaInsights from '../constants/instagram-media-insights.json';
+import adsInsights from '../constants/ads-insights.json';
+import marketingMessageInsights from '../constants/marketing-message-insights.json';
 
+import config from '../utils/config';
 import styles from '../styles/style.module.css';
 
 const VALIDATION_TYPES = {
@@ -26,37 +29,70 @@ const VALIDATION_TYPES = {
 }
 
 const Home = () => {
+  const [filters, setFilters] = useState({
+    messenger_only: true,
+    active_only: true,
+  });
+
+  const handleFiltersChange = (event) => {
+    setFilters({
+      ...filters,
+      [event.target.name]: event.target.checked,
+    });
+  };
+
+  const [adAccountId, setAdAccountId] = useState('');
+
+  const handleAdAccountIdChange = (event) => {
+    setAdAccountId(event.target.value);
+  };
+
   const menu = [
+    {
+      id: 'ads',
+      title: 'Ads Insights',
+      component: <AdsInsights
+        filters={filters}
+        adAccountId={adAccountId}
+        handleFiltersChange={handleFiltersChange}
+        handleAdAccountIdChange={handleAdAccountIdChange}
+      />
+    },
+    {
+      id: 'mm',
+      title: 'Marketing Message Insights',
+      component: <MarketingMessageInsights />
+    },
     {
       id: 'page',
       title: 'Page Insights',
-      component: <PageInsights/>
+      component: <PageInsights />
     },
     {
       id: 'reels',
       title: 'Reels Insights',
-      component: <ReelsInsights/>
+      component: <ReelsInsights />
     },
     {
       id: 'video',
       title: 'Video Insights',
-      component: <VideoInsights/>
+      component: <VideoInsights />
     },
     {
       id: 'ig',
       title: 'Instagram Insights',
-      component: <InstagramInsights/>
+      component: <InstagramInsights />
     }
   ];
 
   const dispatch = useDispatch();
 
-  const { since, until } = getLast30DaysInterval();
+  const { since, until } = getLastNDaysInterval(30);
   const period = 'day';
 
   const [activeTab, setActiveTab] = useState(menu[0].id);
   const [configFileErrors, setConfigFileErrors] = useState(null);
-  const [configFileOptionalFieldsErrors, setConfigFileOptionalFieldsErrors] = useState(null);
+  const [configFileOptionalFieldsErrors] = useState(null);
 
   const dispatchError = (error, stateName) => {
     const payload = {};
@@ -64,9 +100,96 @@ const Home = () => {
     dispatch({ type: 'error', payload });
   }
 
+  const getAdAccounts = async (insightsObj) => {
+    try {
+      // Fetch All Ad Accounts
+      const url = `${config.backendUrl}/api/${insightsObj.fetchingApiAdAccounts}`;
+      const res = await fetch(url);
+      const { data, error } = await res.json();
+
+      if (data) {
+        const activeAdAccounts = data.filter((account) => {
+          return account.insights && account.insights.data && account.insights.data.length > 0 // Active Ad Accounts only with insights
+        });
+
+        setAdAccountId(activeAdAccounts[0].id); // Set the first one as default
+        dispatch({ type: insightsObj.stateNameAdAccounts, payload: activeAdAccounts });
+      } else if (error) {
+        dispatchError(error, insightsObj.error);
+      }
+
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const getAdAccountInsights = async (insightsObj) => {
+    try {
+      // Fetch Account level insights
+      const url = `${config.backendUrl}/api/${insightsObj.insightsApiNameAccount}`;
+      const bodyObj = { adAccountId };
+      const body = JSON.stringify(bodyObj);
+      const res = await fetch(url, { method: 'POST', body });
+      const { data, error } = await res.json();
+
+      if (data) {
+        dispatch({ type: insightsObj.stateNameAccounts, payload: data });
+      } else if (error) {
+        console.log(error);
+        dispatchError(error, insightsObj.error);
+      }
+
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const getCampaignsAndTheirInsights = async (insightsObj) => {
+    try {
+      // Fetch AdCampaigns first using fetchingApi
+      const url = `${config.backendUrl}/api/${insightsObj.fetchingApiNameAdCampaigns}`;
+      const bodyObj = { since, until, filters, adAccountId};
+      const body = JSON.stringify(bodyObj);
+
+      const res = await fetch(url, { method: 'POST', body });
+      const { data, error } = await res.json();
+
+      if (data) {
+        dispatch({ type: insightsObj.stateNameCampaigns, payload: data });
+      } else if (error) {
+        dispatchError(error, insightsObj.error);
+      }
+
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const getMarketingMessageInsights = async (insightsObj) => {
+    try {
+      const url = `${config.backendUrl}/api/${insightsObj.insightsApiName}`;
+      const metricStr = "'" + insightsObj.metrics.join('\',\'') + "'";
+      const { since, until } = getLast30DayEpoc();
+      const bodyObj = { metric: metricStr, since, until };
+
+      const body = JSON.stringify(bodyObj);
+      const res = await fetch(url, { method: 'POST', body });
+      const { data, error } = await res.json();
+
+      if (data && data.length > 0) {
+        dispatch({ type: insightsObj.stateName, payload: data });
+      } else if (error) {
+        dispatchError(error, insightsObj.stateName);
+      }
+
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const getInsights = async (insightsObj, video) => {
     try {
-      const url = `${settings.backendUrl}/api/${insightsObj.insightsApiName}`;
+      const url = `${config.backendUrl}/api/${insightsObj.insightsApiName}`;
 
       const metricStr = insightsObj.metrics.join(',');
       const bodyObj = { metric: metricStr, since, until, period };
@@ -94,7 +217,7 @@ const Home = () => {
 
   const getMediasAndTheirInsights = async (insightsObj) => {
     try {
-      const url = `${settings.backendUrl}/api/${insightsObj.fetchingApiName}`;
+      const url = `${config.backendUrl}/api/${insightsObj.fetchingApiName}`;
       const res = await fetch(url);
       const { data, error } = await res.json();
 
@@ -112,7 +235,7 @@ const Home = () => {
   };
 
   const validateConfigFile = async (type) => {
-    const url = `${settings.backendUrl}/api/validate-config-file?type=${type}`;
+    const url = `${config.backendUrl}/api/validate-config-file?type=${type}`;
     const res = await fetch(url);
     const response = await res.json();
 
@@ -137,6 +260,20 @@ const Home = () => {
 
     if (configFileErrors.mandatory.length > 0) return;
 
+    // Loads List of Ad Accounts
+    getAdAccounts(adsInsights);
+
+    if (adAccountId !== '') {
+      // Loads Ad Account and its Insights
+      getAdAccountInsights(adsInsights);
+
+      // Load Ads Campaigns and its Insights
+      getCampaignsAndTheirInsights(adsInsights);
+    }
+
+    // Load Marketing Message Insights
+    getMarketingMessageInsights(marketingMessageInsights);
+
     // Load Page Insights
     getInsights(pageInsights);
 
@@ -153,37 +290,37 @@ const Home = () => {
 
     // Load Instagram Media and their Insights
     getMediasAndTheirInsights(instagramMediaInsights);
-  }, [configFileErrors, configFileOptionalFieldsErrors]);
+  }, [configFileErrors, configFileOptionalFieldsErrors, filters, adAccountId]);
 
 
   return (
     <div className={styles.container}>
-      { configFileErrors && configFileErrors.mandatory.length > 0
+      {configFileErrors && configFileErrors.mandatory.length > 0
         ? <ConfigFileErrors errors={configFileErrors.mandatory} />
         : <Card>
-            <div className={styles.tabs}>
-              <ul className={styles.nav}>
-                {
-                  menu.map((item) =>
-                    <li
-                      id={`${item.id}-tab`}
-                      key={`${item.id}-tab`}
-                      className={activeTab === item.id ? styles.active : ''}
-                      onClick={() => setActiveTab(item.id)}
-                    >
-                      {item.title}
-                    </li>
-                  )
-                }
-              </ul>
+          <div className={styles.tabs}>
+            <ul className={styles.nav}>
               {
-                menu.map((item) => activeTab === item.id ?
-                  <div id={item.id} key={item.id}>{item.component}</div> :
-                  null
+                menu.map((item) =>
+                  <li
+                    id={`${item.id}-tab`}
+                    key={`${item.id}-tab`}
+                    className={activeTab === item.id ? styles.active : ''}
+                    onClick={() => setActiveTab(item.id)}
+                  >
+                    {item.title}
+                  </li>
                 )
               }
-            </div>
-          </Card>
+            </ul>
+            {
+              menu.map((item) => activeTab === item.id ?
+                <div id={item.id} key={item.id}>{item.component}</div> :
+                null
+              )
+            }
+          </div>
+        </Card>
       }
     </div>
   )

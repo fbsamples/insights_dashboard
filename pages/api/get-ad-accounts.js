@@ -1,6 +1,6 @@
 import config from '../../utils/config';
 
-export default async function handler(req, res) {
+export default async function handler(_req, res) {
   const url = assembleUrl();
   const apiRes = await fetch(url);
   const { data, error } = await apiRes.json();
@@ -8,7 +8,9 @@ export default async function handler(req, res) {
 }
 
 const assembleUrl = () => {
-  let url = `${config.domain}/${config.page_id}/videos`;
-  url += `?access_token=${config.page_access_token}&limit=${config.videoLimit}`;
+  let url = `${config.domain}/me/adaccounts`;
+  url += `?access_token=${config.user_access_token}`;
+  url += `&fields=id,name,insights`;
+
   return url;
 }

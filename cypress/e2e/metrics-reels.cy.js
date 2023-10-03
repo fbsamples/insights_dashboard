@@ -1,7 +1,5 @@
-import { hasPageConfig, hasIGConfig, testDoubleNumberMetric, testSingleNumber } from '../common/validations';
-import { getAppConfig } from '../../utils/config';
+import { hasPageConfig, testDoubleNumberMetric, testSingleNumber } from '../common/validations';
 import { abbreviateNumber } from '../../utils/strings';
-import config_file_errors from '../../constants/config-file-errors.json';
 import reelsInsights from '../../constants/reels-insights.json';
 
 const testVideoSocialActions = (metric, reelId) => {

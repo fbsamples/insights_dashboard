@@ -4,23 +4,22 @@ import { Line, Bar, Pie } from "react-chartjs-2";
 
 import AggregateByProperty from '../aggregate-by-property';
 import Card from '../card';
-import Chart from "chart.js/auto";
 import DoubleNumber from '../double-number';
 import ErrorCard from '../error-card';
 import SingleNumber from '../single-number';
 import SkeletonChart from '../skeleton-chart';
 import Tooltip from '../tooltip';
-import config from '../../utils/config';
 
 import { capitalizeAll } from '../../utils/strings';
 import { formatTimestampToDate, getLast30DaysInterval } from '../../utils/date';
 import { generateRandomColor, generateRandomColorArray } from '../../utils/color';
 
 import errors from '../../constants/error-messages.json';
-import styles from './style.module.css';
+import config from '../../utils/config';
+import styles from '../chart/style.module.css';
 import types from '../../constants/chart-types.json';
 
-const DashboardChart = ({ type, insights, metrics, icons, title, description, videoId, labels, plural, wrapMetricName, loading, size, period='day' }) => {
+const DashboardChart = ({ type, insights, metrics, icons, title, wrapMetricName, loading, size, period='day' }) => {
   const { since, until } = getLast30DaysInterval();
 
   const [isShown, setIsShown] = useState(false);
@@ -69,14 +68,6 @@ const DashboardChart = ({ type, insights, metrics, icons, title, description, vi
           seriesMap.set(standardSeriesName, dataset);
         }
         updateMap(seriesMap, standardSeriesName, el.value, i);
-      }
-
-      for (const property in el.value) {
-        if (!seriesMap.has(property)) {
-          const dataset = createDefaultDataset(property, size);
-          seriesMap.set(property, dataset);
-        }
-        updateMap(seriesMap, property, el.value[property], i);
       }
     }
 
@@ -127,6 +118,7 @@ const DashboardChart = ({ type, insights, metrics, icons, title, description, vi
     const firstSeries = apiData[0];
     const chartLabels = getLabels(firstSeries);
 
+
     setToolTipInfo(apiData);
 
     setChartData((curInputValues) => {
@@ -136,7 +128,6 @@ const DashboardChart = ({ type, insights, metrics, icons, title, description, vi
         labels: chartLabels,
         title: title || firstSeries.title,
         name: metrics.join(','),
-        description: description || firstSeries.description,
       };
     });
 
@@ -144,7 +135,6 @@ const DashboardChart = ({ type, insights, metrics, icons, title, description, vi
 
   useEffect(() => {
     if (loading) return;
-
     if (insights.length === 0) {
       setErrorMessage({ message: errors.metricNotAvailable });
       return;
