@@ -5,6 +5,9 @@ import config_file_errors from '../../constants/config-file-errors.json';
 import styles from './style.module.css';
 
 const ErrorCard = ({ error={}, icon='AiFillInfoCircle', message }) => {
+  if (!message && !error?.message){
+    message = 'No Insights';
+  }
   const errorTitle = config_file_errors.api.title;
   return <div className={`error-card ${styles.card}`}>
     <div className={styles.rowContainer}>

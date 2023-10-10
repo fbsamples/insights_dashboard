@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 
 import Card from '../components/card';
 import ConfigFileErrors from '../components/config-file-errors';
+import errors from '../constants/error-messages.json';
 import PageInsights from './page-insights';
 import VideoInsights from './video-insights';
 import ReelsInsights from './reels-insights';
@@ -42,6 +43,8 @@ const Home = () => {
   };
 
   const [adAccountId, setAdAccountId] = useState('');
+
+  const [errorMessage, setErrorMessage] = useState(null);
 
   const handleAdAccountIdChange = (event) => {
     setAdAccountId(event.target.value);
@@ -111,6 +114,10 @@ const Home = () => {
         const activeAdAccounts = data.filter((account) => {
           return account.insights && account.insights.data && account.insights.data.length > 0 // Active Ad Accounts only with insights
         });
+
+        if (activeAdAccounts.length === 0) {
+          dispatchError({'details': errors.noAdInsightsAvailable}, insightsObj.error);
+        }
 
         setAdAccountId(activeAdAccounts[0].id); // Set the first one as default
         dispatch({ type: insightsObj.stateNameAdAccounts, payload: activeAdAccounts });

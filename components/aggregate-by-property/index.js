@@ -5,10 +5,13 @@ import { abbreviateNumber } from '../../utils/strings';
 
 import styles from './style.module.css';
 
-const AggregateByProperty = ({ datasets, icons, plural=true }) => {
+const AggregateByProperty = ({ datasets, icons, ads=false, plural=true }) => {
 
     const getSumOfAllValues = (data) => {
-        const value = data.reduce((a, b) => a + b);
+        let value = data.reduce((a, b) => a + b);
+        if (ads){
+            value = data.reduce((a, b) => Number(a) + Number(b));
+        }
         return abbreviateNumber(value);
     }
 
@@ -21,7 +24,7 @@ const AggregateByProperty = ({ datasets, icons, plural=true }) => {
             return <div key={label} className={`${label.toLowerCase()} ${styles.toast}`}>
                 <span className={styles.icon}>{ getIcon(label)() }</span>
                 <span className="metric-value">{ getSumOfAllValues(data) + ' ' }</span>
-                <span className={styles.propertyName}>{label.toLowerCase()}{plural && 's'}</span>
+                <span className={styles.propertyName}>{label.toLowerCase()}{plural && !ads && 's'}</span>
             </div>;
             })
         }
