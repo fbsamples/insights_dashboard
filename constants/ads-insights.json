@@ -16,7 +16,24 @@
     "error": "adsInsights",
     "graphs": [
         {
-            "title": "Top level Metrics (Account Level)",
+            "title": "Topline",
+            "charts": [
+                {
+                    "id": 6,
+                    "metrics": ["spend", "reach", "impressions"],
+                    "type": "aggregateByProperty",
+                    "title": "Topline Metrics",
+                    "size": "big",
+                    "icons": {
+                        "spend": "AiOutlineDollarCircle",
+                        "reach": "AiOutlineAreaChart",
+                        "impressions": "AiOutlineEye"
+                    }
+                }
+            ]
+        },
+        {
+            "title": "Account Level",
             "charts": [
                 {
                     "id": 3,

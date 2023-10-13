@@ -19,7 +19,7 @@ import config from '../../utils/config';
 import styles from '../chart/style.module.css';
 import types from '../../constants/chart-types.json';
 
-const DashboardChart = ({ type, insights, metrics, icons, title, wrapMetricName, loading, size, period='day' }) => {
+const DashboardChart = ({ type, insights, metrics, icons, title, wrapMetricName, loading, plural, size, period='day' }) => {
   const { since, until } = getLast30DaysInterval();
 
   const [isShown, setIsShown] = useState(false);
@@ -157,7 +157,7 @@ const DashboardChart = ({ type, insights, metrics, icons, title, wrapMetricName,
             { type === types.pie && <Pie data={chartData} options={config.pieChart} height={250} width={400}/> }
             { type === types.singleNumber && <SingleNumber data={chartData} icons={icons} labels={labels}/> }
             { type === types.doubleNumber && <DoubleNumber datasets={chartData.datasets} icons={icons} labels={labels}/> }
-            { type === types.aggregateByProperty && <AggregateByProperty datasets={chartData.datasets} plural={plural} icons={icons} /> }
+            { type === types.aggregateByProperty && <AggregateByProperty datasets={chartData.datasets} ads={true} plural={plural} icons={icons} /> }
 
             { isShown && type !== types.singleNumber && <Tooltip info={tooltipInfo}/> }
           </Card>

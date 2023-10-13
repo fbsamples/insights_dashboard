@@ -50,6 +50,7 @@ This project showcases sample API usage for multiple Meta Insights API products,
 * For your reference the documentation of Meta Insights APIs used in this project are:
 
     - [Ads Insights API](https://developers.facebook.com/docs/marketing-api/insights/)
+    - [Whatsapp Template Analytics API](https://developers.facebook.com/docs/whatsapp/business-management-api/analytics/)
     - [Page Insights API](https://developers.facebook.com/docs/platforminsights/page)
     - [Video Insights API](https://developers.facebook.com/docs/video-api/guides/insights/)
     - [Instagram Insights API](https://developers.facebook.com/docs/instagram-api/guides/insights)
